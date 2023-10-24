@@ -43,8 +43,7 @@
   },
   "lint-staged": {
     "*.(ts|tsx|js|jsx)": [
-      "lint:es",
-      "npm run format:fix"
+      "eslint --fix"
     ]
   }
 }
