@@ -44,7 +44,7 @@
   "lint-staged": {
     "*.(ts|tsx|js|jsx)": [
       "lint:es",
-      "format:fix"
+      "npm run format:fix"
     ]
   }
 }
