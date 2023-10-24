@@ -12,8 +12,6 @@
   "dependencies": {
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -33,7 +31,20 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "typescript": "^5.2.2",
     "vite": "^4.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(ts|tsx|js|jsx)": [
+      "lint:es",
+      "format:fix"
+    ]
   }
 }
