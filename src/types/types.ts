@@ -1,3 +1,8 @@
+export type State = {
+  title: string;
+  description: string;
+}[];
+
 export interface ArtworksItem {
   id: number;
   api_model: string;
