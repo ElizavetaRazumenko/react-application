@@ -5,12 +5,13 @@ import s from './search-bar.module.css';
 import state from '../../state/state';
 
 export default class SearchBar extends Component {
-  public submitValue: string;
+  public inputValue: string;
+  state: { value: string };
 
   constructor(props: { currentValue: string }) {
     super(props);
-    this.submitValue = '';
-    this.saveInputValue = this.saveInputValue.bind(this);
+    this.inputValue = '';
+    this.state = { value: '' };
   }
 
   componentDidMount = async () => {
@@ -34,6 +35,7 @@ export default class SearchBar extends Component {
           type="text"
           className={s.search_input}
           placeholder="search"
+          value={this.state.value}
           onChange={(e) => this.changeInput(e)}
         />
         <button className={s.search_button}>search</button>
@@ -42,17 +44,15 @@ export default class SearchBar extends Component {
   }
 
   private changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    console.log(value);
-  }
-
-  private saveInputValue(value: string) {
-    this.submitValue = value;
+    this.setState({ value: e.target.value });
+    this.inputValue = e.target.value;
+    console.log(this.inputValue);
   }
 
   private submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(this.submitValue);
+    console.log(this.inputValue);
+    localStorage.setItem('Input value', this.inputValue);
     // const searchResponse = await getItems();
     // if (searchResponse) {
     //   const artworks: ArtworksItem[] = searchResponse.data;
