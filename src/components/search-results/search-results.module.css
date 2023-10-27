@@ -1,3 +1,24 @@
-div {
-    color: black;
+.results_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+}
+
+.card {
+    box-sizing: border-box;
+    margin: 15px;
+    padding: 10px 15px;
+    width: 220px;
+    height: 250px;
+    border-radius: 15px;
+    background-color: rgb(59, 55, 55);
+}
+
+.title {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.description {
+    font-style: italic;
 }

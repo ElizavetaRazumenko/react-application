@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react';
-// import { getItems } from '../../requests';
-// import { ArtworksItem } from '../../types/types';
+import { getItems } from '../../requests';
+import { ArtworksItem } from '../../types/types';
 import s from './search-bar.module.css';
 import { State } from '../../types/types';
 
@@ -17,16 +17,15 @@ export default class SearchBar extends Component<PropsType, StateType> {
   state = { value: localStorage.getItem('Input value') || '' };
 
   componentDidMount = async () => {
-    // const searchResponse = await getItems();
-    // if (searchResponse) {
-    //   const artworks: ArtworksItem[] = searchResponse.data;
-    //   artworks.forEach((artwork) => {
-    //     state.push({
-    //       title: artwork.title,
-    //       description: artwork.medium_display,
-    //     });
-    //   });
-    // }
+    const searchResponse = await getItems();
+    if (searchResponse) {
+      const artworks: ArtworksItem[] = searchResponse.data;
+      const itemsInfo = artworks.map((artwork) => ({
+        title: artwork.title,
+        description: artwork.medium_display,
+      }));
+      this.props.handleSetState(itemsInfo);
+    }
   };
 
   render(): ReactNode {
