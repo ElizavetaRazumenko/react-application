@@ -1,12 +1,18 @@
 import { Component, ReactNode } from 'react';
 import { getItems } from '../../requests';
 import { ArtworksItem } from '../../types/types';
-import SearchButton from '../seach-button/search-button';
-import SearchInput from '../search-input/search-input';
 import s from './search-bar.module.css';
 import state from '../../state/state';
 
 export default class SearchBar extends Component {
+  public submitValue: string;
+
+  constructor(props: { currentValue: string }) {
+    super(props);
+    this.submitValue = '';
+    this.saveInputValue = this.saveInputValue.bind(this);
+  }
+
   componentDidMount = async () => {
     const searchResponse = await getItems();
     if (searchResponse) {
@@ -24,18 +30,33 @@ export default class SearchBar extends Component {
   render(): ReactNode {
     return (
       <form className={s.search_bar} onSubmit={this.submitForm}>
-        <SearchInput />
-        <SearchButton />
+        <input
+          type="text"
+          className={s.search_input}
+          placeholder="search"
+          onChange={(e) => this.changeInput(e)}
+        />
+        <button className={s.search_button}>search</button>
       </form>
     );
   }
 
-  public submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  private changeInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    console.log(value);
+  }
+
+  private saveInputValue(value: string) {
+    this.submitValue = value;
+  }
+
+  private submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const searchResponse = await getItems();
-    if (searchResponse) {
-      const artworks: ArtworksItem[] = searchResponse.data;
-      console.log(artworks);
-    }
+    console.log(this.submitValue);
+    // const searchResponse = await getItems();
+    // if (searchResponse) {
+    //   const artworks: ArtworksItem[] = searchResponse.data;
+    //   console.log(artworks);
+    // }
   };
 }

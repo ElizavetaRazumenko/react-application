@@ -4,3 +4,37 @@
     align-items: center;
     justify-content: center;
 }
+
+.search_input {
+    box-sizing: border-box;
+    width: 350px;
+    height: 40px;
+    padding: 8px 15px;
+    background-color: rgba(151, 149, 149, .3);
+    border: none;
+    font-size: 1.2rem;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    color: rgb(209, 207, 207);
+}
+
+.search_input:focus {
+    box-shadow: 0px 0px 20px #7e7c7c;
+}
+
+.search_button {
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: #f0f8ff;
+    height: 40px;
+    padding: 8px 20px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: none;
+    font-size: 1.2rem;
+    transition: .5s;
+}
+
+.search_button:hover {
+    background-color: #d1d2d2;
+}
