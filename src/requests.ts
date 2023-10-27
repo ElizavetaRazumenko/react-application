@@ -1,7 +1,7 @@
 import { getArtworksItemsResponse } from './types/types';
 
 const url = 'https://api.artic.edu/api/v1/artworks';
-const params = '?current_page=1';
+const params = '?page=2';
 
 export const getItems = async () => {
   try {
