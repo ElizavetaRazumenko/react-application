@@ -9,7 +9,9 @@ export const getItems = async () => {
     const data = (await response.json()) as getArtworksItemsResponse;
     return data;
   } catch (e) {
-    console.log(e);
+    if (e instanceof Error) {
+      console.log(e.message);
+    }
   }
 };
 
@@ -21,6 +23,8 @@ export const searchItems = async (findValue: string) => {
     const data = (await response.json()) as getArtworksItemsResponse;
     return data;
   } catch (e) {
-    console.log(e);
+    if (e instanceof Error) {
+      console.log(e.message);
+    }
   }
 };
