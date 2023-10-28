@@ -17,15 +17,19 @@ export default class SearchBar extends Component<PropsType, StateType> {
   state = { value: localStorage.getItem('Input value') || '' };
 
   componentDidMount = async () => {
-    // const searchResponse = await getItems();
-    // if (searchResponse) {
-    //   const artworks: ArtworksItem[] = searchResponse.data;
-    //   const itemsInfo = artworks.map((artwork) => ({
-    //     title: artwork.title,
-    //     description: artwork.medium_display,
-    //   }));
-    //   this.props.handleSetState(itemsInfo);
-    // }
+    if (localStorage.getItem('Input value') !== null) {
+      const searchResponse = await searchItems(
+        localStorage.getItem('Input value')!
+      );
+      if (searchResponse) {
+        const artworks: ArtworksItem[] = searchResponse.data;
+        const itemsInfo = artworks.map((artwork) => ({
+          title: artwork.title,
+          description: artwork.thumbnail.alt_text || 'No description',
+        }));
+        this.props.handleSetState(itemsInfo);
+      }
+    }
   };
 
   render(): ReactNode {
@@ -58,7 +62,7 @@ export default class SearchBar extends Component<PropsType, StateType> {
       const artworks: ArtworksItem[] = searchResponse.data;
       const itemsInfo = artworks.map((artwork) => ({
         title: artwork.title,
-        description: artwork.medium_display,
+        description: artwork.thumbnail.alt_text || 'No description',
       }));
       this.props.handleSetState(itemsInfo);
     }
