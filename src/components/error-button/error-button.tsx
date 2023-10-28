@@ -1,8 +1,17 @@
 import { Component, ReactNode } from 'react';
 import s from './error-button.module.css';
 
-export default class ErrorButton extends Component {
+interface StateType {
+  hasError: boolean;
+}
+export default class ErrorButton extends Component<{}, StateType> {
+  state: StateType = {
+    hasError: false,
+  };
   render(): ReactNode {
+    if (this.state.hasError) {
+      throw Error('Application error');
+    }
     return (
       <button className={s.button_error} onClick={this.handleCreateError}>
         Create an Error
@@ -10,7 +19,9 @@ export default class ErrorButton extends Component {
     );
   }
 
-  private handleCreateError() {
-    throw Error('Application error');
-  }
+  private handleCreateError = () => {
+    this.setState({
+      hasError: true,
+    });
+  };
 }
