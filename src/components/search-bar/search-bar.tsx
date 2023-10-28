@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { getItems } from '../../requests';
+import { getItems, searchItems } from '../../requests';
 import { ArtworksItem } from '../../types/types';
 import s from './search-bar.module.css';
 import { State } from '../../types/types';
@@ -17,15 +17,15 @@ export default class SearchBar extends Component<PropsType, StateType> {
   state = { value: localStorage.getItem('Input value') || '' };
 
   componentDidMount = async () => {
-    const searchResponse = await getItems();
-    if (searchResponse) {
-      const artworks: ArtworksItem[] = searchResponse.data;
-      const itemsInfo = artworks.map((artwork) => ({
-        title: artwork.title,
-        description: artwork.medium_display,
-      }));
-      this.props.handleSetState(itemsInfo);
-    }
+    // const searchResponse = await getItems();
+    // if (searchResponse) {
+    //   const artworks: ArtworksItem[] = searchResponse.data;
+    //   const itemsInfo = artworks.map((artwork) => ({
+    //     title: artwork.title,
+    //     description: artwork.medium_display,
+    //   }));
+    //   this.props.handleSetState(itemsInfo);
+    // }
   };
 
   render(): ReactNode {
@@ -50,11 +50,18 @@ export default class SearchBar extends Component<PropsType, StateType> {
 
   private submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const searchResponse =
+      this.inputValue === ''
+        ? await getItems()
+        : await searchItems(this.inputValue);
+    if (searchResponse) {
+      const artworks: ArtworksItem[] = searchResponse.data;
+      const itemsInfo = artworks.map((artwork) => ({
+        title: artwork.title,
+        description: artwork.medium_display,
+      }));
+      this.props.handleSetState(itemsInfo);
+    }
     localStorage.setItem('Input value', this.inputValue);
-    // const searchResponse = await getItems();
-    // if (searchResponse) {
-    //   const artworks: ArtworksItem[] = searchResponse.data;
-    //   console.log(artworks);
-    // }
   };
 }
