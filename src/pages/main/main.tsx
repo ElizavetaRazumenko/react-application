@@ -6,7 +6,7 @@ import { State } from '../../types/types';
 import ErrorButton from '../../components/error-button/error-button';
 
 export default class MainPage extends Component {
-  state: { state: State } = { state: [{ title: '', description: '' }] };
+  state: { state: State } = { state: [] };
 
   handleSetState = (data: State) => {
     this.setState({ state: data });
