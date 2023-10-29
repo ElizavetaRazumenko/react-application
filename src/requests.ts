@@ -17,7 +17,7 @@ export const getItems = async () => {
 
 export const searchItems = async (findValue: string) => {
   const searchUrl = 'https://api.artic.edu/api/v1/artworks/search';
-  const searchParams = `?q=${findValue}`;
+  const searchParams = `?q=${findValue.trim()}`;
   try {
     const response = await fetch(searchUrl + searchParams);
     const data = (await response.json()) as getArtworksItemsResponse;
