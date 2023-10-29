@@ -6,6 +6,7 @@ import { State } from '../../types/types';
 
 interface PropsType {
   handleSetState: (data: State) => void;
+  handleSetIsLoading: (value: boolean) => void;
 }
 
 interface StateType {
@@ -18,9 +19,11 @@ export default class SearchBar extends Component<PropsType, StateType> {
 
   componentDidMount = async () => {
     if (localStorage.getItem('Input value') !== null) {
+      this.props.handleSetIsLoading(true);
       const searchResponse = await searchItems(
         localStorage.getItem('Input value')!
       );
+      this.props.handleSetIsLoading(false);
       if (searchResponse) {
         const artworks: ArtworksItem[] = searchResponse.data;
         const itemsInfo = artworks.map((artwork) => ({
@@ -54,10 +57,12 @@ export default class SearchBar extends Component<PropsType, StateType> {
 
   private submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    this.props.handleSetIsLoading(true);
     const searchResponse =
       this.inputValue === ''
         ? await getItems()
         : await searchItems(this.inputValue);
+    this.props.handleSetIsLoading(false);
     if (searchResponse) {
       const artworks: ArtworksItem[] = searchResponse.data;
       const itemsInfo = artworks.map((artwork) => ({

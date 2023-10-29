@@ -6,10 +6,14 @@ import { State } from '../../types/types';
 import ErrorButton from '../../components/error-button/error-button';
 
 export default class MainPage extends Component {
-  state: { state: State } = { state: [] };
+  state: { state: State; isLoading: boolean } = { state: [], isLoading: false };
 
   handleSetState = (data: State) => {
-    this.setState({ state: data });
+    this.setState((previousState) => ({ ...previousState, state: data }));
+  };
+
+  handleSetIsLoading = (value: boolean) => {
+    this.setState((previousState) => ({ ...previousState, isLoading: value }));
   };
 
   render(): ReactNode {
@@ -17,8 +21,14 @@ export default class MainPage extends Component {
       <main className={s.main}>
         <p className={s.title}> Art Institute of Chicago</p>
         <ErrorButton />
-        <SearchBar handleSetState={this.handleSetState} />
-        <SearchResults currentState={this.state.state} />
+        <SearchBar
+          handleSetState={this.handleSetState}
+          handleSetIsLoading={this.handleSetIsLoading}
+        />
+        <SearchResults
+          currentState={this.state.state}
+          isLoading={this.state.isLoading}
+        />
       </main>
     );
   }
