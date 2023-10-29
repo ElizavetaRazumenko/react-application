@@ -1,7 +1,7 @@
 .results_container {
     max-width: 1500px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-items: center;
     margin-bottom: 30px;
 }
@@ -23,4 +23,27 @@
 
 .description {
     font-style: italic;
+}
+
+
+  @media screen and (max-width: 1200px) {
+      .results_container {
+          grid-template-columns: repeat(2, 1fr);
+      }
+  }
+
+  @media screen and (max-width: 800px) {
+      .results_container {
+          grid-template-columns: 1fr;
+      }
+  }
+
+  @media screen and (max-width: 530px) {
+    .title {
+        font-size: 1.1rem;
+    }
+
+    .card {
+        width: 240px;
+    }
 }

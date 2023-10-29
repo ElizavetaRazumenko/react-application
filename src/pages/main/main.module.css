@@ -12,3 +12,11 @@
     font-weight: 700;
     font-size: 1.8rem;
 }
+
+
+@media screen and (max-width: 530px) {
+    .title {
+        font-size: 1.4rem;
+    }
+
+}
