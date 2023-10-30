@@ -10,7 +10,7 @@
     "lint:write": "eslint src/ --fix",
     "preview": "vite preview",
     "lint:es": "eslint --ext .js,.jsx,.ts,.tsx src",
-    "format:fix": "prettier --write",
+    "format:fix": "prettier . --write",
     "prepare": "husky install",
     "precommit": "npm run lint && npm run type"
   },
