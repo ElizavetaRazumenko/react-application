@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { getItems, searchItems } from '../../requests';
+import { getItems, searchItems } from '../../requests/requests';
 import { ArtworksItem, SearchBarPropsType } from '../../types/types';
 import s from './search-bar.module.css';
 import { useEffect, useState } from 'react';
@@ -15,9 +15,9 @@ const SearchBar = (props: SearchBarPropsType) => {
   const getSearchItems = async () => {
     if (localStorage.getItem('Input value') !== null) {
       props.setIsLoading(true);
-      const searchResponse = await searchItems(
-        localStorage.getItem('Input value')!
-      );
+      const searchValue = localStorage.getItem('Input value')!;
+      const searchResponse =
+        searchValue === '' ? await getItems(1) : await searchItems(searchValue);
       props.setIsLoading(false);
       if (searchResponse) {
         const artworks: ArtworksItem[] = searchResponse.data;
@@ -34,7 +34,7 @@ const SearchBar = (props: SearchBarPropsType) => {
     e.preventDefault();
     props.setIsLoading(true);
     const searchResponse =
-      inputValue === '' ? await getItems() : await searchItems(inputValue);
+      inputValue === '' ? await getItems(1) : await searchItems(inputValue);
     props.setIsLoading(false);
     if (searchResponse) {
       const artworks: ArtworksItem[] = searchResponse.data;

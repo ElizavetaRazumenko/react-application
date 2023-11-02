@@ -4,6 +4,7 @@ import SearchResults from '../../components/search-results/search-results';
 import s from './main.module.css';
 import { resultsItemType } from '../../types/types';
 import ErrorButton from '../../components/error-button/error-button';
+import PaginationBlock from '../../components/pagination/pagination';
 
 const MainPage = () => {
   const [resultsItemInfo, setResultsItemInfo] = useState<resultsItemType>([]);
@@ -16,6 +17,7 @@ const MainPage = () => {
         setResultsItemInfo={setResultsItemInfo}
         setIsLoading={setIsLoading}
       />
+      <PaginationBlock />
       <SearchResults resultsItemInfo={resultsItemInfo} isLoading={isLoading} />
     </main>
   );

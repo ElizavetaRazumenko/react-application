@@ -1,11 +1,10 @@
-import { getArtworksItemsResponse } from './types/types';
+import { getArtworksItemsResponse } from '../types/types';
 
 const url = 'https://api.artic.edu/api/v1/artworks';
-const getParams = '?page=1';
 
-export const getItems = async () => {
+export const getItems = async (page: number) => {
   try {
-    const response = await fetch(url + getParams);
+    const response = await fetch(`${url}?page=${page}`);
     const data = (await response.json()) as getArtworksItemsResponse;
     return data;
   } catch (e) {
