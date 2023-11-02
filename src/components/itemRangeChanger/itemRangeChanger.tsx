@@ -2,13 +2,21 @@ import { useState } from 'react';
 import s from './itemRangeChanger.module.css';
 
 const ItemRangeChanger = () => {
-  const [currentItemNumber, setCurrentItemNumber] = useState<number>(12);
+  const savedItemNumber = Number(localStorage.getItem('Items count'));
+  const [currentItemNumber, setCurrentItemNumber] = useState<number>(
+    savedItemNumber || 12
+  );
   const increaseQuantity = () => {
     if (currentItemNumber < 12) setCurrentItemNumber(currentItemNumber + 1);
   };
   const reduceQuantity = () => {
     if (currentItemNumber > 1) setCurrentItemNumber(currentItemNumber - 1);
   };
+
+  const setItemsCount = () => {
+    localStorage.setItem('Items count', `${currentItemNumber}`);
+  };
+
   return (
     <div className={s.changer_wrapper}>
       <span>change the number of elements:</span>
@@ -27,7 +35,9 @@ const ItemRangeChanger = () => {
           onClick={reduceQuantity}
         ></div>
       </div>
-      <button className={s.button_install}>install</button>
+      <button className={s.button_install} onClick={setItemsCount}>
+        install
+      </button>
     </div>
   );
 };

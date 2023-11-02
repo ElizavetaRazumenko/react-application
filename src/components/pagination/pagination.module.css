@@ -59,13 +59,12 @@
   margin-left: 15px;
 }
 
-
 @media screen and (max-width: 530px) {
   .pagination_item,
   .pagination_item_current {
     height: 20px;
     min-width: 20px;
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .arrow {
