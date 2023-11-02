@@ -58,3 +58,25 @@
   background-image: url(../../assets/arrow-right.png);
   margin-left: 15px;
 }
+
+
+@media screen and (max-width: 530px) {
+  .pagination_item,
+  .pagination_item_current {
+    height: 20px;
+    min-width: 20px;
+    font-size: .7rem;
+  }
+
+  .arrow {
+    width: 10px;
+    height: 20px;
+  }
+
+  .arrow_left {
+    margin-right: 5px;
+  }
+  .arrow_right {
+    margin-left: 5px;
+  }
+}
