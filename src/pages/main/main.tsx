@@ -5,12 +5,14 @@ import s from './main.module.css';
 import { resultsItemType } from '../../types/types';
 import ErrorButton from '../../components/error-button/error-button';
 import PaginationBlock from '../../components/pagination/pagination';
+import { useParams } from 'react-router-dom';
 
 const MainPage = () => {
+  const { page } = useParams();
   const [resultsItemInfo, setResultsItemInfo] = useState<resultsItemType>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paginationCount, setPaginationCount] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(page ? +page : 1);
   const getPagesRange = (currentPage: number) => {
     if (!(currentPage % 10)) {
       return currentPage * 10;
@@ -24,6 +26,11 @@ const MainPage = () => {
   useEffect(() => {
     setCurrentMaxPageRange(getPagesRange(currentPage));
   }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(page ? +page : 1);
+  }, [page]);
+
   return (
     <main className={s.main}>
       <p className={s.title}>Art Institute of Chicago</p>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import ErrorBoundary from './components/error-boundary/error-boundary';
 import MainPage from './pages/main/main';
@@ -9,8 +9,8 @@ const App = () => {
       <div className="app">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/:id" element={<MainPage />} />
+            <Route path="/" element={<Navigate to="/pages/1" />} />
+            <Route path="/pages/:page" element={<MainPage />} />
           </Routes>
         </BrowserRouter>
       </div>

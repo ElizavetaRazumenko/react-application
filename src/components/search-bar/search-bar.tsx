@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useNavigate } from 'react-router-dom';
 import { getItems, searchItems } from '../../requests/requests';
 import { ArtworksItem, SearchBarPropsType } from '../../types/types';
 import s from './search-bar.module.css';
@@ -8,6 +9,7 @@ const SearchBar = (props: SearchBarPropsType) => {
   useEffect(() => {
     getSearchItems();
   }, []);
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('Input value') || ''
   );
@@ -27,6 +29,7 @@ const SearchBar = (props: SearchBarPropsType) => {
       }));
       props.setResultsItemInfo(itemsInfo);
     }
+    navigate(`/pages/${1}`);
   };
 
   const getSearchItems = async () => {

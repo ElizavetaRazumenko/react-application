@@ -1,9 +1,11 @@
 import { ArtworksItem, PaginationPropsType } from '../../types/types';
 import s from './pagination.module.css';
 import { getItems, searchItems } from '../../requests/requests';
+import { useNavigate } from 'react-router-dom';
 
 const PaginationBlock = (props: PaginationPropsType) => {
   const paginationArray: number[] = new Array(props.paginationCount).fill(0);
+  const navigate = useNavigate();
 
   const sendRequest = async (value: string, pageNumber: number) => {
     props.setIsLoading(true);
@@ -26,6 +28,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
     props.setCurrentPage(pageNumber);
     const requestValue = localStorage.getItem('Input value');
     if (requestValue !== null) sendRequest(requestValue, pageNumber);
+    navigate(`/pages/${pageNumber}`);
   };
 
   const transitionToTheLeftPages = () => {
