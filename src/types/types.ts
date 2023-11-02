@@ -1,3 +1,9 @@
+export interface ItenRangePropsType {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
+  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
+}
 export interface PaginationPropsType {
   paginationCount: number;
   currentPage: number;

@@ -47,7 +47,12 @@ const MainPage = () => {
         currentMaxPageRange={currentMaxPageRange}
         setCurrentMaxPageRange={setCurrentMaxPageRange}
       />
-      <ItemRangeChanger />
+      <ItemRangeChanger
+        setIsLoading={setIsLoading}
+        setCurrentPage={setCurrentPage}
+        setPaginationCount={setPaginationCount}
+        setResultsItemInfo={setResultsItemInfo}
+      />
       <SearchResults resultsItemInfo={resultsItemInfo} isLoading={isLoading} />
     </main>
   );
