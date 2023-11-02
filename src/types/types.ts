@@ -1,6 +1,12 @@
+export interface PaginationPropsType {
+  paginationCount: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}
 export interface SearchBarPropsType {
   setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface SeachResultsPropsType {

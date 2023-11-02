@@ -9,6 +9,8 @@ import PaginationBlock from '../../components/pagination/pagination';
 const MainPage = () => {
   const [resultsItemInfo, setResultsItemInfo] = useState<resultsItemType>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [paginationCount, setPaginationCount] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   return (
     <main className={s.main}>
       <p className={s.title}>Art Institute of Chicago</p>
@@ -16,8 +18,13 @@ const MainPage = () => {
       <SearchBar
         setResultsItemInfo={setResultsItemInfo}
         setIsLoading={setIsLoading}
+        setPaginationCount={setPaginationCount}
       />
-      <PaginationBlock />
+      <PaginationBlock
+        paginationCount={paginationCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <SearchResults resultsItemInfo={resultsItemInfo} isLoading={isLoading} />
     </main>
   );

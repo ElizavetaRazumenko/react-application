@@ -20,6 +20,7 @@ const SearchBar = (props: SearchBarPropsType) => {
         searchValue === '' ? await getItems(1) : await searchItems(searchValue);
       props.setIsLoading(false);
       if (searchResponse) {
+        props.setPaginationCount(searchResponse.pagination.total_pages);
         const artworks: ArtworksItem[] = searchResponse.data;
         const itemsInfo = artworks.map((artwork) => ({
           title: artwork.title,
@@ -37,6 +38,7 @@ const SearchBar = (props: SearchBarPropsType) => {
       inputValue === '' ? await getItems(1) : await searchItems(inputValue);
     props.setIsLoading(false);
     if (searchResponse) {
+      props.setPaginationCount(searchResponse.pagination.total_pages);
       const artworks: ArtworksItem[] = searchResponse.data;
       const itemsInfo = artworks.map((artwork) => ({
         title: artwork.title,
