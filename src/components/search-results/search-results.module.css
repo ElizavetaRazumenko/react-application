@@ -26,9 +26,10 @@
 }
 
 .loader {
-  width: 200px;
+  margin-top: 50px;
+  width: 150px;
   height: 150px;
-  background-image: url('../../assets//loader.gif');
+  background-image: url('../../assets/loader.gif');
   background-repeat: no-repeat;
   background-size: contain;
 }

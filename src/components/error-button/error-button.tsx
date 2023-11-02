@@ -1,27 +1,16 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 import s from './error-button.module.css';
 
-interface StateType {
-  hasError: boolean;
-}
-export default class ErrorButton extends Component<{}, StateType> {
-  state: StateType = {
-    hasError: false,
-  };
-  render(): ReactNode {
-    if (this.state.hasError) {
-      throw Error('Application error');
-    }
-    return (
-      <button className={s.button_error} onClick={this.handleCreateError}>
-        Create an Error
-      </button>
-    );
+const ErrorButton = () => {
+  const [isHasError, setIsHasError] = useState<boolean>(false);
+  if (isHasError) {
+    throw Error('Application error');
   }
+  return (
+    <button className={s.button_error} onClick={() => setIsHasError(true)}>
+      Create an Error
+    </button>
+  );
+};
 
-  private handleCreateError = () => {
-    this.setState({
-      hasError: true,
-    });
-  };
-}
+export default ErrorButton;

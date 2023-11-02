@@ -2,7 +2,7 @@ import './App.css';
 import ErrorBoundary from './components/error-boundary/error-boundary';
 import MainPage from './pages/main/main';
 
-function App() {
+const App = () => {
   return (
     <ErrorBoundary>
       <div className="app">
@@ -10,6 +10,6 @@ function App() {
       </div>
     </ErrorBoundary>
   );
-}
+};
 
 export default App;

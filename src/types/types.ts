@@ -1,4 +1,14 @@
-export type State = {
+export interface SearchBarPropsType {
+  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface SeachResultsPropsType {
+  resultsItemInfo: resultsItemType;
+  isLoading: boolean;
+}
+
+export type resultsItemType = {
   title: string;
   description: string;
 }[];
