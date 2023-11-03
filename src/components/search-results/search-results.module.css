@@ -12,7 +12,7 @@
   color: #f0f8ff;
   margin: 10px;
   padding: 10px 15px;
-  width: 340px;
+  width: 250px;
   min-height: 260px;
   border-radius: 15px;
   background-color: #353434;
@@ -25,10 +25,11 @@
 
 .title {
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .description {
+  font-size: .9rem;
   font-style: italic;
 }
 
@@ -55,10 +56,10 @@
 
 @media screen and (max-width: 530px) {
   .title {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .card {
-    width: 240px;
+    width: 220px;
   }
 }

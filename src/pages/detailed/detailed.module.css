@@ -1,5 +1,43 @@
 .details_container {
-    width: 500px;
-    height: 500px;
-    background-color: aquamarine;
+  margin: 15px 10px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  width: 300px;
+  height: 100%;
+  background-color: #f0fdf9;
+  border-radius: 10px;
+  color: black;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close_button {
+    margin-left: 15px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../assets/button-close.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.loader {
+  margin: 20px 0;
+  width: 50px;
+  height: 50px;
+  background-image: url('../../assets/loader.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.hidden {
+  display: none;
 }

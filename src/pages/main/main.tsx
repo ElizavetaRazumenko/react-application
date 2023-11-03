@@ -24,7 +24,7 @@ const MainPage = (props: MainPagePropsType) => {
     setCurrentMaxPageRange(getPagesRange(currentPage));
   }, [currentPage]);
 
-  const closeTheDateilsPage = () => {
+  const closeTheDetailsPage = () => {
     if (props.isDetailedPageOpen) navigator(`/pages/${currentPage}`);
   };
   const sendRequestParams = async (value: string, pageNumber: number) => {
@@ -38,7 +38,7 @@ const MainPage = (props: MainPagePropsType) => {
     });
   };
   return (
-    <main className={s.main} onClick={closeTheDateilsPage}>
+    <main className={s.main} onClick={closeTheDetailsPage}>
       <p className={s.title}>Art Institute of Chicago</p>
       <ErrorButton />
       <SearchBar sendRequestParams={sendRequestParams} />
