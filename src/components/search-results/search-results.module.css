@@ -16,13 +16,12 @@
   min-height: 260px;
   border-radius: 15px;
   background-color: #353434;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .card:hover {
-  background-color: #575656
+  background-color: #575656;
 }
-
 
 .title {
   font-weight: 700;

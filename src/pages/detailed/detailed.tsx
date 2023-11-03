@@ -1,5 +1,6 @@
+import s from './detailed.module.css';
 const DetailedPage = () => {
-  return <div>Detailed Page</div>;
+  return <div className={s.details_container}>Detailed Page</div>;
 };
 
 export default DetailedPage;

@@ -7,6 +7,13 @@ export type SendRequestParamsType = {
   pageNumber: number;
 };
 
+export interface LayoutPropsType {
+  isDetailedPageOpen: boolean;
+}
+
+export interface MainPagePropsType {
+  isDetailedPageOpen: boolean;
+}
 export interface ItenRangePropsType {
   sendRequestParams: (value: string, pageNumber: number) => void;
 }
