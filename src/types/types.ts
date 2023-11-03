@@ -1,24 +1,25 @@
-export interface ItenRangePropsType {
+export type SendRequestParamsType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
-  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
+  value: string;
+  pageNumber: number;
+};
+
+export interface ItenRangePropsType {
+  sendRequestParams: (value: string, pageNumber: number) => void;
 }
 export interface PaginationPropsType {
   paginationCount: number;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
   currentMaxPageRange: number;
   setCurrentMaxPageRange: React.Dispatch<React.SetStateAction<number>>;
+  sendRequestParams: (value: string, pageNumber: number) => void;
 }
 
 export interface SearchBarPropsType {
-  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  sendRequestParams: (value: string, pageNumber: number) => void;
 }
 
 export interface SeachResultsPropsType {

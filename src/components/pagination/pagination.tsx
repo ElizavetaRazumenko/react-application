@@ -1,33 +1,14 @@
-import { ArtworksItem, PaginationPropsType } from '../../types/types';
+import { PaginationPropsType } from '../../types/types';
 import s from './pagination.module.css';
-import { getItems, searchItems } from '../../requests/requests';
 import { useNavigate } from 'react-router-dom';
 
 const PaginationBlock = (props: PaginationPropsType) => {
   const paginationArray: number[] = new Array(props.paginationCount).fill(0);
   const navigate = useNavigate();
 
-  const sendRequest = async (value: string, pageNumber: number) => {
-    props.setIsLoading(true);
-    const searchResponse =
-      value === ''
-        ? await getItems(pageNumber)
-        : await searchItems(value, pageNumber);
-    props.setIsLoading(false);
-    if (searchResponse) {
-      const artworks: ArtworksItem[] = searchResponse.data;
-      const itemsInfo = artworks.map((artwork) => ({
-        title: artwork.title,
-        description: artwork.thumbnail?.alt_text || 'No description',
-      }));
-      props.setResultsItemInfo(itemsInfo);
-    }
-  };
-
   const changePage = (pageNumber: number) => {
-    props.setCurrentPage(pageNumber);
-    const requestValue = localStorage.getItem('Input value');
-    if (requestValue !== null) sendRequest(requestValue, pageNumber);
+    const requestValue = localStorage.getItem('Input value') || '';
+    props.sendRequestParams(requestValue, pageNumber);
     navigate(`/pages/${pageNumber}`);
   };
 

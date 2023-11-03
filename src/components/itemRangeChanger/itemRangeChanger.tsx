@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './itemRangeChanger.module.css';
-import { ArtworksItem, ItenRangePropsType } from '../../types/types';
-import { getItems, searchItems } from '../../requests/requests';
+import { ItenRangePropsType } from '../../types/types';
 
 const ItemRangeChanger = (props: ItenRangePropsType) => {
   const navigate = useNavigate();
@@ -19,24 +18,9 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
 
   const setItemsCount = async () => {
     localStorage.setItem('Items count', `${currentItemNumber}`);
-    if (localStorage.getItem('Input value') !== null) {
-      props.setIsLoading(true);
-      const value = localStorage.getItem('Input value')!;
-      const searchResponse =
-        value === '' ? await getItems() : await searchItems(value);
-      props.setCurrentPage(1);
-      props.setIsLoading(false);
-      if (searchResponse) {
-        props.setPaginationCount(searchResponse.pagination.total_pages);
-        const artworks: ArtworksItem[] = searchResponse.data;
-        const itemsInfo = artworks.map((artwork) => ({
-          title: artwork.title,
-          description: artwork.thumbnail?.alt_text || 'No description',
-        }));
-        props.setResultsItemInfo(itemsInfo);
-      }
-      navigate(`/pages/${1}`);
-    }
+    const value = localStorage.getItem('Input value') || '';
+    props.sendRequestParams(value, 1);
+    navigate(`/pages/${1}`);
   };
 
   return (

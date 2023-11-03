@@ -7,6 +7,7 @@ import ErrorButton from '../../components/error-button/error-button';
 import PaginationBlock from '../../components/pagination/pagination';
 import { useParams } from 'react-router-dom';
 import ItemRangeChanger from '../../components/itemRangeChanger/itemRangeChanger';
+import { sendRequest } from '../../requests/requests';
 
 const MainPage = () => {
   const { page } = useParams();
@@ -28,31 +29,29 @@ const MainPage = () => {
     setCurrentMaxPageRange(getPagesRange(currentPage));
   }, [currentPage]);
 
+  const sendRequestParams = async (value: string, pageNumber: number) => {
+    await sendRequest({
+      setIsLoading,
+      setResultsItemInfo,
+      setCurrentPage,
+      setPaginationCount,
+      value,
+      pageNumber,
+    });
+  };
   return (
     <main className={s.main}>
       <p className={s.title}>Art Institute of Chicago</p>
       <ErrorButton />
-      <SearchBar
-        setResultsItemInfo={setResultsItemInfo}
-        setIsLoading={setIsLoading}
-        setPaginationCount={setPaginationCount}
-        setCurrentPage={setCurrentPage}
-      />
+      <SearchBar sendRequestParams={sendRequestParams} />
       <PaginationBlock
         paginationCount={paginationCount}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setIsLoading={setIsLoading}
-        setResultsItemInfo={setResultsItemInfo}
         currentMaxPageRange={currentMaxPageRange}
         setCurrentMaxPageRange={setCurrentMaxPageRange}
+        sendRequestParams={sendRequestParams}
       />
-      <ItemRangeChanger
-        setIsLoading={setIsLoading}
-        setCurrentPage={setCurrentPage}
-        setPaginationCount={setPaginationCount}
-        setResultsItemInfo={setResultsItemInfo}
-      />
+      <ItemRangeChanger sendRequestParams={sendRequestParams} />
       <SearchResults resultsItemInfo={resultsItemInfo} isLoading={isLoading} />
     </main>
   );
