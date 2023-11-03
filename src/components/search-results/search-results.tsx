@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { SeachResultsPropsType } from '../../types/types';
 import s from './search-results.module.css';
 
@@ -8,10 +9,14 @@ const SearchResults = (props: SeachResultsPropsType) => {
   return (
     <div className={s.results_container}>
       {props.resultsItemInfo.map((item, index) => (
-        <div key={index} className={s.card}>
+        <NavLink
+          to={`/pages/${props.currentPage}/details/${index + 1}`}
+          key={index}
+          className={s.card}
+        >
           <p className={s.title}>{item.title}</p>
           <p className={s.description}>{item.description}</p>
-        </div>
+        </NavLink>
       ))}
     </div>
   );

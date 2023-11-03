@@ -25,6 +25,7 @@ export interface SearchBarPropsType {
 export interface SeachResultsPropsType {
   resultsItemInfo: resultsItemType;
   isLoading: boolean;
+  currentPage: number;
 }
 
 export type resultsItemType = {

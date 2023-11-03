@@ -52,7 +52,11 @@ const MainPage = () => {
         sendRequestParams={sendRequestParams}
       />
       <ItemRangeChanger sendRequestParams={sendRequestParams} />
-      <SearchResults resultsItemInfo={resultsItemInfo} isLoading={isLoading} />
+      <SearchResults
+        resultsItemInfo={resultsItemInfo}
+        isLoading={isLoading}
+        currentPage={currentPage}
+      />
     </main>
   );
 };
