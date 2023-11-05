@@ -8,7 +8,9 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
   const location = useLocation();
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
   const [isDetailedPageOpen, setIsDetailedPageOpen] = useState(false);
+  const [detailsContent, setIsDetailsContent] = useState<string[]>(['', '']);
   useEffect(() => {
     setIsDetailedPageOpen(
       location.pathname.split('/').length === 3 ? false : true
@@ -21,9 +23,23 @@ const App = () => {
           <Route path="/" element={<Navigate to="/pages/1" />} />
           <Route
             path="/pages/:page"
-            element={<Layout isDetailedPageOpen={isDetailedPageOpen} />}
+            element={
+              <Layout
+                isDetailedPageOpen={isDetailedPageOpen}
+                setIsDetailsLoading={setIsDetailsLoading}
+                setIsDetailsContent={setIsDetailsContent}
+              />
+            }
           >
-            <Route path="/pages/:page/details/:id" element={<DetailedPage />} />
+            <Route
+              path="/pages/:page/details/:id"
+              element={
+                <DetailedPage
+                  isDetailsLoading={isDetailsLoading}
+                  detailsContent={detailsContent}
+                />
+              }
+            />
           </Route>
         </Routes>
       </div>

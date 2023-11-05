@@ -54,6 +54,8 @@ const MainPage = (props: MainPagePropsType) => {
         resultsItemInfo={resultsItemInfo}
         isLoading={isLoading}
         currentPage={currentPage}
+        setIsDetailsLoading={props.setIsDetailsLoading}
+        setIsDetailsContent={props.setIsDetailsContent}
       />
     </main>
   );

@@ -7,13 +7,22 @@ export type SendRequestParamsType = {
   pageNumber: number;
 };
 
+export interface DetailsPagePropsType {
+  isDetailsLoading: boolean;
+  detailsContent: string[];
+}
 export interface LayoutPropsType {
   isDetailedPageOpen: boolean;
+  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface MainPagePropsType {
   isDetailedPageOpen: boolean;
+  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
 export interface ItenRangePropsType {
   sendRequestParams: (value: string, pageNumber: number) => void;
 }
@@ -33,6 +42,8 @@ export interface SeachResultsPropsType {
   resultsItemInfo: resultsItemType;
   isLoading: boolean;
   currentPage: number;
+  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export type resultsItemType = {

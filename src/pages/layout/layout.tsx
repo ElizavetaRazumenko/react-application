@@ -5,7 +5,11 @@ import { LayoutPropsType } from '../../types/types';
 const Layout = (props: LayoutPropsType) => {
   return (
     <>
-      <MainPage isDetailedPageOpen={props.isDetailedPageOpen} />
+      <MainPage
+        isDetailedPageOpen={props.isDetailedPageOpen}
+        setIsDetailsLoading={props.setIsDetailsLoading}
+        setIsDetailsContent={props.setIsDetailsContent}
+      />
       <Outlet />
     </>
   );
