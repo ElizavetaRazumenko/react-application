@@ -3,7 +3,7 @@
   box-sizing: border-box;
   padding: 15px 20px;
   width: 300px;
-  height: 100%;
+  height: 100vh;
   background-color: #f0fdf9;
   border-radius: 10px;
   color: black;
@@ -13,16 +13,15 @@
   align-items: center;
 }
 
-
 .close_button {
-    align-self: flex-end;
-    margin-left: 15px;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background-image: url('../../assets/button-close.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+  align-self: flex-end;
+  margin-left: 15px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../assets/button-close.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .loader {

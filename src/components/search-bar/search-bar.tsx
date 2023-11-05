@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SearchBarPropsType } from '../../types/types';
 import s from './search-bar.module.css';
 import { useEffect, useState } from 'react';
 
 const SearchBar = (props: SearchBarPropsType) => {
+  const { page } = useParams();
   useEffect(() => {
     getSearchItems();
   }, []);
@@ -14,8 +15,8 @@ const SearchBar = (props: SearchBarPropsType) => {
   );
 
   const sendRequest = (value: string) => {
-    props.sendRequestParams(value, 1);
-    navigate(`/pages/${1}`);
+    props.sendRequestParams(value, Number(page) || 1);
+    navigate(`/pages/${page}`);
   };
 
   const getSearchItems = async () => {
