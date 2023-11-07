@@ -1,24 +1,18 @@
 import { ReactNode } from 'react';
 
-export interface MainContextDefaultValue {
-  resultsItemInfo: resultsItemType;
-  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  paginationCount: number;
-  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
-}
 export interface AppContextDefaultValue {
   isDetailsLoading: boolean;
   setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   detailsContent: string[];
-  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
+  setDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
   resultsItemInfo: resultsItemType;
   setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   paginationCount: number;
   setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
+  searchInputValue: string;
+  setSearchInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 export interface ContextProps {
   children: ReactNode;

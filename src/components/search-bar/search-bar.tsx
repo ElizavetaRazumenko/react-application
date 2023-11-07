@@ -1,20 +1,18 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { SearchBarPropsType } from '../../types/types';
 import s from './search-bar.module.css';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { appContext } from '../../App-context';
 
 const SearchBar = (props: SearchBarPropsType) => {
+  const context = useContext(appContext);
   const { page } = useParams();
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState<string>(
-    localStorage.getItem('Input value') || ''
-  );
-
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.sendRequestParams(inputValue, Number(page) || 1);
+    props.sendRequestParams(context!.searchInputValue, Number(page) || 1);
     navigate(`/pages/${page}`);
-    localStorage.setItem('Input value', inputValue);
+    localStorage.setItem('Input value', context!.searchInputValue);
   };
 
   return (
@@ -23,8 +21,8 @@ const SearchBar = (props: SearchBarPropsType) => {
         type="text"
         className={s.search_input}
         placeholder="search"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        value={context!.searchInputValue}
+        onChange={(e) => context!.setSearchInputValue(e.target.value)}
       />
       <button className={s.search_button}>search</button>
     </form>

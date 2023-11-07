@@ -21,7 +21,7 @@ const SearchResults = () => {
     context!.setIsDetailsLoading(false);
     if (searchResponse) {
       const currentItem = searchResponse.data[index];
-      context!.setIsDetailsContent([
+      context!.setDetailsContent([
         currentItem.title,
         currentItem.thumbnail.alt_text,
       ]);

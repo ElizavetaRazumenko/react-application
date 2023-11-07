@@ -9,22 +9,27 @@ export const appContext = createContext<AppContextDefaultValue | null>(null);
 
 const AppContext = (props: ContextProps) => {
   const [isDetailsLoading, setIsDetailsLoading] = useState(false);
-  const [detailsContent, setIsDetailsContent] = useState<string[]>(['', '']);
+  const [detailsContent, setDetailsContent] = useState<string[]>(['', '']);
   const [resultsItemInfo, setResultsItemInfo] = useState<resultsItemType>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paginationCount, setPaginationCount] = useState<number>(0);
+  const [searchInputValue, setSearchInputValue] = useState<string>(
+    localStorage.getItem('Input value') || ''
+  );
 
   const value = {
     isDetailsLoading,
     setIsDetailsLoading,
     detailsContent,
-    setIsDetailsContent,
+    setDetailsContent,
     resultsItemInfo,
     setResultsItemInfo,
     isLoading,
     setIsLoading,
     paginationCount,
     setPaginationCount,
+    searchInputValue,
+    setSearchInputValue,
   };
 
   return (
