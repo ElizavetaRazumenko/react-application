@@ -37,7 +37,6 @@ export const searchItems = async (findValue: string, page: number = 1) => {
 
 export const sendRequest = async (params: SendRequestParamsType) => {
   params.setIsLoading(true);
-  params.setCurrentPage(params.pageNumber);
   const searchResponse =
     params.value === ''
       ? await getItems(params.pageNumber)

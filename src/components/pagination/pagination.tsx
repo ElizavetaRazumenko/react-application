@@ -1,11 +1,12 @@
 import { PaginationPropsType } from '../../types/types';
 import s from './pagination.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { appContext } from '../../App-context';
 
 const PaginationBlock = (props: PaginationPropsType) => {
   const context = useContext(appContext);
+  const { page } = useParams();
   const paginationArray: number[] = new Array(context!.paginationCount).fill(0);
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
           return (
             <div
               className={
-                index + 1 === props.currentPage
+                index + 1 === +page!
                   ? s.pagination_item_current
                   : s.pagination_item
               }

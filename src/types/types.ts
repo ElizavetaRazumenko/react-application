@@ -26,7 +26,6 @@ export interface ContextProps {
 export type SendRequestParamsType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
   value: string;
   pageNumber: number;
@@ -42,17 +41,10 @@ export interface LayoutPropsType {
   setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export interface MainPagePropsType {
-  isDetailedPageOpen: boolean;
-  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
-}
-
 export interface ItenRangePropsType {
   sendRequestParams: (value: string, pageNumber: number) => void;
 }
 export interface PaginationPropsType {
-  currentPage: number;
   currentMaxPageRange: number;
   setCurrentMaxPageRange: React.Dispatch<React.SetStateAction<number>>;
   sendRequestParams: (value: string, pageNumber: number) => void;
@@ -60,10 +52,6 @@ export interface PaginationPropsType {
 
 export interface SearchBarPropsType {
   sendRequestParams: (value: string, pageNumber: number) => void;
-}
-
-export interface SeachResultsPropsType {
-  currentPage: number;
 }
 
 export type resultsItemType = {

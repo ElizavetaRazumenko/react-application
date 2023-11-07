@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { appContext } from '../../App-context';
 import { getItems, searchItems } from '../../requests/requests';
-import { SeachResultsPropsType } from '../../types/types';
 import s from './search-results.module.css';
 
-const SearchResults = (props: SeachResultsPropsType) => {
+const SearchResults = () => {
+  const { page } = useParams();
   const context = useContext(appContext);
   if (context!.isLoading) {
     return <div className={s.loader}></div>;
@@ -32,10 +32,10 @@ const SearchResults = (props: SeachResultsPropsType) => {
     <div className={s.results_container}>
       {context!.resultsItemInfo.map((item, index) => (
         <NavLink
-          to={`/pages/${props.currentPage}/details/${index + 1}`}
+          to={`/pages/${page}/details/${index + 1}`}
           key={index}
           className={s.card}
-          onClick={() => sendDetaitsRequest(props.currentPage, index)}
+          onClick={() => sendDetaitsRequest(+page!, index)}
         >
           <p className={s.title}>{item.title}</p>
           <p className={s.description}>Click for detailed information</p>

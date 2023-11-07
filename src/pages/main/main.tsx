@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import SearchBar from '../../components/search-bar/search-bar';
 import SearchResults from '../../components/search-results/search-results';
@@ -14,25 +15,32 @@ const MainPage = () => {
   const context = useContext(appContext);
   const location = useLocation();
   const { page } = useParams();
+  const navigate = useNavigate();
   const navigator = useNavigate();
-  const [currentPage, setCurrentPage] = useState<number>(page ? +page : 1);
   const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
-    getPagesRange(currentPage)
+    getPagesRange(+page!)
   );
   useEffect(() => {
-    setCurrentMaxPageRange(getPagesRange(currentPage));
-  }, [currentPage]);
+    setCurrentMaxPageRange(getPagesRange(+page!));
+  }, [page]);
+
+  useEffect(() => {
+    sendRequestParams(
+      localStorage.getItem('Input value') || '',
+      Number(page) || 1
+    );
+    navigate(`/pages/${page}`);
+  }, []);
 
   const closeTheDetailsPage = () => {
     if (location.pathname.split('/').length === 5) {
-      navigator(`/pages/${currentPage}`);
+      navigator(`/pages/${page}`);
     }
   };
   const sendRequestParams = async (value: string, pageNumber: number) => {
     await sendRequest({
       setIsLoading: context!.setIsLoading,
       setResultsItemInfo: context!.setResultsItemInfo,
-      setCurrentPage,
       setPaginationCount: context!.setPaginationCount,
       value,
       pageNumber,
@@ -44,13 +52,12 @@ const MainPage = () => {
       <ErrorButton />
       <SearchBar sendRequestParams={sendRequestParams} />
       <PaginationBlock
-        currentPage={currentPage}
         currentMaxPageRange={currentMaxPageRange}
         setCurrentMaxPageRange={setCurrentMaxPageRange}
         sendRequestParams={sendRequestParams}
       />
       <ItemRangeChanger sendRequestParams={sendRequestParams} />
-      <SearchResults currentPage={currentPage} />
+      <SearchResults />
     </main>
   );
 };

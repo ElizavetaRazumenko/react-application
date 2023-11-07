@@ -1,31 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from 'react-router-dom';
 import { SearchBarPropsType } from '../../types/types';
 import s from './search-bar.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const SearchBar = (props: SearchBarPropsType) => {
   const { page } = useParams();
-  useEffect(() => {
-    getSearchItems();
-  }, []);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState<string>(
     localStorage.getItem('Input value') || ''
   );
 
-  const sendRequest = (value: string) => {
-    props.sendRequestParams(value, Number(page) || 1);
-    navigate(`/pages/${page}`);
-  };
-
-  const getSearchItems = async () => {
-    sendRequest(localStorage.getItem('Input value') || '');
-  };
-
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendRequest(inputValue);
+    props.sendRequestParams(inputValue, Number(page) || 1);
+    navigate(`/pages/${page}`);
     localStorage.setItem('Input value', inputValue);
   };
 
