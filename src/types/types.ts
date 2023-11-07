@@ -1,3 +1,28 @@
+import { ReactNode } from 'react';
+
+export interface MainContextDefaultValue {
+  resultsItemInfo: resultsItemType;
+  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  paginationCount: number;
+  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
+}
+export interface AppContextDefaultValue {
+  isDetailsLoading: boolean;
+  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  detailsContent: string[];
+  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
+  resultsItemInfo: resultsItemType;
+  setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  paginationCount: number;
+  setPaginationCount: React.Dispatch<React.SetStateAction<number>>;
+}
+export interface ContextProps {
+  children: ReactNode;
+}
 export type SendRequestParamsType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setResultsItemInfo: React.Dispatch<React.SetStateAction<resultsItemType>>;
@@ -27,7 +52,6 @@ export interface ItenRangePropsType {
   sendRequestParams: (value: string, pageNumber: number) => void;
 }
 export interface PaginationPropsType {
-  paginationCount: number;
   currentPage: number;
   currentMaxPageRange: number;
   setCurrentMaxPageRange: React.Dispatch<React.SetStateAction<number>>;
@@ -39,11 +63,7 @@ export interface SearchBarPropsType {
 }
 
 export interface SeachResultsPropsType {
-  resultsItemInfo: resultsItemType;
-  isLoading: boolean;
   currentPage: number;
-  setIsDetailsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDetailsContent: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export type resultsItemType = {

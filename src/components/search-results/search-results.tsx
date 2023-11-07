@@ -1,24 +1,27 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { appContext } from '../../App-context';
 import { getItems, searchItems } from '../../requests/requests';
 import { SeachResultsPropsType } from '../../types/types';
 import s from './search-results.module.css';
 
 const SearchResults = (props: SeachResultsPropsType) => {
-  if (props.isLoading) {
+  const context = useContext(appContext);
+  if (context!.isLoading) {
     return <div className={s.loader}></div>;
   }
 
   const sendDetaitsRequest = async (pageNumber: number, index: number) => {
     const requestValue = localStorage.getItem('Input value') || '';
-    props.setIsDetailsLoading(true);
+    context!.setIsDetailsLoading(true);
     const searchResponse =
       requestValue === ''
         ? await getItems(pageNumber)
         : await searchItems(requestValue, pageNumber);
-    props.setIsDetailsLoading(false);
+    context!.setIsDetailsLoading(false);
     if (searchResponse) {
       const currentItem = searchResponse.data[index];
-      props.setIsDetailsContent([
+      context!.setIsDetailsContent([
         currentItem.title,
         currentItem.thumbnail.alt_text,
       ]);
@@ -27,7 +30,7 @@ const SearchResults = (props: SeachResultsPropsType) => {
 
   return (
     <div className={s.results_container}>
-      {props.resultsItemInfo.map((item, index) => (
+      {context!.resultsItemInfo.map((item, index) => (
         <NavLink
           to={`/pages/${props.currentPage}/details/${index + 1}`}
           key={index}

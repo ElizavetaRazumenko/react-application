@@ -1,9 +1,12 @@
 import { PaginationPropsType } from '../../types/types';
 import s from './pagination.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { appContext } from '../../App-context';
 
 const PaginationBlock = (props: PaginationPropsType) => {
-  const paginationArray: number[] = new Array(props.paginationCount).fill(0);
+  const context = useContext(appContext);
+  const paginationArray: number[] = new Array(context!.paginationCount).fill(0);
   const navigate = useNavigate();
 
   const changePage = (pageNumber: number) => {
@@ -24,7 +27,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
     }
   };
 
-  if (props.paginationCount === 0) {
+  if (context!.paginationCount === 0) {
     return <div className={s.padination_wrapper}></div>;
   }
 
@@ -58,7 +61,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
       })}
       <div
         className={`${s.arrow} ${
-          props.currentMaxPageRange >= props.paginationCount
+          props.currentMaxPageRange >= context!.paginationCount
             ? s.arrow_right
             : s.arrow_right_active
         }`}

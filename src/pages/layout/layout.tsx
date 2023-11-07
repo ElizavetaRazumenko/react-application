@@ -1,15 +1,10 @@
 import { Outlet } from 'react-router';
 import MainPage from '../main/main';
-import { LayoutPropsType } from '../../types/types';
 
-const Layout = (props: LayoutPropsType) => {
+const Layout = () => {
   return (
     <>
-      <MainPage
-        isDetailedPageOpen={props.isDetailedPageOpen}
-        setIsDetailsLoading={props.setIsDetailsLoading}
-        setIsDetailsContent={props.setIsDetailsContent}
-      />
+      <MainPage />
       <Outlet />
     </>
   );
