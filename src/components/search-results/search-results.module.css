@@ -15,7 +15,7 @@
   width: 250px;
   min-height: 120px;
   border-radius: 15px;
-  background-color: #353434;
+  background-color: rgba(53, 52, 52, .8);
   transition: 0.5s;
 }
 

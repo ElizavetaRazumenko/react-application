@@ -25,7 +25,7 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
 
   return (
     <div className={s.changer_wrapper}>
-      <span>change the number of elements:</span>
+      <span className={s.title}>change the number of elements:</span>
       <div className={s.arrows_wrapper}>
         <div
           className={`${currentItemNumber < 12 ? s.arrow_active : s.arrow} ${

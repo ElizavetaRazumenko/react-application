@@ -44,7 +44,7 @@
 }
 
 .arrow_left {
-  background-image: url(../../assets/arrow-left.png);
+  visibility: hidden;
   margin-right: 15px;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .arrow_right {
-  background-image: url(../../assets/arrow-right.png);
+  visibility: hidden;
   margin-left: 15px;
 }
 

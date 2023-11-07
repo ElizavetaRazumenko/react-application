@@ -9,4 +9,8 @@
   height: max-content;
   display: flex;
   align-items: center;
+  background-image: url('./assets/bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% center;
 }
