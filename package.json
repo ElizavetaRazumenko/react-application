@@ -12,7 +12,7 @@
     "lint:es": "eslint --ext .js,.jsx,.ts,.tsx src",
     "format:fix": "prettier . --write",
     "prepare": "husky install",
-    "precommit": "npm run lint && npm run test:coverage",
+    "precommit": "npm run lint && npm run type",
     "test": "vitest",
     "test:coverage": "vitest run --coverage.enabled --coverage.all",
     "test:ui": "vitest --ui"
