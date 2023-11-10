@@ -28,6 +28,14 @@ const SearchResults = () => {
     }
   };
 
+  if (context!.resultsItemInfo.length === 0) {
+    return (
+      <div className={s.no_results_message}>
+        There are no results for this request
+      </div>
+    );
+  }
+
   return (
     <div className={s.results_container}>
       {context!.resultsItemInfo.map((item, index) => (

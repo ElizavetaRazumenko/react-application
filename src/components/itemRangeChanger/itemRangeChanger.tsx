@@ -33,7 +33,9 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
           }`}
           onClick={increaseQuantity}
         ></div>
-        <p className={s.item_number}>{currentItemNumber}</p>
+        <p className={s.item_number} data-testid="elements_number">
+          {currentItemNumber}
+        </p>
         <div
           className={`${currentItemNumber > 1 ? s.arrow_active : s.arrow} ${
             s.arrow_bottom
@@ -41,7 +43,11 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
           onClick={reduceQuantity}
         ></div>
       </div>
-      <button className={s.button_install} onClick={setItemsCount}>
+      <button
+        className={s.button_install}
+        onClick={setItemsCount}
+        data-testid="button_install"
+      >
         install
       </button>
     </div>

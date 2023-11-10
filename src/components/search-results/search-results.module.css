@@ -42,6 +42,12 @@
   background-size: contain;
 }
 
+.no_results_message {
+  margin-top: 70px;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
 @media screen and (max-width: 1200px) {
   .results_container {
     grid-template-columns: repeat(2, 1fr);
@@ -52,6 +58,10 @@
   .results_container {
     grid-template-columns: 1fr;
   }
+
+  .no_results_message {
+    font-size: 1.5rem;
+  }
 }
 
 @media screen and (max-width: 530px) {
@@ -61,5 +71,9 @@
 
   .card {
     width: 220px;
+  }
+
+  .no_results_message {
+    font-size: 1rem;
   }
 }
