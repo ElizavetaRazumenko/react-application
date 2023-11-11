@@ -44,6 +44,7 @@ const SearchResults = () => {
           key={index}
           className={s.card}
           onClick={() => sendDetaitsRequest(+page!, index)}
+          data-testid="card"
         >
           <p className={s.title}>{item.title}</p>
           <p className={s.description}>Click for detailed information</p>
