@@ -12,6 +12,7 @@ const SearchBar = (props: SearchBarPropsType) => {
   const { page } = useParams();
   const navigate = useNavigate();
   const defaultPage = 1;
+
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.sendRequestParams(
