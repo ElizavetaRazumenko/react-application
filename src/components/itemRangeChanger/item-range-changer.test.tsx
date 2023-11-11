@@ -17,7 +17,6 @@ const updateLocalStorage = (resultMock: string) => {
 
 test('should verify that the component renders the specified number of cards', () => {
   const mockedSendRequestParams = vi.fn();
-  // const mockedContext: AppContextDefaultValue = {}; можно описать моковые данные для контекста
   const resultMock = '5';
   updateLocalStorage(resultMock);
   const mockedContext = {} as AppContextDefaultValue;

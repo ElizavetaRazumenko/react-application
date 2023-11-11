@@ -23,8 +23,9 @@ const SearchBar = (props: SearchBarPropsType) => {
   };
 
   return (
-    <form className={s.search_bar} onSubmit={submitForm}>
+    <form className={s.search_bar} onSubmit={submitForm} data-testid="form">
       <input
+        data-testid="search-input"
         type="text"
         className={s.search_input}
         placeholder="search"
