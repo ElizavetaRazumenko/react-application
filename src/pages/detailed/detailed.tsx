@@ -19,7 +19,10 @@ const DetailedPage = () => {
       ></div>
       <p className={s.details_text_title}>{context!.detailsContent[0]}</p>
       <p className={s.details_text}>{context!.detailsContent[1]}</p>
-      <div className={context!.isDetailsLoading ? s.loader : s.hidden}></div>
+      <div
+        className={context!.isDetailsLoading ? s.loader : s.hidden}
+        data-testid="louder"
+      ></div>
     </div>
   );
 };

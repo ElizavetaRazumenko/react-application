@@ -49,8 +49,4 @@ test('should verify that the component renders the specified number of cards', (
   const elementsNumber = screen.getByTestId('elements_number').textContent;
   expect(mockedSendRequestParams).toHaveBeenCalled();
   expect(elementsNumber).toEqual(resultMock);
-  screen.debug();
-  //   screen.queryByText(/Click for detailed information/i)
-  //  screen.queryByText(/Click for detailed information/i) === null тут монтируется элемент <ItemRangeChanger /> используй screen.debug(); чтобы увидеть монтируемый элемент
-  // ).toBeGreaterThanOrEqual(Number(elementsNumber));
 });
