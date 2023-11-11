@@ -10,6 +10,7 @@ const DetailedPage = () => {
   const closeTheDetailsPage = () => {
     navigator(`/pages/${page}`);
   };
+
   return (
     <div className={s.details_container} data-testid="details_page">
       <div

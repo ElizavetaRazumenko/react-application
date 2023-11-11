@@ -15,6 +15,18 @@ const updateLocalStorage = (resultMock: string) => {
   global.localStorage = localStorageMock as Storage;
 };
 
+test('should be in the document', () => {
+  const mockedSendRequestParams = vi.fn();
+  render(
+    <AppContext>
+      <MemoryRouter>
+        <ItemRangeChanger sendRequestParams={mockedSendRequestParams} />
+      </MemoryRouter>
+    </AppContext>
+  );
+  expect(screen.getByTestId('range-changer-container')).toBeInTheDocument();
+});
+
 test('should verify that the component renders the specified number of cards', () => {
   const mockedSendRequestParams = vi.fn();
   const resultMock = '5';

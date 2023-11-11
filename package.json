@@ -64,7 +64,6 @@
     "*.(ts|tsx|js|jsx)": [
       "npm run lint:write",
       "npm run format:fix",
-      "vitest related --run",
       "git add"
     ]
   }

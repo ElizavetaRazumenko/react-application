@@ -34,7 +34,7 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
   };
 
   return (
-    <div className={s.changer_wrapper}>
+    <div className={s.changer_wrapper} data-testid="range-changer-container">
       <span className={s.title}>change the number of elements:</span>
       <div className={s.arrows_wrapper}>
         <div
