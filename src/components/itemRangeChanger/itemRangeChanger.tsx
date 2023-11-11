@@ -1,26 +1,36 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './itemRangeChanger.module.css';
-import { ItenRangePropsType } from '../../types/types';
+
+interface ItenRangePropsType {
+  sendRequestParams: (value: string, pageNumber: number) => void;
+}
 
 const ItemRangeChanger = (props: ItenRangePropsType) => {
   const navigate = useNavigate();
+  const defaultCardsNumber = 12;
+  const minCardsNumber = 1;
+  const defaultPage = 1;
   const savedItemNumber = Number(localStorage.getItem('Items count'));
   const [currentItemNumber, setCurrentItemNumber] = useState<number>(
-    savedItemNumber || 12
+    savedItemNumber || defaultCardsNumber
   );
   const increaseQuantity = () => {
-    if (currentItemNumber < 12) setCurrentItemNumber(currentItemNumber + 1);
+    if (currentItemNumber < defaultCardsNumber) {
+      setCurrentItemNumber(currentItemNumber + 1);
+    }
   };
   const reduceQuantity = () => {
-    if (currentItemNumber > 1) setCurrentItemNumber(currentItemNumber - 1);
+    if (currentItemNumber > minCardsNumber) {
+      setCurrentItemNumber(currentItemNumber - 1);
+    }
   };
 
   const setItemsCount = async () => {
     localStorage.setItem('Items count', `${currentItemNumber}`);
     const value = localStorage.getItem('Input value') || '';
-    props.sendRequestParams(value, 1);
-    navigate(`/pages/${1}`);
+    props.sendRequestParams(value, defaultPage);
+    navigate(`/pages/${defaultPage}`);
   };
 
   return (

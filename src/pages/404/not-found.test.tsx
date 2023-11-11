@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../../App';
 
-test('landing on a error page', () => {
+test('the 404 page is displayed when navigating to an invalid route', () => {
   const wrongRoute = '/wrong-route';
   render(
     <MemoryRouter initialEntries={[wrongRoute]}>

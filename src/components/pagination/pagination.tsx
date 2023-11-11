@@ -1,14 +1,19 @@
-import { PaginationPropsType } from '../../types/types';
 import s from './pagination.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { appContext } from '../../App-context';
+export interface PaginationPropsType {
+  currentMaxPageRange: number;
+  setCurrentMaxPageRange: React.Dispatch<React.SetStateAction<number>>;
+  sendRequestParams: (value: string, pageNumber: number) => void;
+}
 
 const PaginationBlock = (props: PaginationPropsType) => {
   const context = useContext(appContext);
   const { page } = useParams();
   const paginationArray: number[] = new Array(context!.paginationCount).fill(0);
   const navigate = useNavigate();
+  const maxPagesRange = 10;
 
   const changePage = (pageNumber: number) => {
     const requestValue = localStorage.getItem('Input value') || '';
@@ -17,14 +22,14 @@ const PaginationBlock = (props: PaginationPropsType) => {
   };
 
   const transitionToTheLeftPages = () => {
-    if (props.currentMaxPageRange > 10) {
-      props.setCurrentMaxPageRange(props.currentMaxPageRange - 10);
+    if (props.currentMaxPageRange > maxPagesRange) {
+      props.setCurrentMaxPageRange(props.currentMaxPageRange - maxPagesRange);
     }
   };
 
   const transitionToTheRightPages = () => {
     if (props.currentMaxPageRange < paginationArray.length) {
-      props.setCurrentMaxPageRange(props.currentMaxPageRange + 10);
+      props.setCurrentMaxPageRange(props.currentMaxPageRange + maxPagesRange);
     }
   };
 

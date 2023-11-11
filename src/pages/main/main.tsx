@@ -16,7 +16,7 @@ const MainPage = () => {
   const location = useLocation();
   const { page } = useParams();
   const navigate = useNavigate();
-  const navigator = useNavigate();
+  const defaultPage = 1;
   const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
     getPagesRange(+page!)
   );
@@ -27,14 +27,14 @@ const MainPage = () => {
   useEffect(() => {
     sendRequestParams(
       localStorage.getItem('Input value') || '',
-      Number(page) || 1
+      Number(page) || defaultPage
     );
     navigate(`/pages/${page}`);
   }, []);
 
   const closeTheDetailsPage = () => {
     if (location.pathname.split('/').length === 5) {
-      navigator(`/pages/${page}`);
+      navigate(`/pages/${page}`);
     }
   };
   const sendRequestParams = async (value: string, pageNumber: number) => {

@@ -11,8 +11,12 @@ const DetailedPage = () => {
     navigator(`/pages/${page}`);
   };
   return (
-    <div className={s.details_container}>
-      <div className={s.close_button} onClick={closeTheDetailsPage}></div>
+    <div className={s.details_container} data-testid="details_page">
+      <div
+        className={s.close_button}
+        onClick={closeTheDetailsPage}
+        data-testid="close_btn"
+      ></div>
       <p className={s.details_text_title}>{context!.detailsContent[0]}</p>
       <p className={s.details_text}>{context!.detailsContent[1]}</p>
       <div className={context!.isDetailsLoading ? s.loader : s.hidden}></div>
