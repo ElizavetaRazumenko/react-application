@@ -18,7 +18,6 @@ test('error button should be in the document', () => {
 
 test('error button should create an Error', () => {
   let actualErrorMsg = '';
-
   render(
     <MemoryRouter>
       <ErrorButton />
