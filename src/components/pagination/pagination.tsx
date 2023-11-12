@@ -59,6 +59,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
               }
               key={index}
               onClick={() => changePage(index + 1)}
+              data-testid="page-number"
             >
               {index + 1}
             </div>
