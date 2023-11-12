@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fireEvent, render, screen } from '@testing-library/react';
-import { expect, test, vi } from 'vitest';
+import { expect, test } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { AppContextDefaultValue } from '../../types/types';
-import { appContext } from '../../App-context';
 import ErrorButton from './error-button';
 
 test('error button should be in the document', () => {

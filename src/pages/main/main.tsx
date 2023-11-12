@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import SearchBar from '../../components/search-bar/search-bar';
 import SearchResults from '../../components/search-results/search-results';
