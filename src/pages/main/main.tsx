@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import SearchBar from '../../components/search-bar/search-bar';
 import SearchResults from '../../components/search-results/search-results';
@@ -46,7 +47,7 @@ const MainPage = () => {
     });
   };
   return (
-    <main className={s.main} onClick={closeTheDetailsPage}>
+    <main className={s.main} onClick={closeTheDetailsPage} data-testid="main">
       <p className={s.title}>Art Institute of Chicago</p>
       <ErrorButton />
       <SearchBar sendRequestParams={sendRequestParams} />
