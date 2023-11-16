@@ -20,7 +20,6 @@ test('should send a request when clicked', async () => {
         <PaginationBlock
           currentMaxPageRange={10}
           setCurrentMaxPageRange={setCurrentMaxPageRange}
-          sendRequestParams={sendRequestParams}
         />
       </MemoryRouter>
     </appContext.Provider>
@@ -34,7 +33,7 @@ test('make sure the component updates URL query parameter when page changes', as
   const setCurrentMaxPageRange = (value: React.SetStateAction<number>) => {
     String(value);
   };
-  const sendRequestParams = vi.fn();
+  // const sendRequestParams = vi.fn();
   const mockedContext = {
     paginationCount: 10,
   } as AppContextDefaultValue;
@@ -44,7 +43,6 @@ test('make sure the component updates URL query parameter when page changes', as
         <PaginationBlock
           currentMaxPageRange={10}
           setCurrentMaxPageRange={setCurrentMaxPageRange}
-          sendRequestParams={sendRequestParams}
         />
       </appContext.Provider>
     </BrowserRouter>

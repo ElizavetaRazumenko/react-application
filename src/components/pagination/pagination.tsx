@@ -1,39 +1,40 @@
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { fetchResultItems } from '../../store/async-ac/asyn-ac';
+import { getPagesRange } from '../../utils/utils';
 import s from './pagination.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useContext } from 'react';
-import { appContext } from '../../App-context';
-export interface PaginationPropsType {
-  currentMaxPageRange: number;
-  setCurrentMaxPageRange: React.Dispatch<React.SetStateAction<number>>;
-  sendRequestParams: (value: string, pageNumber: number) => void;
-}
 
-const PaginationBlock = (props: PaginationPropsType) => {
-  const context = useContext(appContext);
+const PaginationBlock = () => {
   const { page } = useParams();
-  const paginationArray: number[] = new Array(context!.paginationCount).fill(0);
+  const { paginationCount } = useAppSelector((state) => state.main);
+  const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
+    getPagesRange(+page!)
+  );
+  const paginationArray: number[] = new Array(paginationCount).fill(0);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const maxPagesRange = 10;
 
-  const changePage = (pageNumber: number) => {
+  const changePage = (page: number) => {
     const requestValue = localStorage.getItem('Input value') || '';
-    props.sendRequestParams(requestValue, pageNumber);
-    navigate(`/pages/${pageNumber}`);
+    dispatch(fetchResultItems(requestValue, page));
+    navigate(`/pages/${page}`);
   };
 
   const transitionToTheLeftPages = () => {
-    if (props.currentMaxPageRange > maxPagesRange) {
-      props.setCurrentMaxPageRange(props.currentMaxPageRange - maxPagesRange);
+    if (currentMaxPageRange > maxPagesRange) {
+      setCurrentMaxPageRange(currentMaxPageRange - maxPagesRange);
     }
   };
 
   const transitionToTheRightPages = () => {
-    if (props.currentMaxPageRange < paginationArray.length) {
-      props.setCurrentMaxPageRange(props.currentMaxPageRange + maxPagesRange);
+    if (currentMaxPageRange < paginationArray.length) {
+      setCurrentMaxPageRange(currentMaxPageRange + maxPagesRange);
     }
   };
 
-  if (context!.paginationCount === 0) {
+  if (paginationCount === 0) {
     return <div className={s.padination_wrapper}></div>;
   }
 
@@ -41,15 +42,12 @@ const PaginationBlock = (props: PaginationPropsType) => {
     <div className={s.padination_wrapper}>
       <div
         className={`${s.arrow} ${
-          props.currentMaxPageRange < 11 ? s.arrow_left : s.arrow_left_active
+          currentMaxPageRange < 11 ? s.arrow_left : s.arrow_left_active
         }`}
         onClick={transitionToTheLeftPages}
       ></div>
       {paginationArray.map((_, index) => {
-        if (
-          index < props.currentMaxPageRange &&
-          index > props.currentMaxPageRange - 11
-        ) {
+        if (index < currentMaxPageRange && index > currentMaxPageRange - 11) {
           return (
             <div
               className={
@@ -68,7 +66,7 @@ const PaginationBlock = (props: PaginationPropsType) => {
       })}
       <div
         className={`${s.arrow} ${
-          props.currentMaxPageRange >= context!.paginationCount
+          currentMaxPageRange >= paginationCount
             ? s.arrow_right
             : s.arrow_right_active
         }`}

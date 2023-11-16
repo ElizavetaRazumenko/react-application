@@ -24,30 +24,27 @@ export const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    resultsItems: (state, action: PayloadAction<ResultsItem[]>) => {
+    setResultsItems: (state, action: PayloadAction<ResultsItem[]>) => {
       state.resultsItemInfo = action.payload;
-    },
-    isLoading: (state) => {
-      state.isLoading = true;
-    },
-    isNotLoading: (state) => {
       state.isLoading = false;
     },
-    pagesNumber: (state, action: PayloadAction<number>) => {
+    setisLoading: (state) => {
+      state.isLoading = true;
+    },
+    setPagesNumber: (state, action: PayloadAction<number>) => {
       state.paginationCount = action.payload;
     },
-    searchInputValue: (state, action: PayloadAction<string>) => {
+    setSearchInputValue: (state, action: PayloadAction<string>) => {
       state.searchInputValue = action.payload;
     },
   },
 });
 
 export const {
-  resultsItems,
-  isLoading,
-  isNotLoading,
-  pagesNumber,
-  searchInputValue,
+  setResultsItems,
+  setisLoading,
+  setPagesNumber,
+  setSearchInputValue,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

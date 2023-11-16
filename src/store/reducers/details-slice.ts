@@ -15,19 +15,16 @@ export const detailsSlice = createSlice({
   name: 'details',
   initialState,
   reducers: {
-    isDetailsLoading: (state) => {
+    setIsDetailsLoading: (state) => {
       state.isDetailsLoading = true;
     },
-    isDetailsNotLoading: (state) => {
-      state.isDetailsLoading = false;
-    },
-    detailsContent: (state, action: PayloadAction<string[]>) => {
+    setDetailsContent: (state, action: PayloadAction<string[]>) => {
       state.detailsContent = action.payload;
+      state.isDetailsLoading = false;
     },
   },
 });
 
-export const { isDetailsLoading, isDetailsNotLoading, detailsContent } =
-  detailsSlice.actions;
+export const { setIsDetailsLoading, setDetailsContent } = detailsSlice.actions;
 
 export default detailsSlice.reducer;

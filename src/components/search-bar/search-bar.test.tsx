@@ -32,7 +32,7 @@ test('verify that clicking the Search button saves the entered value to the loca
   render(
     <appContext.Provider value={mockedContext}>
       <MemoryRouter>
-        <SearchBar sendRequestParams={mockedSendRequestParams} />
+        <SearchBar />
       </MemoryRouter>
     </appContext.Provider>
   );

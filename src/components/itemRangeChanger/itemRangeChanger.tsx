@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './itemRangeChanger.module.css';
+import { useAppDispatch } from '../../hooks/hooks';
+import { fetchResultItems } from '../../store/async-ac/asyn-ac';
 
-interface ItenRangePropsType {
-  sendRequestParams: (value: string, pageNumber: number) => void;
-}
-
-const ItemRangeChanger = (props: ItenRangePropsType) => {
+const ItemRangeChanger = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const defaultCardsNumber = 12;
   const minCardsNumber = 1;
@@ -29,7 +28,7 @@ const ItemRangeChanger = (props: ItenRangePropsType) => {
   const setItemsCount = async () => {
     localStorage.setItem('Items count', `${currentItemNumber}`);
     const value = localStorage.getItem('Input value') || '';
-    props.sendRequestParams(value, defaultPage);
+    dispatch(fetchResultItems(value, defaultPage));
     navigate(`/pages/${defaultPage}`);
   };
 

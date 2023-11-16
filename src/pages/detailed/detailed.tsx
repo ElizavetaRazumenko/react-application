@@ -1,12 +1,13 @@
-import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { appContext } from '../../App-context';
 import s from './detailed.module.css';
+import { useAppSelector } from '../../hooks/hooks';
 
 const DetailedPage = () => {
-  const context = useContext(appContext);
   const navigator = useNavigate();
   const { page } = useParams();
+  const { detailsContent, isDetailsLoading } = useAppSelector(
+    (state) => state.details
+  );
   const closeTheDetailsPage = () => {
     navigator(`/pages/${page}`);
   };
@@ -18,10 +19,10 @@ const DetailedPage = () => {
         onClick={closeTheDetailsPage}
         data-testid="close_btn"
       ></div>
-      <p className={s.details_text_title}>{context!.detailsContent[0]}</p>
-      <p className={s.details_text}>{context!.detailsContent[1]}</p>
+      <p className={s.details_text_title}>{detailsContent[0]}</p>
+      <p className={s.details_text}>{detailsContent[1]}</p>
       <div
-        className={context!.isDetailsLoading ? s.loader : s.hidden}
+        className={isDetailsLoading ? s.loader : s.hidden}
         data-testid="louder"
       ></div>
     </div>
