@@ -3,10 +3,10 @@ import MainPage from '../main/main';
 
 const Layout = () => {
   return (
-    <div>
+    <>
       <MainPage />
       <Outlet />
-    </div>
+    </>
   );
 };
 

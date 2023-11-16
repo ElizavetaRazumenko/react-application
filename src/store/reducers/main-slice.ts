@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { resultsItemType } from '../types/types';
 
 interface MainState {
-  resultsItemInfo: resultsItemType;
+  resultsItemInfo: ResultsItem[];
   isLoading: boolean;
   paginationCount: number;
   searchInputValue: string;
 }
+
+type ResultsItem = {
+  title: string;
+  description: string;
+};
 
 const initialState: MainState = {
   resultsItemInfo: [],
@@ -20,7 +24,7 @@ export const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    resultsItems: (state, action: PayloadAction<resultsItemType>) => {
+    resultsItems: (state, action: PayloadAction<ResultsItem[]>) => {
       state.resultsItemInfo = action.payload;
     },
     isLoading: (state) => {
