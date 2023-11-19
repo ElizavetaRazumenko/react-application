@@ -19,14 +19,16 @@ import { ArtworksItem } from '../../types/types';
 const SearchResults = () => {
   const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
     useAppSelector((state: { main: MainState }) => state.main);
-  const itemsCount = Number(localStorage.getItem('Items count'));
+  const itemsCount = localStorage.getItem('Items count')
+    ? +localStorage.getItem('Items count')!
+    : 12;
   const { data, isLoading, isFetching } =
     searchInputValue === ''
-      ? getAllItemsAPI.useFetchResultItemsQuery([currentPage, itemsCount || 12])
+      ? getAllItemsAPI.useFetchResultItemsQuery([currentPage, itemsCount])
       : getSearchItemsAPI.useFetchResultItemsQuery([
           searchInputValue,
           `${currentPage}`,
-          `${itemsCount}` || '12',
+          `${itemsCount}`,
         ]);
   useEffect(() => {
     if (data) {

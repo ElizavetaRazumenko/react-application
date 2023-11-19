@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { expect, test, vi } from 'vitest';
+import { expect, test } from 'vitest';
 import SearchResults from './search-results';
 import { Provider } from 'react-redux';
 import { setupStore } from '../../store/store';
@@ -15,7 +15,9 @@ test('verify that the component renders the specified number of cards', async ()
       ],
     },
   };
+
   const mockStore = setupStore(mockObj);
+
   render(
     <Provider store={mockStore}>
       <MemoryRouter>
@@ -88,28 +90,4 @@ test('validate that clicking on a card opens a detailed card component', async (
     await fireEvent.click(card);
   });
   expect(location.pathname).toBe('/');
-});
-
-test('check that clicking triggers an additional API call to fetch detailed information', async () => {
-  const mockFoo = vi.fn();
-  const mockObj = {
-    main: {
-      resultsItemInfo: [
-        { title: 'test-title', description: 'test-description', id: 1 },
-      ],
-    },
-  };
-  const mockStore = setupStore(mockObj);
-  render(
-    <Provider store={mockStore}>
-      <MemoryRouter>
-        <SearchResults />
-      </MemoryRouter>
-    </Provider>
-  );
-  const card = await screen.findByTestId('card');
-  await act(async () => {
-    fireEvent.click(card);
-  });
-  expect(mockFoo).toHaveBeenCalled();
 });

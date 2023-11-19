@@ -12,6 +12,7 @@ export interface AppStore {
   main: MainState;
   details: DetailsState;
 }
+
 const rootReducer = combineReducers({
   main: mainReduser,
   details: detailsReducer,
