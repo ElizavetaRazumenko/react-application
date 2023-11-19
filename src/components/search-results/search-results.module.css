@@ -77,3 +77,8 @@
     font-size: 1rem;
   }
 }
+
+
+.hidden {
+  display: none;
+}

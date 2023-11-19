@@ -12,7 +12,7 @@ const DetailedPage = () => {
   const navigator = useNavigate();
   const dispatch = useAppDispatch();
   const { page } = useParams();
-  const { detailsContent, currentId, isDetailsOpen } = useAppSelector(
+  const { detailsContent, currentId, isDetailsLoading } = useAppSelector(
     (state) => state.details
   );
   const { data, isLoading, isFetching } =
@@ -20,13 +20,14 @@ const DetailedPage = () => {
   const closeTheDetailsPage = () => {
     navigator(`/pages/${page}`);
   };
-  if (isLoading || isFetching) dispatch(setIsDetailsLoading());
+  if (isLoading || isFetching) dispatch(setIsDetailsLoading(true));
   useEffect(() => {
     if (data) {
       const currentItem = data.data;
       dispatch(
         setDetailsContent([currentItem.title, currentItem.thumbnail.alt_text])
       );
+      dispatch(setIsDetailsLoading(false));
     }
   }, [data]);
 
@@ -40,7 +41,7 @@ const DetailedPage = () => {
       <p className={s.details_text_title}>{detailsContent[0]}</p>
       <p className={s.details_text}>{detailsContent[1]}</p>
       <div
-        className={isDetailsOpen ? s.loader : s.hidden}
+        className={isDetailsLoading ? s.loader : s.hidden}
         data-testid="louder"
       ></div>
     </div>

@@ -19,12 +19,11 @@ export const detailsSlice = createSlice({
   name: 'details',
   initialState,
   reducers: {
-    setIsDetailsLoading: (state) => {
-      state.isDetailsLoading = true;
+    setIsDetailsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDetailsLoading = action.payload;
     },
     setDetailsContent: (state, action: PayloadAction<string[]>) => {
       state.detailsContent = action.payload;
-      state.isDetailsLoading = false;
     },
     setDetailsIndex: (state, action: PayloadAction<number>) => {
       state.currentId = action.payload;

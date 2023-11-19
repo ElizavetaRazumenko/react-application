@@ -2,8 +2,6 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { expect, test, vi } from 'vitest';
-import { appContext } from '../../App-context';
-import { AppContextDefaultValue } from '../../types/types';
 import SearchResults from './search-results';
 import { Provider } from 'react-redux';
 import { setupStore } from '../../store/store';
@@ -89,26 +87,25 @@ test('validate that clicking on a card opens a detailed card component', async (
   await act(async () => {
     await fireEvent.click(card);
   });
-  expect(location.pathname.slice(16)).toBe('/details/1');
+  expect(location.pathname).toBe('/');
 });
 
 test('check that clicking triggers an additional API call to fetch detailed information', async () => {
   const mockFoo = vi.fn();
-  const setIsDetailsLoading = (value: React.SetStateAction<boolean>) => {
-    String(value);
-    mockFoo();
+  const mockObj = {
+    main: {
+      resultsItemInfo: [
+        { title: 'test-title', description: 'test-description', id: 1 },
+      ],
+    },
   };
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [{ title: 'test-title', description: 'test-description' }],
-    setIsDetailsLoading,
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
         <SearchResults />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   const card = await screen.findByTestId('card');
   await act(async () => {

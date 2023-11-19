@@ -1,4 +1,4 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import s from './search-results.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../store/reducers/main-slice';
 import { getAllItemsAPI, getSearchItemsAPI } from '../../services/main-serviсe';
 import {
+  setDetailsContent,
   setDetailsIndex,
   setIsDetailsOpen,
 } from '../../store/reducers/details-slice';
@@ -16,10 +17,8 @@ import { useEffect } from 'react';
 import { ArtworksItem } from '../../types/types';
 
 const SearchResults = () => {
-  const { page } = useParams();
-  const { resultsItemInfo, currentPage, searchInputValue } = useAppSelector(
-    (state: { main: MainState }) => state.main
-  );
+  const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
+    useAppSelector((state: { main: MainState }) => state.main);
   const itemsCount = Number(localStorage.getItem('Items count'));
   const { data, isLoading, isFetching } =
     searchInputValue === ''
@@ -38,20 +37,18 @@ const SearchResults = () => {
         description: artwork.thumbnail?.alt_text || 'No description',
         id: artwork.id,
       }));
+      dispatch(setisLoading(false));
       dispatch(setResultsItems(itemsInfo));
     }
   }, [data]);
 
   const dispatch = useAppDispatch();
-  if (isLoading || isFetching) {
-    dispatch(setisLoading(true));
-    return <div className={s.loader}></div>;
-  }
+  if (isLoading || isFetching) dispatch(setisLoading(true));
 
-  dispatch(setisLoading(false));
   const sendDetaitsRequest = (id: number) => {
     dispatch(setIsDetailsOpen(true));
     dispatch(setDetailsIndex(id));
+    dispatch(setDetailsContent(['', '']));
   };
 
   if (resultsItemInfo.length === 0) {
@@ -63,20 +60,23 @@ const SearchResults = () => {
   }
 
   return (
-    <div className={s.results_container}>
-      {resultsItemInfo.map((item, index) => (
-        <NavLink
-          to={`/pages/${page}/details/${index + 1}`}
-          key={index}
-          className={s.card}
-          onClick={() => sendDetaitsRequest(item.id)}
-          data-testid="card"
-        >
-          <p className={s.title}>{item.title}</p>
-          <p className={s.description}>Click for detailed information</p>
-        </NavLink>
-      ))}
-    </div>
+    <>
+      <div className={isMainLoading ? s.loader : s.hidden}></div>
+      <div className={isMainLoading ? s.hidden : s.results_container}>
+        {resultsItemInfo.map((item, index) => (
+          <NavLink
+            to={`/pages/${currentPage}/details/${index + 1}`}
+            key={index}
+            className={s.card}
+            onClick={() => sendDetaitsRequest(item.id)}
+            data-testid="card"
+          >
+            <p className={s.title}>{item.title}</p>
+            <p className={s.description}>Click for detailed information</p>
+          </NavLink>
+        ))}
+      </div>
+    </>
   );
 };
 
