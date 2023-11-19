@@ -2,32 +2,33 @@ import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { expect, test } from 'vitest';
-import { appContext } from '../../App-context';
-import { AppContextDefaultValue, resultsItemType } from '../../types/types';
 import Layout from './layout';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 test('should be render layout', async () => {
-  const setIsLoading = (value: React.SetStateAction<boolean>) => {
-    String(value);
+  const mockObj = {
+    main: {
+      resultsItemInfo: [{ title: '', description: '', id: 11111 }],
+      isMainLoading: false,
+      paginationCount: 0,
+      searchInputValue: localStorage.getItem('Input value') || '',
+      currentPage: +location.pathname.slice(-1),
+    },
+    details: {
+      isDetailsOpen: true,
+      currentId: 59843,
+      isDetailsLoading: true,
+      detailsContent: ['', ''],
+    },
   };
-  const setResultsItemInfo = (value: React.SetStateAction<resultsItemType>) => {
-    String(value);
-  };
-  const setPaginationCount = (value: React.SetStateAction<number>) => {
-    String(value);
-  };
-  const mockedContext = {
-    setIsLoading,
-    setResultsItemInfo,
-    setPaginationCount,
-    resultsItemInfo: [{ title: 'test-title', description: 'test-description' }],
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
         <Layout />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   expect(location.pathname).toBe('/');
 });

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface DetailsState {
+export interface DetailsState {
   isDetailsOpen: boolean;
   currentId: number;
   isDetailsLoading: boolean;

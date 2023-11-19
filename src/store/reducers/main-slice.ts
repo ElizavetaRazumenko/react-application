@@ -12,10 +12,11 @@ export interface MainState {
 type ResultsItem = {
   title: string;
   description: string;
+  id: number;
 };
 
 const initialState: MainState = {
-  resultsItemInfo: [],
+  resultsItemInfo: [{ title: '', description: '', id: 11111 }],
   isMainLoading: false,
   paginationCount: 0,
   searchInputValue: localStorage.getItem('Input value') || '',

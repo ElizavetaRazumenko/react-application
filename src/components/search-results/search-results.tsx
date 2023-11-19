@@ -17,7 +17,7 @@ import { ArtworksItem } from '../../types/types';
 
 const SearchResults = () => {
   const { page } = useParams();
-  const { currentPage, searchInputValue } = useAppSelector(
+  const { resultsItemInfo, currentPage, searchInputValue } = useAppSelector(
     (state: { main: MainState }) => state.main
   );
   const itemsCount = Number(localStorage.getItem('Items count'));
@@ -36,6 +36,7 @@ const SearchResults = () => {
       const itemsInfo = artworks.map((artwork) => ({
         title: artwork.title,
         description: artwork.thumbnail?.alt_text || 'No description',
+        id: artwork.id,
       }));
       dispatch(setResultsItems(itemsInfo));
     }
@@ -53,7 +54,7 @@ const SearchResults = () => {
     dispatch(setDetailsIndex(id));
   };
 
-  if (data && data.data.length === 0) {
+  if (resultsItemInfo.length === 0) {
     return (
       <div className={s.no_results_message}>
         There are no results for this request
@@ -63,19 +64,18 @@ const SearchResults = () => {
 
   return (
     <div className={s.results_container}>
-      {data &&
-        data.data.map((item, index) => (
-          <NavLink
-            to={`/pages/${page}/details/${index + 1}`}
-            key={index}
-            className={s.card}
-            onClick={() => sendDetaitsRequest(item.id)}
-            data-testid="card"
-          >
-            <p className={s.title}>{item.title}</p>
-            <p className={s.description}>Click for detailed information</p>
-          </NavLink>
-        ))}
+      {resultsItemInfo.map((item, index) => (
+        <NavLink
+          to={`/pages/${page}/details/${index + 1}`}
+          key={index}
+          className={s.card}
+          onClick={() => sendDetaitsRequest(item.id)}
+          data-testid="card"
+        >
+          <p className={s.title}>{item.title}</p>
+          <p className={s.description}>Click for detailed information</p>
+        </NavLink>
+      ))}
     </div>
   );
 };

@@ -12,7 +12,7 @@ const DetailedPage = () => {
   const navigator = useNavigate();
   const dispatch = useAppDispatch();
   const { page } = useParams();
-  const { detailsContent, currentId } = useAppSelector(
+  const { detailsContent, currentId, isDetailsOpen } = useAppSelector(
     (state) => state.details
   );
   const { data, isLoading, isFetching } =
@@ -40,7 +40,7 @@ const DetailedPage = () => {
       <p className={s.details_text_title}>{detailsContent[0]}</p>
       <p className={s.details_text}>{detailsContent[1]}</p>
       <div
-        className={isLoading || isFetching ? s.loader : s.hidden}
+        className={isDetailsOpen ? s.loader : s.hidden}
         data-testid="louder"
       ></div>
     </div>

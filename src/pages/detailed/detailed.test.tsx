@@ -4,38 +4,47 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { expect, test } from 'vitest';
 import DetailedPage from './detailed';
-import { appContext } from '../../App-context';
-import { AppContextDefaultValue } from '../../types/types';
 import { createMemoryHistory } from 'history';
+import { setupStore } from '../../store/store';
+import { Provider } from 'react-redux';
 
 test('check that a loading indicator is displayed while fetching data', () => {
   const detailsRoute = '/pages/1/details/1';
-  const mockedContext = {
-    isDetailsLoading: true,
-    detailsContent: ['title', 'description'],
-  } as AppContextDefaultValue;
+  const mockObj = {
+    details: {
+      isDetailsOpen: true,
+      currentId: 59843,
+      isDetailsLoading: true,
+      detailsContent: ['', ''],
+    },
+  };
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter initialEntries={[detailsRoute]}>
         <DetailedPage />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   expect(screen.getByTestId('louder')).toBeInTheDocument();
 });
 
 test('make sure the detailed card component correctly displays the detailed card data', async () => {
-  const detailsRoute = '/pages/1/details/1';
-  const mockedContext = {
-    isDetailsLoading: false,
-    detailsContent: ['test-title', 'test-description'],
-  } as AppContextDefaultValue;
+  const mockObj = {
+    details: {
+      isDetailsOpen: true,
+      currentId: 59843,
+      isDetailsLoading: false,
+      detailsContent: ['test-title', 'test-description'],
+    },
+  };
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
-      <MemoryRouter initialEntries={[detailsRoute]}>
+    <Provider store={mockStore}>
+      <MemoryRouter>
         <DetailedPage />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   const detailsContentTitle = await screen.findByText('test-title');
   expect(detailsContentTitle).toBeInTheDocument();
@@ -46,16 +55,21 @@ test('make sure the detailed card component correctly displays the detailed card
 test('ensure that clicking the close button hides the component', async () => {
   const history = createMemoryHistory();
   const detailsRoute = '/pages/1/details/1';
-  const mockedContext = {
-    isDetailsLoading: false,
-    detailsContent: ['title', 'description'],
-  } as AppContextDefaultValue;
+  const mockObj = {
+    details: {
+      isDetailsOpen: true,
+      currentId: 59843,
+      isDetailsLoading: false,
+      detailsContent: ['title', 'description'],
+    },
+  };
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter initialEntries={[detailsRoute]}>
         <DetailedPage />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   const closeBtn = await screen.findByTestId('close_btn');
   fireEvent.click(closeBtn);

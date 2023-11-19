@@ -1,9 +1,17 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import mainReduser from './reducers/main-slice';
-import detailsReducer from './reducers/details-slice';
+import {
+  combineReducers,
+  configureStore,
+  PreloadedState,
+} from '@reduxjs/toolkit';
+import mainReduser, { MainState } from './reducers/main-slice';
+import detailsReducer, { DetailsState } from './reducers/details-slice';
 import { CurriedGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 import { getAllItemsAPI, getSearchItemsAPI } from '../services/main-serviсe';
 
+export interface AppStore {
+  main: MainState;
+  details: DetailsState;
+}
 const rootReducer = combineReducers({
   main: mainReduser,
   details: detailsReducer,
@@ -23,3 +31,15 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) =>
+      getDefaultMiddleware().concat(
+        getAllItemsAPI.middleware,
+        getSearchItemsAPI.middleware
+      ),
+    preloadedState,
+  });
+};

@@ -6,6 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { AppContextDefaultValue } from '../../types/types';
 import SearchBar from './search-bar';
+import { Provider } from 'react-redux';
+import { setupStore, store } from '../../store/store';
 
 const setValueToLS = vi.fn();
 const updateLocalStorage = (resultMock: string) => {
@@ -19,44 +21,32 @@ const updateLocalStorage = (resultMock: string) => {
 };
 
 test('verify that clicking the Search button saves the entered value to the local storage', () => {
-  const setSearchInputValue = (value: React.SetStateAction<string>) => {
-    String(value);
-  };
-  const mockedSendRequestParams = vi.fn();
   const resultMock = 'test';
   updateLocalStorage(resultMock);
-  const mockedContext = {
-    searchInputValue: 'test',
-    setSearchInputValue,
-  } as AppContextDefaultValue;
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={store}>
       <MemoryRouter>
         <SearchBar />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   fireEvent.submit(screen.getByTestId('form'));
   expect(setValueToLS).toHaveBeenCalled();
 });
 
 test('check that the component retrieves the value from the local storage upon mounting.', () => {
-  const setSearchInputValue = (value: React.SetStateAction<string>) => {
-    String(value);
+  const mockObj = {
+    main: {
+      searchInputValue: 'test',
+    },
   };
-  const mockedSendRequestParams = vi.fn();
-  const resultMock = 'test';
-  updateLocalStorage(resultMock);
-  const mockedContext = {
-    searchInputValue: 'test',
-    setSearchInputValue,
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
-        <SearchBar sendRequestParams={mockedSendRequestParams} />
+        <SearchBar />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   fireEvent.submit(screen.getByTestId('form'));
   const input = screen.getByTestId('search-input') as HTMLInputElement;
