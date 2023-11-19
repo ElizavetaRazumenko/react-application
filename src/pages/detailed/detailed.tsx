@@ -3,7 +3,10 @@ import s from './detailed.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getItemAPI } from '../../services/main-serviсe';
 import { useEffect } from 'react';
-import { setDetailsContent } from '../../store/reducers/details-slice';
+import {
+  setDetailsContent,
+  setIsDetailsLoading,
+} from '../../store/reducers/details-slice';
 
 const DetailedPage = () => {
   const navigator = useNavigate();
@@ -14,11 +17,10 @@ const DetailedPage = () => {
   );
   const { data, isLoading, isFetching } =
     getItemAPI.useFetchResultItemsQuery(currentId);
-  console.log(data);
   const closeTheDetailsPage = () => {
     navigator(`/pages/${page}`);
   };
-
+  if (isLoading || isFetching) dispatch(setIsDetailsLoading());
   useEffect(() => {
     if (data) {
       const currentItem = data.data;

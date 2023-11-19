@@ -3,11 +3,15 @@ import s from './search-results.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import {
   MainState,
+  setisLoading,
   setPagesNumber,
   setResultsItems,
 } from '../../store/reducers/main-slice';
 import { getAllItemsAPI, getSearchItemsAPI } from '../../services/main-serviсe';
-import { setDetailsIndex } from '../../store/reducers/details-slice';
+import {
+  setDetailsIndex,
+  setIsDetailsOpen,
+} from '../../store/reducers/details-slice';
 import { useEffect } from 'react';
 import { ArtworksItem } from '../../types/types';
 
@@ -39,11 +43,14 @@ const SearchResults = () => {
 
   const dispatch = useAppDispatch();
   if (isLoading || isFetching) {
+    dispatch(setisLoading(true));
     return <div className={s.loader}></div>;
   }
 
-  const sendDetaitsRequest = (index: number) => {
-    dispatch(setDetailsIndex(index));
+  dispatch(setisLoading(false));
+  const sendDetaitsRequest = (id: number) => {
+    dispatch(setIsDetailsOpen(true));
+    dispatch(setDetailsIndex(id));
   };
 
   if (data && data.data.length === 0) {

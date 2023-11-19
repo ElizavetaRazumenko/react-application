@@ -6,11 +6,14 @@ import ErrorButton from '../../components/error-button/error-button';
 import PaginationBlock from '../../components/pagination/pagination';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ItemRangeChanger from '../../components/itemRangeChanger/itemRangeChanger';
+import { setIsDetailsOpen } from '../../store/reducers/details-slice';
+import { useAppDispatch } from '../../hooks/hooks';
 
 const MainPage = () => {
   const location = useLocation();
   const { page } = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     navigate(`/pages/${page}`);
@@ -18,6 +21,7 @@ const MainPage = () => {
 
   const closeTheDetailsPage = () => {
     if (location.pathname.split('/').length === 5) {
+      dispatch(setIsDetailsOpen(false));
       navigate(`/pages/${page}`);
     }
   };
