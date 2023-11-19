@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './itemRangeChanger.module.css';
-import { useAppDispatch } from '../../hooks/hooks';
-import { fetchResultItems } from '../../store/async-ac/asyn-ac';
 
 const ItemRangeChanger = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const defaultCardsNumber = 12;
   const minCardsNumber = 1;
@@ -27,8 +24,6 @@ const ItemRangeChanger = () => {
 
   const setItemsCount = async () => {
     localStorage.setItem('Items count', `${currentItemNumber}`);
-    const value = localStorage.getItem('Input value') || '';
-    dispatch(fetchResultItems(value, defaultPage));
     navigate(`/pages/${defaultPage}`);
   };
 

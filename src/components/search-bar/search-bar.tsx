@@ -1,21 +1,20 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import s from './search-bar.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { fetchResultItems } from '../../store/async-ac/asyn-ac';
-import { setSearchInputValue } from '../../store/reducers/main-slice';
+import {
+  setCurrentPage,
+  setSearchInputValue,
+} from '../../store/reducers/main-slice';
 
 const SearchBar = () => {
   const { searchInputValue } = useAppSelector((state) => state.main);
   const dispatch = useAppDispatch();
-  const { page } = useParams();
   const navigate = useNavigate();
-  const defaultPage = 1;
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const currentPage = Number(page) || defaultPage;
-    dispatch(fetchResultItems(searchInputValue, currentPage));
-    navigate(`/pages/${page}`);
+    dispatch(setCurrentPage(1));
+    navigate(`/pages/1`);
     localStorage.setItem('Input value', searchInputValue);
   };
 

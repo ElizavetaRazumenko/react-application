@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { fetchResultItems } from '../../store/async-ac/asyn-ac';
 import { getPagesRange } from '../../utils/utils';
 import s from './pagination.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { setCurrentPage } from '../../store/reducers/main-slice';
 
 const PaginationBlock = () => {
   const { page } = useParams();
@@ -17,8 +17,7 @@ const PaginationBlock = () => {
   const maxPagesRange = 10;
 
   const changePage = (page: number) => {
-    const requestValue = localStorage.getItem('Input value') || '';
-    dispatch(fetchResultItems(requestValue, page));
+    dispatch(setCurrentPage(page));
     navigate(`/pages/${page}`);
   };
 

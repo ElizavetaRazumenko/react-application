@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface MainState {
+export interface MainState {
   resultsItemInfo: ResultsItem[];
   isLoading: boolean;
   paginationCount: number;
   searchInputValue: string;
+  currentPage: number;
 }
 
 type ResultsItem = {
@@ -18,6 +19,7 @@ const initialState: MainState = {
   isLoading: false,
   paginationCount: 0,
   searchInputValue: localStorage.getItem('Input value') || '',
+  currentPage: +location.pathname.slice(-1),
 };
 
 export const mainSlice = createSlice({
@@ -37,6 +39,9 @@ export const mainSlice = createSlice({
     setSearchInputValue: (state, action: PayloadAction<string>) => {
       state.searchInputValue = action.payload;
     },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
@@ -45,6 +50,7 @@ export const {
   setisLoading,
   setPagesNumber,
   setSearchInputValue,
+  setCurrentPage,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
