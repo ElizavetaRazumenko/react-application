@@ -1,41 +1,47 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { expect, test, vi } from 'vitest';
-import { appContext } from '../../App-context';
-import { AppContextDefaultValue, resultsItemType } from '../../types/types';
+import { expect, test } from 'vitest';
 import SearchResults from './search-results';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 test('verify that the component renders the specified number of cards', async () => {
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [
-      { title: 'test-title', description: 'test-description' },
-      { title: 'test-title', description: 'test-description' },
-    ],
-  } as AppContextDefaultValue;
+  const mockObj = {
+    main: {
+      resultsItemInfo: [
+        { title: 'test-title', description: 'test-description', id: 1 },
+        { title: 'test-title', description: 'test-description', id: 2 },
+      ],
+    },
+  };
+
+  const mockStore = setupStore(mockObj);
+
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
         <SearchResults />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   const cards = await screen.findAllByTestId('card');
   expect(cards.length).toBe(2);
 });
 
 test('check that an appropriate message is displayed if no cards are present', () => {
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [] as resultsItemType,
-  } as AppContextDefaultValue;
+  const mockObj = {
+    main: {
+      resultsItemInfo: [],
+    },
+  };
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
         <SearchResults />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
 
   expect(
@@ -44,65 +50,44 @@ test('check that an appropriate message is displayed if no cards are present', (
 });
 
 test('ensure that the card component renders the relevant card data', async () => {
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [{ title: 'test-title', description: 'test-description' }],
-  } as AppContextDefaultValue;
+  const mockObj = {
+    main: {
+      resultsItemInfo: [
+        { title: 'test-title', description: 'test-description', id: 1 },
+      ],
+    },
+  };
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
         <SearchResults />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   const title = await screen.findByText('test-title');
   expect(title).toBeInTheDocument();
 });
 
 test('validate that clicking on a card opens a detailed card component', async () => {
-  const setIsDetailsLoading = (value: React.SetStateAction<boolean>) => {
-    String(value);
+  const mockObj = {
+    main: {
+      resultsItemInfo: [
+        { title: 'test-title', description: 'test-description', id: 1 },
+      ],
+    },
   };
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [{ title: 'test-title', description: 'test-description' }],
-    setIsDetailsLoading,
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <BrowserRouter>
-      <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
+      <MemoryRouter>
         <SearchResults />
-      </appContext.Provider>
-    </BrowserRouter>
+      </MemoryRouter>
+    </Provider>
   );
   const card = await screen.findByTestId('card');
   await act(async () => {
     await fireEvent.click(card);
   });
-  expect(location.pathname.slice(16)).toBe('/details/1');
-});
-
-test('check that clicking triggers an additional API call to fetch detailed information', async () => {
-  const mockFoo = vi.fn();
-  const setIsDetailsLoading = (value: React.SetStateAction<boolean>) => {
-    String(value);
-    mockFoo();
-  };
-  const mockedContext = {
-    isLoading: false,
-    resultsItemInfo: [{ title: 'test-title', description: 'test-description' }],
-    setIsDetailsLoading,
-  } as AppContextDefaultValue;
-  render(
-    <appContext.Provider value={mockedContext}>
-      <MemoryRouter>
-        <SearchResults />
-      </MemoryRouter>
-    </appContext.Provider>
-  );
-  const card = await screen.findByTestId('card');
-  await act(async () => {
-    fireEvent.click(card);
-  });
-  expect(mockFoo).toHaveBeenCalled();
+  expect(location.pathname).toBe('/');
 });

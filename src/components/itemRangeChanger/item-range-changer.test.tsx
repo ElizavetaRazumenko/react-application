@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
 import ItemRangeChanger from './itemRangeChanger';
@@ -5,6 +6,8 @@ import AppContext, { appContext } from '../../App-context';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { AppContextDefaultValue } from '../../types/types';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 const updateLocalStorage = (resultMock: string) => {
   const localStorageMock = {
@@ -15,11 +18,10 @@ const updateLocalStorage = (resultMock: string) => {
 };
 
 test('should be in the document', () => {
-  const mockedSendRequestParams = vi.fn();
   render(
     <AppContext>
       <MemoryRouter>
-        <ItemRangeChanger sendRequestParams={mockedSendRequestParams} />
+        <ItemRangeChanger />
       </MemoryRouter>
     </AppContext>
   );
@@ -27,36 +29,31 @@ test('should be in the document', () => {
 });
 
 test('should verify that the component renders the specified number of cards', () => {
-  const mockedSendRequestParams = vi.fn();
   const resultMock = '5';
   updateLocalStorage(resultMock);
-  const mockedContext = {} as AppContextDefaultValue;
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={store}>
       <MemoryRouter>
-        <ItemRangeChanger sendRequestParams={mockedSendRequestParams} />
+        <ItemRangeChanger />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
   fireEvent.click(screen.getByTestId('button_install'));
   const elementsNumber = screen.getByTestId('elements_number').textContent;
-  expect(mockedSendRequestParams).toHaveBeenCalled();
   expect(elementsNumber).toEqual(resultMock);
 });
 
 test('should verify that the component renders the specified number of cards', () => {
-  const mockedSendRequestParams = vi.fn();
   const resultMock = '12';
   updateLocalStorage(resultMock);
   render(
-    <AppContext>
+    <Provider store={store}>
       <MemoryRouter>
-        <ItemRangeChanger sendRequestParams={mockedSendRequestParams} />
+        <ItemRangeChanger />
       </MemoryRouter>
-    </AppContext>
+    </Provider>
   );
   fireEvent.click(screen.getByTestId('button_install'));
   const elementsNumber = screen.getByTestId('elements_number').textContent;
-  expect(mockedSendRequestParams).toHaveBeenCalled();
   expect(elementsNumber).toEqual(resultMock);
 });

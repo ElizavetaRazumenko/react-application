@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>36/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>36/36</span>
             </div>
         
             
@@ -99,12 +99,7 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -113,61 +108,51 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate, useParams } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 import s from './search-bar.module.css';
-import { useContext } from 'react';
-import { appContext } from '../../App-context';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import {
+  setCurrentPage,
+  setSearchInputValue,
+} from '../../store/reducers/main-slice';
 &nbsp;
-export interface SearchBarPropsType {
-  sendRequestParams: (value: string, pageNumber: number) =&gt; void;
-}
-&nbsp;
-const SearchBar = (props: SearchBarPropsType) =&gt; {
-  const context = useContext(appContext);
-  const { page } = useParams();
+const SearchBar = () =&gt; {
+  const { searchInputValue } = useAppSelector((state) =&gt; state.main);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const defaultPage = 1;
 &nbsp;
   const submitForm = async (e: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {
     e.preventDefault();
-    props.sendRequestParams(
-      context!.searchInputValue,
-      Number(page) || defaultPage
-    );
-    navigate(`/pages/${page}`);
-    localStorage.setItem('Input value', context!.searchInputValue);
+    dispatch(setCurrentPage(1));
+    navigate(`/pages/1`);
+    localStorage.setItem('Input value', searchInputValue);
   };
 &nbsp;
   return (
@@ -177,8 +162,8 @@ const SearchBar = (props: SearchBarPropsType) =&gt; {
         type="text"
         className={s.search_input}
         placeholder="search"
-        value={context!.searchInputValue}
-        onChange={<span class="fstat-no" title="function not covered" >(e) =&gt; context!.setSearchInputValue(e.target.value)}</span>
+        value={searchInputValue}
+        onInput={<span class="fstat-no" title="function not covered" >(e) =&gt; dispatch(setSearchInputValue(e.currentTarget.value))}</span>
       /&gt;
       &lt;button className={s.search_button}&gt;search&lt;/button&gt;
     &lt;/form&gt;
@@ -193,7 +178,7 @@ export default SearchBar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-12T15:02:28.066Z
+                at 2023-11-19T21:38:42.099Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

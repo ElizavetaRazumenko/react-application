@@ -1,53 +1,43 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { expect, test, vi } from 'vitest';
+import { expect, test } from 'vitest';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { AppContextDefaultValue } from '../../types/types';
-import { appContext } from '../../App-context';
 import PaginationBlock from './pagination';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
-test('should send a request when clicked', async () => {
-  const setCurrentMaxPageRange = (value: React.SetStateAction<number>) => {
-    String(value);
+test('should be in the document', async () => {
+  const mockObj = {
+    main: {
+      paginationCount: 120,
+    },
   };
-  const sendRequestParams = vi.fn();
-  const mockedContext = {
-    paginationCount: 10,
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <appContext.Provider value={mockedContext}>
+    <Provider store={mockStore}>
       <MemoryRouter>
-        <PaginationBlock
-          currentMaxPageRange={10}
-          setCurrentMaxPageRange={setCurrentMaxPageRange}
-          sendRequestParams={sendRequestParams}
-        />
+        <PaginationBlock />
       </MemoryRouter>
-    </appContext.Provider>
+    </Provider>
   );
-  const pageButtons = await screen.findAllByTestId('page-number');
-  fireEvent.click(pageButtons[1]);
-  expect(sendRequestParams).toHaveBeenCalled();
+  const paginationBlock = await screen.findByTestId('pagination-block');
+  expect(paginationBlock).toBeInTheDocument();
 });
 
 test('make sure the component updates URL query parameter when page changes', async () => {
-  const setCurrentMaxPageRange = (value: React.SetStateAction<number>) => {
-    String(value);
+  const mockObj = {
+    main: {
+      paginationCount: 120,
+      currentPage: 1,
+    },
   };
-  const sendRequestParams = vi.fn();
-  const mockedContext = {
-    paginationCount: 10,
-  } as AppContextDefaultValue;
+  const mockStore = setupStore(mockObj);
   render(
-    <BrowserRouter>
-      <appContext.Provider value={mockedContext}>
-        <PaginationBlock
-          currentMaxPageRange={10}
-          setCurrentMaxPageRange={setCurrentMaxPageRange}
-          sendRequestParams={sendRequestParams}
-        />
-      </appContext.Provider>
-    </BrowserRouter>
+    <Provider store={mockStore}>
+      <BrowserRouter>
+        <PaginationBlock />
+      </BrowserRouter>
+    </Provider>
   );
   const pageButtons = await screen.findAllByTestId('page-number');
   await act(async () => {

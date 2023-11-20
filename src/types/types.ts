@@ -45,6 +45,10 @@ export type resultsItemType = {
   description: string;
 }[];
 
+export interface ArtworkDetails {
+  data: ArtworksItem;
+}
+
 export interface ArtworksItem {
   id: number;
   api_model: string;

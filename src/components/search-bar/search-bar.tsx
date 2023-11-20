@@ -1,26 +1,21 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import s from './search-bar.module.css';
-import { useContext } from 'react';
-import { appContext } from '../../App-context';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import {
+  setCurrentPage,
+  setSearchInputValue,
+} from '../../store/reducers/main-slice';
 
-export interface SearchBarPropsType {
-  sendRequestParams: (value: string, pageNumber: number) => void;
-}
-
-const SearchBar = (props: SearchBarPropsType) => {
-  const context = useContext(appContext);
-  const { page } = useParams();
+const SearchBar = () => {
+  const { searchInputValue } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const defaultPage = 1;
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.sendRequestParams(
-      context!.searchInputValue,
-      Number(page) || defaultPage
-    );
-    navigate(`/pages/${page}`);
-    localStorage.setItem('Input value', context!.searchInputValue);
+    dispatch(setCurrentPage(1));
+    navigate(`/pages/1`);
+    localStorage.setItem('Input value', searchInputValue);
   };
 
   return (
@@ -30,8 +25,8 @@ const SearchBar = (props: SearchBarPropsType) => {
         type="text"
         className={s.search_input}
         placeholder="search"
-        value={context!.searchInputValue}
-        onChange={(e) => context!.setSearchInputValue(e.target.value)}
+        value={searchInputValue}
+        onInput={(e) => dispatch(setSearchInputValue(e.currentTarget.value))}
       />
       <button className={s.search_button}>search</button>
     </form>
