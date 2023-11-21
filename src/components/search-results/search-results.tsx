@@ -45,11 +45,11 @@ const SearchResults = () => {
 
       dispatch(setisLoading(false));
       dispatch(setResultsItems(itemsInfo));
+      if (isLoading || isFetching) dispatch(setisLoading(true));
     }
-  }, [data]);
+  }, [data, isLoading, isFetching]);
 
   const dispatch = useAppDispatch();
-  if (isLoading || isFetching) dispatch(setisLoading(true));
 
   const sendDetaitsRequest = (id: number) => {
     dispatch(setIsDetailsOpen(true));

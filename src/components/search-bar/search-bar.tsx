@@ -5,17 +5,20 @@ import {
   setCurrentPage,
   setSearchInputValue,
 } from '../../store/reducers/main-slice';
+import { useState } from 'react';
 
 const SearchBar = () => {
   const { searchInputValue } = useAppSelector((state) => state.main);
+  const [inputValue, setInputValue] = useState(searchInputValue || '');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(setSearchInputValue(inputValue));
     dispatch(setCurrentPage(1));
     navigate(`/pages/1`);
-    localStorage.setItem('Input value', searchInputValue);
+    localStorage.setItem('Input value', inputValue);
   };
 
   return (
@@ -25,8 +28,10 @@ const SearchBar = () => {
         type="text"
         className={s.search_input}
         placeholder="search"
-        value={searchInputValue}
-        onInput={(e) => dispatch(setSearchInputValue(e.currentTarget.value))}
+        value={inputValue}
+        onInput={(e) => {
+          setInputValue(e.currentTarget.value);
+        }}
       />
       <button className={s.search_button}>search</button>
     </form>

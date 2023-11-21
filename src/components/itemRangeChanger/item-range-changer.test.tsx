@@ -2,7 +2,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
 import ItemRangeChanger from './itemRangeChanger';
-import AppContext, { appContext } from '../../App-context';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { AppContextDefaultValue } from '../../types/types';
@@ -19,11 +18,9 @@ const updateLocalStorage = (resultMock: string) => {
 
 test('should be in the document', () => {
   render(
-    <AppContext>
-      <MemoryRouter>
-        <ItemRangeChanger />
-      </MemoryRouter>
-    </AppContext>
+    <MemoryRouter>
+      <ItemRangeChanger />
+    </MemoryRouter>
   );
   expect(screen.getByTestId('range-changer-container')).toBeInTheDocument();
 });
