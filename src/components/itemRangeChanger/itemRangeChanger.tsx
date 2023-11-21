@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { defaultCardsNumber, defaultPage, minCardsNumber } from '../constants';
 import s from './itemRangeChanger.module.css';
 
 const ItemRangeChanger = () => {
   const navigate = useNavigate();
-  const defaultCardsNumber = 12;
-  const minCardsNumber = 1;
-  const defaultPage = 1;
+
   const savedItemNumber = Number(localStorage.getItem('Items count'));
+
   const [currentItemNumber, setCurrentItemNumber] = useState<number>(
     savedItemNumber || defaultCardsNumber
   );
+
   const increaseQuantity = () => {
     if (currentItemNumber < defaultCardsNumber) {
       setCurrentItemNumber(currentItemNumber + 1);
     }
   };
+
   const reduceQuantity = () => {
     if (currentItemNumber > minCardsNumber) {
       setCurrentItemNumber(currentItemNumber - 1);

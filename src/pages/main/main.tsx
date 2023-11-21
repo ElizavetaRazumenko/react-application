@@ -25,6 +25,7 @@ const MainPage = () => {
       navigate(`/pages/${page}`);
     }
   };
+
   return (
     <main className={s.main} onClick={closeTheDetailsPage} data-testid="main">
       <p className={s.title}>Art Institute of Chicago</p>

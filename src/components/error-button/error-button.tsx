@@ -6,6 +6,7 @@ const ErrorButton = () => {
   if (isHasError) {
     throw Error('Application error');
   }
+
   return (
     <button className={s.button_error} onClick={() => setIsHasError(true)}>
       Create an Error

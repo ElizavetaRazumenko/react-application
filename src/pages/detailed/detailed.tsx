@@ -12,15 +12,19 @@ const DetailedPage = () => {
   const navigator = useNavigate();
   const dispatch = useAppDispatch();
   const { page } = useParams();
+
   const { detailsContent, currentId, isDetailsLoading } = useAppSelector(
     (state) => state.details
   );
+
   const { data, isLoading, isFetching } =
     getItemAPI.useFetchResultItemsQuery(currentId);
   const closeTheDetailsPage = () => {
     navigator(`/pages/${page}`);
   };
+
   if (isLoading || isFetching) dispatch(setIsDetailsLoading(true));
+
   useEffect(() => {
     if (data) {
       const currentItem = data.data;

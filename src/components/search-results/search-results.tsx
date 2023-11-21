@@ -19,9 +19,11 @@ import { ArtworksItem } from '../../types/types';
 const SearchResults = () => {
   const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
     useAppSelector((state: { main: MainState }) => state.main);
+
   const itemsCount = localStorage.getItem('Items count')
     ? +localStorage.getItem('Items count')!
     : 12;
+
   const { data, isLoading, isFetching } =
     searchInputValue === ''
       ? getAllItemsAPI.useFetchResultItemsQuery([currentPage, itemsCount])
@@ -30,6 +32,7 @@ const SearchResults = () => {
           `${currentPage}`,
           `${itemsCount}`,
         ]);
+
   useEffect(() => {
     if (data) {
       dispatch(setPagesNumber(data.pagination.total_pages));
@@ -39,6 +42,7 @@ const SearchResults = () => {
         description: artwork.thumbnail?.alt_text || 'No description',
         id: artwork.id,
       }));
+
       dispatch(setisLoading(false));
       dispatch(setResultsItems(itemsInfo));
     }
@@ -53,15 +57,7 @@ const SearchResults = () => {
     dispatch(setDetailsContent(['', '']));
   };
 
-  if (resultsItemInfo.length === 0) {
-    return (
-      <div className={s.no_results_message}>
-        There are no results for this request
-      </div>
-    );
-  }
-
-  return (
+  return resultsItemInfo.length ? (
     <>
       <div className={isMainLoading ? s.loader : s.hidden}></div>
       <div className={isMainLoading ? s.hidden : s.results_container}>
@@ -79,6 +75,10 @@ const SearchResults = () => {
         ))}
       </div>
     </>
+  ) : (
+    <div className={s.no_results_message}>
+      There are no results for this request
+    </div>
   );
 };
 

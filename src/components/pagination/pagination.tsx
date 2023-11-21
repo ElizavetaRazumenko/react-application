@@ -4,18 +4,21 @@ import { getPagesRange } from '../../utils/utils';
 import s from './pagination.module.css';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentPage } from '../../store/reducers/main-slice';
+import { maxPagesRange } from '../constants';
 
 const PaginationBlock = () => {
   const { paginationCount, currentPage } = useAppSelector(
     (state) => state.main
   );
+
   const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
     getPagesRange(currentPage)
   );
+
   const paginationArray: number[] = new Array(paginationCount).fill(0);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const maxPagesRange = 10;
 
   const changePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -34,11 +37,7 @@ const PaginationBlock = () => {
     }
   };
 
-  if (paginationCount === 0) {
-    return <div className={s.padination_wrapper}></div>;
-  }
-
-  return (
+  return paginationCount ? (
     <div className={s.padination_wrapper} data-testid="pagination-block">
       <div
         className={`${s.arrow} ${
@@ -73,6 +72,8 @@ const PaginationBlock = () => {
         onClick={transitionToTheRightPages}
       ></div>
     </div>
+  ) : (
+    <div className={s.padination_wrapper}></div>
   );
 };
 
