@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
-import { appContext } from '../../App-context';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { AppContextDefaultValue } from '../../types/types';
