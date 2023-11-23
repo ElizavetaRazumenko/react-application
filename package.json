@@ -44,6 +44,7 @@
     "lint-staged": "^15.1.0",
     "msw": "^2.0.8",
     "prettier": "^3.1.0",
+    "sass": "^1.69.5",
     "typescript": "^5"
   },
   "husky": {

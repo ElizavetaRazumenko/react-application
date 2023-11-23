@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import styles from './pagination.module.css';
+import styles from './pagination.module.scss';
 // import { useNavigate } from 'react-router-dom';
 // import { setCurrentPage } from '../../store/reducers/main-slice';
 import { maxPagesRange } from '../constants';
@@ -15,7 +15,7 @@ const Pagination = () => {
   const currentPage = 1;
 
   const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
-    getPagesRange(currentPage)
+    getPagesRange(currentPage),
   );
 
   const paginationCount = 250;

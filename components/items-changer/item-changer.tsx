@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { defaultCardsNumber, defaultPage, minCardsNumber } from '../constants';
-import styles from './item-changer.module.css';
+import styles from './item-changer.module.scss';
 
 const ItemChanger = () => {
   // const navigate = useNavigate();

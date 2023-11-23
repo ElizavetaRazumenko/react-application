@@ -1,7 +1,6 @@
 // import { useNavigate, useParams } from 'react-router-dom';
-import router from 'next/router';
-import styles from './detailes.module.css';
-import { useParams } from 'next/navigation';
+import router, { useRouter } from 'next/router';
+import styles from './detailes.module.scss';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 // import { getItemAPI } from '../../services/main-serviсe';
 // import { useEffect } from 'react';
@@ -11,7 +10,7 @@ import { useParams } from 'next/navigation';
 // } from '../../store/reducers/details-slice';
 
 const DetailedPage = () => {
-  const { page } = useParams();
+  const { query } = useRouter();
   // const navigator = useNavigate();
   // const dispatch = useAppDispatch();
   // const { page } = useParams();
@@ -23,7 +22,7 @@ const DetailedPage = () => {
   // const { data, isLoading, isFetching } =
   //   getItemAPI.useFetchResultItemsQuery(currentId);
   const closeTheDetailsPage = () => {
-    router.push(`/page/${page}`);
+    router.push(`/page/${query.page}`);
   };
   const isDetailsLoading = false; // DELETE
   // if (isLoading || isFetching) dispatch(setIsDetailsLoading(true));

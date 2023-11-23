@@ -1,5 +1,5 @@
 // import { useNavigate } from 'react-router-dom';
-import styles from './search-bar.module.css';
+import styles from './search-bar.module.scss';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 // import {
 //   setCurrentPage,

@@ -1,6 +1,6 @@
 // import { NavLink } from 'react-router-dom';
 import Link from 'next/link';
-import styles from './artworks.module.css';
+import styles from './artworks.module.scss';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 // import {
 //   MainState,
