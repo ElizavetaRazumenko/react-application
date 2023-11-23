@@ -19,8 +19,8 @@ const initialState: MainState = {
   resultsItemInfo: [{ title: '', description: '', id: 11111 }],
   isMainLoading: false,
   paginationCount: 0,
-  searchInputValue: localStorage.getItem('Input value') || '',
-  currentPage: +location.pathname.slice(-1),
+  searchInputValue: '',
+  currentPage: 1,
 };
 
 export const mainSlice = createSlice({

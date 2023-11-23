@@ -27,7 +27,7 @@ const ItemChanger = () => {
   };
 
   const setItemsCount = async () => {
-    localStorage.setItem('Items count', `${currentItemNumber}`);
+    // localStorage.setItem('Items count', `${currentItemNumber}`);
     // navigate(`/pages/${defaultPage}`);
     console.log(defaultPage);
   };

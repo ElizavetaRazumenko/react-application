@@ -1,29 +1,21 @@
-// import { useNavigate } from 'react-router-dom';
 import styles from './search-bar.module.scss';
-// import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-// import {
-//   setCurrentPage,
-//   setSearchInputValue,
-// } from '../../store/reducers/main-slice';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useAppDispatch } from '@/hooks/hooks';
+import {
+  setCurrentPage,
+  setSearchInputValue,
+} from '@/store/reducers/main-slice';
+import router from 'next/router';
 
 const SearchBar = () => {
-  useEffect(() => {
-    searchInput.current!.value = localStorage.getItem('Input value') || '';
-  }, []);
-  // const { searchInputValue } = useAppSelector((state) => state.main);
-  // const [inputValue, setInputValue] = useState(searchInputValue || '');
   const searchInput = useRef<HTMLInputElement>(null);
-  // const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(searchInput.current!.value);
-    // dispatch(setSearchInputValue(inputValue));
-    // dispatch(setCurrentPage(1));
-    // navigate(`/pages/1`);
-    localStorage.setItem('Input value', searchInput.current!.value);
+    dispatch(setSearchInputValue(searchInput.current!.value));
+    dispatch(setCurrentPage(1));
+    router.push('/page/1');
   };
 
   return (

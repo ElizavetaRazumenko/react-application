@@ -2,6 +2,8 @@ import '@/styles/globals.scss';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import ErrorBoundary from '../components/error-boundary/error-boundary';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/icon.png" />
         <title>Art miseum</title>
       </Head>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </ErrorBoundary>
   );
 }
