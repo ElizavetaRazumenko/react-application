@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   useEffect(() => {
-    router.push('/pages/1');
+    router.push('/page/1');
   });
 
   return (
