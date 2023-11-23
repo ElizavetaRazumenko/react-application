@@ -1,3 +1,8 @@
+import Artworks from '../../../components/artworks/artworks';
+import ErrorButton from '../../../components/error-button/error-button';
+import ItemChanger from '../../../components/items-changer/item-changer';
+import Pagination from '../../../components/pagination/pagination';
+import SearchBar from '../../../components/search-bar/search-bar';
 import styles from '../../styles/page.module.css';
 
 const MainPage = () => {
@@ -18,16 +23,18 @@ const MainPage = () => {
   //   };
 
   return (
-    <div className={styles.main}></div>
-
-    // <main className={s.main} onClick={closeTheDetailsPage} data-testid="main">
-    //   <p className={s.title}>Art Institute of Chicago</p>
-    //   <ErrorButton />
-    //   <SearchBar />
-    //   <PaginationBlock />
-    //   <ItemRangeChanger />
-    //   <SearchResults />
-    // </main>
+    <main
+      className={styles.main}
+      // onClick={closeTheDetailsPage}
+      data-testid="main"
+    >
+      <p className={styles.title}>Art Institute of Chicago</p>
+      <ErrorButton />
+      <SearchBar />
+      <Pagination />
+      <ItemChanger />
+      <Artworks />
+    </main>
   );
 };
 
