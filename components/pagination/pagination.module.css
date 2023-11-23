@@ -7,22 +7,26 @@
 
 .pagination_item,
 .pagination_item_current {
+  box-shadow: 0 0 10px #808080;
   cursor: pointer;
   box-sizing: border-box;
   margin: 0 5px;
   height: 30px;
   min-width: 30px;
   max-width: max-content;
-  padding: 3px;
-  font-size: 1.1rem;
+  padding: 4px 3px 3px;
+  font-size: 1.2rem;
+  font-style: italic;
   font-weight: 700;
+  text-align: center;
   color: #000000;
   border-radius: 5px;
   background-color: #f0f8ff;
   transition: 0.5s;
 }
 .pagination_item_current {
-  background-color: rgb(154, 155, 152);
+  cursor: auto;
+  background-color: rgb(174, 175, 172);
 }
 
 .pagination_item:hover {

@@ -5,21 +5,25 @@ import styles from './search-bar.module.css';
 //   setCurrentPage,
 //   setSearchInputValue,
 // } from '../../store/reducers/main-slice';
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const SearchBar = () => {
+  useEffect(() => {
+    searchInput.current!.value = localStorage.getItem('Input value') || '';
+  }, []);
   // const { searchInputValue } = useAppSelector((state) => state.main);
   // const [inputValue, setInputValue] = useState(searchInputValue || '');
-  const [inputValue, setInputValue] = useState(''); // DELETE
+  const searchInput = useRef<HTMLInputElement>(null);
   // const dispatch = useAppDispatch();
   // const navigate = useNavigate();
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(searchInput.current!.value);
     // dispatch(setSearchInputValue(inputValue));
     // dispatch(setCurrentPage(1));
     // navigate(`/pages/1`);
-    localStorage.setItem('Input value', inputValue);
+    localStorage.setItem('Input value', searchInput.current!.value);
   };
 
   return (
@@ -33,10 +37,7 @@ const SearchBar = () => {
         type="text"
         className={styles.search_input}
         placeholder="search"
-        value={inputValue}
-        onInput={(e) => {
-          setInputValue(e.currentTarget.value);
-        }}
+        ref={searchInput}
       />
       <button className={styles.search_button}>search</button>
     </form>

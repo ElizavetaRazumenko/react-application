@@ -1,6 +1,8 @@
 .search_bar {
-  margin: 15px 0;
-  height: 100px;
+  margin: 35px 0;
+  box-shadow: 0 0 20px #808080;
+  border-radius: 8px;
+  height: max-content;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +18,7 @@
   font-size: 1.2rem;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  color: rgb(209, 207, 207);
+  font-style: italic;
 }
 
 .search_input:focus {
