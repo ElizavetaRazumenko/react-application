@@ -1,5 +1,7 @@
 // import { useNavigate, useParams } from 'react-router-dom';
+import router from 'next/router';
 import styles from './detailes.module.css';
+import { useParams } from 'next/navigation';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 // import { getItemAPI } from '../../services/main-serviсe';
 // import { useEffect } from 'react';
@@ -9,6 +11,7 @@ import styles from './detailes.module.css';
 // } from '../../store/reducers/details-slice';
 
 const DetailedPage = () => {
+  const { page } = useParams();
   // const navigator = useNavigate();
   // const dispatch = useAppDispatch();
   // const { page } = useParams();
@@ -19,9 +22,9 @@ const DetailedPage = () => {
 
   // const { data, isLoading, isFetching } =
   //   getItemAPI.useFetchResultItemsQuery(currentId);
-  // const closeTheDetailsPage = () => {
-  //   navigator(`/pages/${page}`);
-  // };
+  const closeTheDetailsPage = () => {
+    router.push(`/page/${page}`);
+  };
   const isDetailsLoading = false; // DELETE
   // if (isLoading || isFetching) dispatch(setIsDetailsLoading(true));
 
@@ -39,7 +42,7 @@ const DetailedPage = () => {
     <div className={styles.details_container} data-testid="details_page">
       <div
         className={styles.close_button}
-        // onClick={closeTheDetailsPage}
+        onClick={closeTheDetailsPage}
         data-testid="close_btn"
       ></div>
       <p className={styles.details_text_title}>Title</p>

@@ -1,9 +1,11 @@
+import { useParams } from 'next/navigation';
 import Artworks from '../../../components/artworks/artworks';
 import ErrorButton from '../../../components/error-button/error-button';
 import ItemChanger from '../../../components/items-changer/item-changer';
 import Pagination from '../../../components/pagination/pagination';
 import SearchBar from '../../../components/search-bar/search-bar';
 import styles from '../../styles/page.module.css';
+import router from 'next/router';
 
 const MainPage = () => {
   //   const location = useLocation();
@@ -15,17 +17,18 @@ const MainPage = () => {
   //     navigate(`/pages/${page}`);
   //   }, []);
 
-  //   const closeTheDetailsPage = () => {
-  //     if (location.pathname.split('/').length === 5) {
-  //       dispatch(setIsDetailsOpen(false));
-  //       navigate(`/pages/${page}`);
-  //     }
-  //   };
+  const { page, id } = useParams();
+
+  const closeTheDetailsPage = () => {
+    if (id) {
+      router.push(`/page/${page}`);
+    }
+  };
 
   return (
     <main
       className={styles.main}
-      // onClick={closeTheDetailsPage}
+      onClick={closeTheDetailsPage}
       data-testid="main"
     >
       <p className={styles.title}>Art Institute of Chicago</p>
