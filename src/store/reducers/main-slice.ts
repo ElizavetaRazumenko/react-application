@@ -9,6 +9,7 @@ export interface MainState {
   currentPage: number;
   artworksCount: number;
   artworksCountView: number;
+  currentMaxPageRange: number;
 }
 
 type ResultsItem = {
@@ -18,13 +19,19 @@ type ResultsItem = {
 };
 
 const initialState: MainState = {
-  resultsItemInfo: [{ title: '', description: '', id: 11111 }],
+  resultsItemInfo: [
+    { title: 'New Page', description: '', id: 11111 },
+    { title: 'Something', description: '', id: 11112 },
+    { title: 'Tralalala', description: '', id: 11112 },
+    { title: 'Something', description: '', id: 11112 },
+  ],
   isMainLoading: false,
-  paginationCount: 0,
+  paginationCount: 15,
   searchInputValue: '',
   currentPage: 1,
   artworksCount: 12,
   artworksCountView: 12,
+  currentMaxPageRange: 10,
 };
 
 export const mainSlice = createSlice({
@@ -53,6 +60,9 @@ export const mainSlice = createSlice({
     setArtworksCountView: (state, action: PayloadAction<number>) => {
       state.artworksCountView = action.payload;
     },
+    setCurrentMaxPageRange: (state, action: PayloadAction<number>) => {
+      state.currentMaxPageRange = action.payload;
+    },
   },
 });
 
@@ -64,6 +74,7 @@ export const {
   setCurrentPage,
   setArtworksCount,
   setArtworksCountView,
+  setCurrentMaxPageRange,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

@@ -1,44 +1,39 @@
-import { useState } from 'react';
-// import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import styles from './pagination.module.scss';
-// import { useNavigate } from 'react-router-dom';
-// import { setCurrentPage } from '../../store/reducers/main-slice';
 import { maxPagesRange } from '../constants';
-import { getPagesRange } from '../../utils/utils';
 import router from 'next/router';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import {
+  setCurrentMaxPageRange,
+  setCurrentPage,
+} from '@/store/reducers/main-slice';
 
 const Pagination = () => {
-  // const { paginationCount, currentPage } = useAppSelector(
-  //   (state) => state.main,
-  // );
+  const dispatch = useAppDispatch();
 
-  const currentPage = 1;
-
-  const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
-    getPagesRange(currentPage),
+  const { paginationCount, currentPage, currentMaxPageRange } = useAppSelector(
+    (state) => state.main,
   );
 
-  const paginationCount = 250;
+  // const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
+  //   getPagesRange(currentPage),
+  // );
 
   const paginationArray: number[] = new Array(paginationCount).fill(0);
 
-  // const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
-
   const changePage = (page: number) => {
-    // dispatch(setCurrentPage(page));
+    dispatch(setCurrentPage(page));
     router.push(`/page/${page}`);
   };
 
   const transitionToTheLeftPages = () => {
     if (currentMaxPageRange > maxPagesRange) {
-      setCurrentMaxPageRange(currentMaxPageRange - maxPagesRange);
+      dispatch(setCurrentMaxPageRange(currentMaxPageRange - maxPagesRange));
     }
   };
 
   const transitionToTheRightPages = () => {
     if (currentMaxPageRange < paginationArray.length) {
-      setCurrentMaxPageRange(currentMaxPageRange + maxPagesRange);
+      dispatch(setCurrentMaxPageRange(currentMaxPageRange + maxPagesRange));
     }
   };
 

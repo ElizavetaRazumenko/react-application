@@ -1,4 +1,6 @@
 // import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '@/hooks/hooks';
+import { MainState } from '@/store/reducers/main-slice';
 import Link from 'next/link';
 import styles from './artworks.module.scss';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -18,16 +20,9 @@ import styles from './artworks.module.scss';
 // import { ArtworksItem } from '../../types/types';
 
 const Artworks = () => {
-  //   const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
-  //     useAppSelector((state: { main: MainState }) => state.main);
-  const resultsItemInfo = [
-    { id: 1, title: 'title' },
-    { id: 2, title: 'title' },
-    { id: 3, title: 'title' },
-    { id: 4, title: 'title' },
-  ];
-  const currentPage = 1;
-  const isMainLoading = false;
+  const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
+    useAppSelector((state: { main: MainState }) => state.main);
+  console.log(searchInputValue);
   //   const { data, isLoading, isFetching } =
   //     searchInputValue === ''
   //       ? getAllItemsAPI.useFetchResultItemsQuery([currentPage, itemsCount])
