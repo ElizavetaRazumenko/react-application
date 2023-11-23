@@ -1,35 +1,31 @@
-import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import {
+  setArtworksCount,
+  setArtworksCountView,
+} from '@/store/reducers/main-slice';
+import router from 'next/router';
 import { defaultCardsNumber, defaultPage, minCardsNumber } from '../constants';
 import styles from './item-changer.module.scss';
 
 const ItemChanger = () => {
-  // const navigate = useNavigate();
-
-  // const savedItemNumber = Number(localStorage.getItem('Items count'));
-
-  // const [currentItemNumber, setCurrentItemNumber] = useState<number>(
-  //   savedItemNumber || defaultCardsNumber
-  // );
-  const [currentItemNumber, setCurrentItemNumber] =
-    useState<number>(defaultCardsNumber);
+  const { artworksCountView } = useAppSelector((state) => state.main);
+  const dispatch = useAppDispatch();
 
   const increaseQuantity = () => {
-    if (currentItemNumber < defaultCardsNumber) {
-      setCurrentItemNumber(currentItemNumber + 1);
+    if (artworksCountView < defaultCardsNumber) {
+      dispatch(setArtworksCountView(artworksCountView + 1));
     }
   };
 
   const reduceQuantity = () => {
-    if (currentItemNumber > minCardsNumber) {
-      setCurrentItemNumber(currentItemNumber - 1);
+    if (artworksCountView > minCardsNumber) {
+      dispatch(setArtworksCountView(artworksCountView - 1));
     }
   };
 
   const setItemsCount = async () => {
-    // localStorage.setItem('Items count', `${currentItemNumber}`);
-    // navigate(`/pages/${defaultPage}`);
-    console.log(defaultPage);
+    dispatch(setArtworksCount(artworksCountView));
+    router.push(`/page/${defaultPage}`);
   };
 
   return (
@@ -41,16 +37,16 @@ const ItemChanger = () => {
       <div className={styles.arrows_wrapper}>
         <div
           className={`${
-            currentItemNumber < 12 ? styles.arrow_active : styles.arrow
+            artworksCountView < 12 ? styles.arrow_active : styles.arrow
           } ${styles.arrow_top}`}
           onClick={increaseQuantity}
         ></div>
         <p className={styles.item_number} data-testid="elements_number">
-          {currentItemNumber}
+          {artworksCountView}
         </p>
         <div
           className={`${
-            currentItemNumber > 1 ? styles.arrow_active : styles.arrow
+            artworksCountView > 1 ? styles.arrow_active : styles.arrow
           } ${styles.arrow_bottom}`}
           onClick={reduceQuantity}
         ></div>

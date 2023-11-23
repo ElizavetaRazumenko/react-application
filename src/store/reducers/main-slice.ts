@@ -7,6 +7,8 @@ export interface MainState {
   paginationCount: number;
   searchInputValue: string;
   currentPage: number;
+  artworksCount: number;
+  artworksCountView: number;
 }
 
 type ResultsItem = {
@@ -21,6 +23,8 @@ const initialState: MainState = {
   paginationCount: 0,
   searchInputValue: '',
   currentPage: 1,
+  artworksCount: 12,
+  artworksCountView: 12,
 };
 
 export const mainSlice = createSlice({
@@ -43,6 +47,12 @@ export const mainSlice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
+    setArtworksCount: (state, action: PayloadAction<number>) => {
+      state.artworksCount = action.payload;
+    },
+    setArtworksCountView: (state, action: PayloadAction<number>) => {
+      state.artworksCountView = action.payload;
+    },
   },
 });
 
@@ -52,6 +62,8 @@ export const {
   setPagesNumber,
   setSearchInputValue,
   setCurrentPage,
+  setArtworksCount,
+  setArtworksCountView,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
