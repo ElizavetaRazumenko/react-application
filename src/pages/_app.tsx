@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import ErrorBoundary from '../../components/error-boundary/error-boundary';
+import ErrorBoundary from '../components/error-boundary/error-boundary';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
