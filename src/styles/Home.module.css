@@ -3,8 +3,4 @@
   height: 100vh;
   display: flex;
   align-items: center;
-  background-image: url('../../public/bg.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 50% center;
 }

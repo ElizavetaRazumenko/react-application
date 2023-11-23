@@ -1,7 +1,8 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import styles from './error-coundary.module.css';
 
 interface Props {
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 interface State {
@@ -20,7 +21,13 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return <h1>Congratulations! You caused an error</h1>;
+      return (
+        <div className={styles.container}>
+          <h1 className={styles.message}>
+            Congratulations! You caused an error
+          </h1>
+        </div>
+      );
     }
 
     return this.props.children;
