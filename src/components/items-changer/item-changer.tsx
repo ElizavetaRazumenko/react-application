@@ -2,13 +2,16 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import {
   setArtworksCount,
   setArtworksCountView,
+  setCurrentPage,
 } from '@/store/reducers/main-slice';
 import router from 'next/router';
 import { defaultCardsNumber, defaultPage, minCardsNumber } from '../constants';
 import styles from './item-changer.module.scss';
 
 const ItemChanger = () => {
-  const { artworksCountView } = useAppSelector((state) => state.main);
+  const { artworksCountView, searchInputValue } = useAppSelector(
+    (state) => state.main,
+  );
   const dispatch = useAppDispatch();
 
   const increaseQuantity = () => {
@@ -25,7 +28,12 @@ const ItemChanger = () => {
 
   const setItemsCount = async () => {
     dispatch(setArtworksCount(artworksCountView));
-    router.push(`/page/${defaultPage}`);
+    dispatch(setCurrentPage(1));
+    router.push(
+      `/?page=${defaultPage}&items_count=${artworksCountView}&value=${searchInputValue}`,
+      undefined,
+      { shallow: true },
+    );
   };
 
   return (

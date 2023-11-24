@@ -1,5 +1,6 @@
-// import { useNavigate, useParams } from 'react-router-dom';
-import router, { useRouter } from 'next/router';
+import { useAppSelector } from '@/hooks/hooks';
+import { MainState } from '@/store/reducers/main-slice';
+import router from 'next/router';
 import styles from './detailes.module.scss';
 // import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 // import { getItemAPI } from '../../services/main-serviсe';
@@ -10,7 +11,9 @@ import styles from './detailes.module.scss';
 // } from '../../store/reducers/details-slice';
 
 const DetailedPage = () => {
-  const { query } = useRouter();
+  const { currentPage, searchInputValue, artworksCount } = useAppSelector(
+    (state: { main: MainState }) => state.main,
+  );
   // const navigator = useNavigate();
   // const dispatch = useAppDispatch();
   // const { page } = useParams();
@@ -22,7 +25,11 @@ const DetailedPage = () => {
   // const { data, isLoading, isFetching } =
   //   getItemAPI.useFetchResultItemsQuery(currentId);
   const closeTheDetailsPage = () => {
-    router.push(`/page/${query.page}`);
+    router.push(
+      `/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
+      undefined,
+      { shallow: true },
+    );
   };
   const isDetailsLoading = false; // DELETE
   // if (isLoading || isFetching) dispatch(setIsDetailsLoading(true));
@@ -38,7 +45,10 @@ const DetailedPage = () => {
   // }, [data]);
 
   return (
-    <div className={styles.details_container} data-testid="details_page">
+    <div
+      className={`${styles.details_container} child`}
+      data-testid="details_page"
+    >
       <div
         className={styles.close_button}
         onClick={closeTheDetailsPage}

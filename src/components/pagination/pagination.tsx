@@ -10,9 +10,13 @@ import {
 const Pagination = () => {
   const dispatch = useAppDispatch();
 
-  const { paginationCount, currentPage, currentMaxPageRange } = useAppSelector(
-    (state) => state.main,
-  );
+  const {
+    paginationCount,
+    currentPage,
+    currentMaxPageRange,
+    searchInputValue,
+    artworksCount,
+  } = useAppSelector((state) => state.main);
 
   // const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
   //   getPagesRange(currentPage),
@@ -22,7 +26,11 @@ const Pagination = () => {
 
   const changePage = (page: number) => {
     dispatch(setCurrentPage(page));
-    router.push(`/page/${page}`);
+    router.push(
+      `/?page=${page}&items_count=${artworksCount}&value=${searchInputValue}`,
+      undefined,
+      { shallow: true },
+    );
   };
 
   const transitionToTheLeftPages = () => {
