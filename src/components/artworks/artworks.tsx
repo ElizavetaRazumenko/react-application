@@ -1,28 +1,51 @@
-// import { NavLink } from 'react-router-dom';
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
 import { useAppSelector } from '@/hooks/hooks';
 import { MainState } from '@/store/reducers/main-slice';
 import Link from 'next/link';
 import styles from './artworks.module.scss';
-// import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-// import {
-//   MainState,
-//   setisLoading,
-//   setPagesNumber,
-//   setResultsItems,
-// } from '../../store/reducers/main-slice';
-// import { getAllItemsAPI, getSearchItemsAPI } from '../../services/main-serviсe';
-// import {
-//   setDetailsContent,
-//   setDetailsIndex,
-//   setIsDetailsOpen,
-// } from '../../store/reducers/details-slice';
-// import { useEffect } from 'react';
-// import { ArtworksItem } from '../../types/types';
+import { useEffect } from 'react';
+import { getAllItemsAPI, getSearchItemsAPI } from '@/services/main-serviсe';
+import { getArtworksItemsResponse } from '@/types/types';
+let stateCurrentPage = 1;
+let stateartworksCount = 12;
+let stateSearchInputValue = '';
 
-const Artworks = () => {
-  const { resultsItemInfo, currentPage, searchInputValue, isMainLoading } =
-    useAppSelector((state: { main: MainState }) => state.main);
-  console.log(searchInputValue);
+interface PropsTypes {
+  data: getArtworksItemsResponse;
+}
+
+export const getServerSideProps = async () => {
+  console.log(stateartworksCount);
+  const { data } =
+    stateSearchInputValue === ''
+      ? getAllItemsAPI.useFetchResultItemsQuery([
+          stateCurrentPage,
+          stateartworksCount,
+        ])
+      : getSearchItemsAPI.useFetchResultItemsQuery([
+          stateSearchInputValue,
+          `${stateCurrentPage}`,
+          `${stateartworksCount}`,
+        ]);
+  return { props: { data } };
+};
+
+const Artworks = ({ data }: PropsTypes) => {
+  console.log(data);
+  const {
+    resultsItemInfo,
+    currentPage,
+    searchInputValue,
+    isMainLoading,
+    artworksCount,
+  } = useAppSelector((state: { main: MainState }) => state.main);
+
+  useEffect(() => {
+    stateCurrentPage = currentPage;
+    stateartworksCount = artworksCount;
+    stateSearchInputValue = searchInputValue;
+  }, [currentPage, artworksCount, searchInputValue]);
+
   //   const { data, isLoading, isFetching } =
   //     searchInputValue === ''
   //       ? getAllItemsAPI.useFetchResultItemsQuery([currentPage, itemsCount])
