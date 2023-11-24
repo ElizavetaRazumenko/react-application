@@ -20,7 +20,7 @@ const SearchBar = () => {
     dispatch(setSearchInputValue(searchInput.current!.value));
     dispatch(setCurrentPage(1));
     router.push(
-      `/?page=1&items_count=${artworksCount}&value=${
+      `/main/?page=1&items_count=${artworksCount}&value=${
         searchInput.current!.value
       }`,
       undefined,

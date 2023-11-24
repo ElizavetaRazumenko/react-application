@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import router from 'next/router';
 import { useAppSelector } from '@/hooks/hooks';
 import { MainState } from '@/store/reducers/main-slice';
-import Home from '@/pages';
+import Main from '@/pages/main';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { currentPage, searchInputValue, artworksCount } = useAppSelector(
@@ -17,7 +17,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     const element = target.closest('.child');
     if (!element) {
       router.push(
-        `/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
+        `/main/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
         undefined,
         { shallow: true },
       );
@@ -25,7 +25,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
   };
   return (
     <div className={styles.container} onClick={(e) => closeTheDetailsPage(e)}>
-      <Home />
+      <Main />
       <div>{children}</div>;
     </div>
   );

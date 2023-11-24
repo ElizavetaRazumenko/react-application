@@ -27,7 +27,7 @@ const Pagination = () => {
   const changePage = (page: number) => {
     dispatch(setCurrentPage(page));
     router.push(
-      `/?page=${page}&items_count=${artworksCount}&value=${searchInputValue}`,
+      `/main/?page=${page}&items_count=${artworksCount}&value=${searchInputValue}`,
       undefined,
       { shallow: true },
     );

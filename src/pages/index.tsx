@@ -1,19 +1,12 @@
-import Artworks from '@/components/artworks/artworks';
-import ErrorButton from '@/components/error-button/error-button';
-import ItemChanger from '@/components/items-changer/item-changer';
-import Pagination from '@/components/pagination/pagination';
-import SearchBar from '@/components/search-bar/search-bar';
-import styles from '../styles/page.module.scss';
+import router from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
-  return (
-    <main className={styles.main} data-testid="main">
-      <p className={styles.title}>Art Institute of Chicago</p>
-      <ErrorButton />
-      <SearchBar />
-      <Pagination />
-      <ItemChanger />
-      <Artworks />
-    </main>
-  );
+  useEffect(() => {
+    router.push('/main/?page=1&items_count=12&value=', undefined, {
+      shallow: true,
+    });
+  }, []);
+
+  return <></>;
 }

@@ -30,7 +30,7 @@ const ItemChanger = () => {
     dispatch(setArtworksCount(artworksCountView));
     dispatch(setCurrentPage(1));
     router.push(
-      `/?page=${defaultPage}&items_count=${artworksCountView}&value=${searchInputValue}`,
+      `/main/?page=${defaultPage}&items_count=${artworksCountView}&value=${searchInputValue}`,
       undefined,
       { shallow: true },
     );

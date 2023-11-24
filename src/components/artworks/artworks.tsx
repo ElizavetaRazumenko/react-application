@@ -65,6 +65,7 @@ const Artworks = () => {
   // };
 
   const sendDetaitsRequest = (id: number) => {
+    console.log('gara');
     dispatch(setIsDetailsOpen(true));
     dispatch(setDetailsIndex(id));
     dispatch(setDetailsContent(['', '']));

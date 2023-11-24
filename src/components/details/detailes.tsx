@@ -26,7 +26,7 @@ const DetailedPage = () => {
   //   getItemAPI.useFetchResultItemsQuery(currentId);
   const closeTheDetailsPage = () => {
     router.push(
-      `/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
+      `/main/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
       undefined,
       { shallow: true },
     );
