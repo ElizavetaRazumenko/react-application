@@ -1,7 +1,7 @@
 import router from 'next/router';
 import { useEffect } from 'react';
 
-export default function Home() {
+const Home = () => {
   useEffect(() => {
     router.push('/main/?page=1&items_count=12&value=', undefined, {
       shallow: true,
@@ -9,4 +9,6 @@ export default function Home() {
   }, []);
 
   return <></>;
-}
+};
+
+export default Home;

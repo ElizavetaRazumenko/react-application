@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import router from 'next/router';
 import { useAppSelector } from '@/hooks/hooks';
 import { MainState } from '@/store/reducers/main-slice';
-import Main from '@/pages/main';
+// import Main from '@/pages/main';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { currentPage, searchInputValue, artworksCount } = useAppSelector(
@@ -25,7 +25,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
   };
   return (
     <div className={styles.container} onClick={(e) => closeTheDetailsPage(e)}>
-      <Main />
+      {/* <Main /> */}
       <div>{children}</div>;
     </div>
   );

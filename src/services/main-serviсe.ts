@@ -1,13 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ArtworkDetails, getArtworksItemsResponse } from '../types/types';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export const getAllItemsAPI = createApi({
   reducerPath: 'getAllItemsAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.artic.edu/api/v1',
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (build) => ({
-    fetchResultItems: build.query<getArtworksItemsResponse, number[]>({
+    getArtworkItems: build.query<getArtworksItemsResponse, number[]>({
       query: ([page = 1, limit]) => ({
         url: '/artworks',
         params: {
@@ -16,16 +22,7 @@ export const getAllItemsAPI = createApi({
         },
       }),
     }),
-  }),
-});
-
-export const getSearchItemsAPI = createApi({
-  reducerPath: 'getSearchItemsAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.artic.edu/api/v1',
-  }),
-  endpoints: (build) => ({
-    fetchResultItems: build.query<getArtworksItemsResponse, string[]>({
+    getSearchArtworkItems: build.query<getArtworksItemsResponse, string[]>({
       query: ([value, page, limit]) => ({
         url: '/artworks/search',
         params: {
@@ -44,10 +41,20 @@ export const getItemAPI = createApi({
     baseUrl: 'https://api.artic.edu/api/v1',
   }),
   endpoints: (build) => ({
-    fetchResultItems: build.query<ArtworkDetails, number>({
+    getItem: build.query<ArtworkDetails, number>({
       query: (id) => ({
         url: `/artworks/${id}`,
       }),
     }),
   }),
 });
+
+export const {
+  useGetArtworkItemsQuery,
+  useGetSearchArtworkItemsQuery,
+  util: { getRunningQueriesThunk },
+} = getAllItemsAPI;
+
+export const { getArtworkItems, getSearchArtworkItems } =
+  getAllItemsAPI.endpoints;
+export const { getItem } = getItemAPI.endpoints;
