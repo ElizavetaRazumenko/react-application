@@ -18,10 +18,6 @@ const Pagination = () => {
     artworksCount,
   } = useAppSelector((state) => state.main);
 
-  // const [currentMaxPageRange, setCurrentMaxPageRange] = useState<number>(
-  //   getPagesRange(currentPage),
-  // );
-
   const paginationArray: number[] = new Array(paginationCount).fill(0);
 
   const changePage = (page: number) => {

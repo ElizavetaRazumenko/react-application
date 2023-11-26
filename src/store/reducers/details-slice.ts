@@ -4,14 +4,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface DetailsState {
   isDetailsOpen: boolean;
   currentId: number;
-  isDetailsLoading: boolean;
   detailsContent: string[];
 }
 
 const initialState: DetailsState = {
   isDetailsOpen: false,
   currentId: 59843,
-  isDetailsLoading: false,
   detailsContent: ['', ''],
 };
 
@@ -19,9 +17,6 @@ export const detailsSlice = createSlice({
   name: 'details',
   initialState,
   reducers: {
-    setIsDetailsLoading: (state, action: PayloadAction<boolean>) => {
-      state.isDetailsLoading = action.payload;
-    },
     setDetailsContent: (state, action: PayloadAction<string[]>) => {
       state.detailsContent = action.payload;
     },
@@ -34,11 +29,7 @@ export const detailsSlice = createSlice({
   },
 });
 
-export const {
-  setIsDetailsLoading,
-  setDetailsContent,
-  setDetailsIndex,
-  setIsDetailsOpen,
-} = detailsSlice.actions;
+export const { setDetailsContent, setDetailsIndex, setIsDetailsOpen } =
+  detailsSlice.actions;
 
 export default detailsSlice.reducer;

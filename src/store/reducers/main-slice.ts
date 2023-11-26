@@ -3,7 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface MainState {
   resultsItemInfo: ResultsItem[];
-  isMainLoading: boolean;
   paginationCount: number;
   searchInputValue: string;
   currentPage: number;
@@ -25,7 +24,6 @@ const initialState: MainState = {
     { title: 'Tralalala', description: '', id: 11112 },
     { title: 'Something', description: '', id: 11112 },
   ],
-  isMainLoading: false,
   paginationCount: 15,
   searchInputValue: '',
   currentPage: 1,
@@ -40,10 +38,6 @@ export const mainSlice = createSlice({
   reducers: {
     setResultsItems: (state, action: PayloadAction<ResultsItem[]>) => {
       state.resultsItemInfo = action.payload;
-      state.isMainLoading = false;
-    },
-    setisLoading: (state, action: PayloadAction<boolean>) => {
-      state.isMainLoading = action.payload;
     },
     setPagesNumber: (state, action: PayloadAction<number>) => {
       state.paginationCount = action.payload;
@@ -68,7 +62,6 @@ export const mainSlice = createSlice({
 
 export const {
   setResultsItems,
-  setisLoading,
   setPagesNumber,
   setSearchInputValue,
   setCurrentPage,

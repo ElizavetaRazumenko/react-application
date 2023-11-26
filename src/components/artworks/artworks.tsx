@@ -11,21 +11,21 @@ import router from 'next/router';
 
 const Artworks = () => {
   const dispatch = useDispatch();
-  const { resultsItemInfo, isMainLoading } = useAppSelector(
-    (state: { main: MainState }) => state.main,
-  );
+  const { resultsItemInfo, currentPage, searchInputValue, artworksCount } =
+    useAppSelector((state: { main: MainState }) => state.main);
 
   const sendDetaitsRequest = (id: number) => {
     dispatch(setIsDetailsOpen(true));
     dispatch(setDetailsIndex(id));
     dispatch(setDetailsContent(['', '']));
-    router.push(`/details/?id=${id}`);
+    router.push(
+      `/details/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}&id=${id}`,
+    );
   };
 
   return resultsItemInfo.length ? (
     <>
-      <div className={isMainLoading ? styles.loader : styles.hidden}></div>
-      <div className={isMainLoading ? styles.hidden : styles.results_container}>
+      <div className={styles.results_container}>
         {resultsItemInfo.map((item, index) => (
           <div
             key={index}

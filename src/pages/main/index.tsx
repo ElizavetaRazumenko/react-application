@@ -57,7 +57,6 @@ const Main = ({ data }: MainProps) => {
       }));
 
       dispatch(setResultsItems(artworks));
-      console.log(artworks);
     }
   }, [data]);
 

@@ -32,16 +32,7 @@ export const getAllItemsAPI = createApi({
         },
       }),
     }),
-  }),
-});
-
-export const getItemAPI = createApi({
-  reducerPath: 'getSearchItemsAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.artic.edu/api/v1',
-  }),
-  endpoints: (build) => ({
-    getItem: build.query<ArtworkDetails, number>({
+    getArtworkItem: build.query<ArtworkDetails, number>({
       query: (id) => ({
         url: `/artworks/${id}`,
       }),
@@ -52,9 +43,9 @@ export const getItemAPI = createApi({
 export const {
   useGetArtworkItemsQuery,
   useGetSearchArtworkItemsQuery,
+  useGetArtworkItemQuery,
   util: { getRunningQueriesThunk },
 } = getAllItemsAPI;
 
-export const { getArtworkItems, getSearchArtworkItems } =
+export const { getArtworkItems, getSearchArtworkItems, getArtworkItem } =
   getAllItemsAPI.endpoints;
-export const { getItem } = getItemAPI.endpoints;
