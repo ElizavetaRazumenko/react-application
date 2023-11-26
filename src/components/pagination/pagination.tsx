@@ -28,8 +28,6 @@ const Pagination = () => {
     dispatch(setCurrentPage(page));
     router.push(
       `/main/?page=${page}&items_count=${artworksCount}&value=${searchInputValue}`,
-      undefined,
-      { shallow: true },
     );
   };
 

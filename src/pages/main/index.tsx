@@ -20,21 +20,21 @@ interface MainProps {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const { searchValue = '', items_count = '12', page = '1' } = context.query;
+    const { value = '', items_count = '12', page = '1' } = context.query;
     let data;
     if (
-      typeof searchValue === 'string' &&
+      typeof value === 'string' &&
       typeof items_count === 'string' &&
       typeof page === 'string'
     ) {
       data =
-        searchValue === ''
+        value === ''
           ? await store.dispatch(
               getArtworkItems.initiate([Number(page), Number(items_count)]),
             )
           : await store.dispatch(
               getSearchArtworkItems.initiate([
-                `${searchValue || ''}`,
+                `${value}`,
                 `${page}`,
                 `${items_count}`,
               ]),

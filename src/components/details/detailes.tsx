@@ -27,8 +27,6 @@ const DetailedPage = () => {
   const closeTheDetailsPage = () => {
     router.push(
       `/main/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
-      undefined,
-      { shallow: true },
     );
   };
   const isDetailsLoading = false; // DELETE

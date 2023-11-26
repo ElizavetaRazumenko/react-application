@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 
 const Home = () => {
   useEffect(() => {
-    router.push('/main/?page=1&items_count=12&value=', undefined, {
-      shallow: true,
-    });
+    router.push('/main/?page=1&items_count=12&value=');
   }, []);
 
   return <></>;

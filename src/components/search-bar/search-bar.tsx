@@ -23,8 +23,6 @@ const SearchBar = () => {
       `/main/?page=1&items_count=${artworksCount}&value=${
         searchInput.current!.value
       }`,
-      undefined,
-      { shallow: true },
     );
   };
 

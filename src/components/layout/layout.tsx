@@ -18,8 +18,6 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     if (!element) {
       router.push(
         `/main/?page=${currentPage}&items_count=${artworksCount}&value=${searchInputValue}`,
-        undefined,
-        { shallow: true },
       );
     }
   };
