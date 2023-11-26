@@ -26,13 +26,16 @@ const Artworks = () => {
 
   return resultsItemInfo.length ? (
     <>
-      <div className={styles.results_container}>
+      <div
+        className={styles.results_container}
+        data-testid="artworks_container"
+      >
         {resultsItemInfo.map((item, index) => (
           <div
             key={index}
             className={styles.card}
             onClick={() => sendDetaitsRequest(item.id)}
-            data-testid="card"
+            data-testid="artwork"
           >
             <p className={styles.title}>{item.title}</p>
             <p className={styles.description}>Click for detailed information</p>

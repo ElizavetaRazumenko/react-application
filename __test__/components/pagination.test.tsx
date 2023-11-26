@@ -1,13 +1,10 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { setupStore, store } from '@/store/store';
+import { setupStore } from '@/store/store';
 import { Provider } from 'react-redux';
 import Pagination from '@/components/pagination/pagination';
-import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
-import { createMockRouter } from '../utils/createMockRouter';
 import mockRouter from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
-import { useRouter } from 'next/router';
 jest.mock('next/router', () => require('next-router-mock'));
 
 describe('Testing the Pagination element', () => {
@@ -31,7 +28,7 @@ describe('Testing the Pagination element', () => {
     expect(paginationBlock).toBeInTheDocument();
   });
 
-  it('make sure the component updates URL query parameter when page changes', async () => {
+  it('should updates URL query parameter when page changes', async () => {
     const mockObj = {
       main: {
         paginationCount: 120,

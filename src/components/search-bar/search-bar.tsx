@@ -33,13 +33,15 @@ const SearchBar = () => {
       data-testid="form"
     >
       <input
-        data-testid="search-input"
+        data-testid="search_input"
         type="text"
         className={styles.search_input}
         placeholder="search"
         ref={searchInput}
       />
-      <button className={styles.search_button}>search</button>
+      <button className={styles.search_button} data-testid="button_search">
+        search
+      </button>
     </form>
   );
 };
