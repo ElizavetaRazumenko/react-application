@@ -4,6 +4,7 @@ import {
   setArtworksCountView,
   setCurrentPage,
 } from '@/store/reducers/main-slice';
+import { getArtworksItemsResponse } from '@/types/types';
 import router from 'next/router';
 import { defaultCardsNumber, defaultPage, minCardsNumber } from '../constants';
 import styles from './item-changer.module.scss';

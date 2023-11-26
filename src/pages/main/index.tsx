@@ -3,56 +3,64 @@ import ErrorButton from '@/components/error-button/error-button';
 import ItemChanger from '@/components/items-changer/item-changer';
 import Pagination from '@/components/pagination/pagination';
 import SearchBar from '@/components/search-bar/search-bar';
+import { useAppDispatch } from '@/hooks/hooks';
 import {
   getArtworkItems,
-  getRunningQueriesThunk,
   getSearchArtworkItems,
 } from '@/services/main-serviсe';
+import { setResultsItems } from '@/store/reducers/main-slice';
 import { wrapper } from '@/store/store';
 import { getArtworksItemsResponse } from '@/types/types';
-import { NextPage } from 'next';
+import { useEffect } from 'react';
 import styles from '../../styles/page.module.scss';
 
-// export const getServerSideProps = async (context: {
-//   query: { searchValue: string; items_count: string; page: string };
-// }) => {
-//   const { searchValue, items_count, page } = context.query;
-//   const { data } =
-//     searchValue === ''
-//       ? getAllItemsAPI.useFetchResultItemsQuery([
-//           Number(page),
-//           Number(items_count),
-//         ])
-//       : getSearchItemsAPI.useFetchResultItemsQuery([
-//           `${searchValue}`,
-//           `${page}`,
-//           `${items_count}`,
-//         ]);
-
-//   return { props: { data } };
-// };
+interface MainProps {
+  data: getArtworksItemsResponse | undefined;
+}
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const { searchValue, items_count, page } = context.query;
-    searchValue === ''
-      ? store.dispatch(
-          getArtworkItems.initiate([Number(page), Number(items_count)]),
-        )
-      : store.dispatch(
-          getSearchArtworkItems.initiate([
-            `${searchValue || ''}`,
-            `${page}`,
-            `${items_count}`,
-          ]),
-        );
-    const data = await Promise.all(store.dispatch(getRunningQueriesThunk()));
-    console.log(data);
-    return { props: {} };
+    const { searchValue = '', items_count = '12', page = '1' } = context.query;
+    let data;
+    if (
+      typeof searchValue === 'string' &&
+      typeof items_count === 'string' &&
+      typeof page === 'string'
+    ) {
+      data =
+        searchValue === ''
+          ? await store.dispatch(
+              getArtworkItems.initiate([Number(page), Number(items_count)]),
+            )
+          : await store.dispatch(
+              getSearchArtworkItems.initiate([
+                `${searchValue || ''}`,
+                `${page}`,
+                `${items_count}`,
+              ]),
+            );
+    }
+
+    return { props: { data: data?.data } };
   },
 );
 
-const Main: NextPage<getArtworksItemsResponse> = () => {
+const Main = ({ data }: MainProps) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (data) {
+      const artworks = data.data.map((artwork) => ({
+        title: artwork.title,
+        description: artwork.thumbnail?.alt_text || 'No description',
+        id: artwork.id,
+      }));
+
+      dispatch(setResultsItems(artworks));
+      console.log(artworks);
+    }
+  }, [data]);
+
   return (
     <main className={styles.main} data-testid="main">
       <p className={styles.title}>Art Institute of Chicago</p>

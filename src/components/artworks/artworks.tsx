@@ -8,6 +8,7 @@ import {
   setIsDetailsOpen,
 } from '@/store/reducers/details-slice';
 import router from 'next/router';
+import { getArtworksItemsResponse } from '@/types/types';
 
 // export const getServerSideProps: GetServerSideProps = async () => {
 //   console.log(stateartworksCount);
