@@ -11,6 +11,7 @@ import router from 'next/router';
 
 const Artworks = () => {
   const dispatch = useDispatch();
+
   const { resultsItemInfo, currentPage, searchInputValue, artworksCount } =
     useAppSelector((state: { main: MainState }) => state.main);
 

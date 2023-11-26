@@ -55,7 +55,7 @@
   },
   "lint-staged": {
     "*.(ts|tsx|js|jsx)": [
-      "npm run lint:write",
+      "npm run lint:check",
       "npm run format:fix",
       "git add"
     ]

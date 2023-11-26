@@ -32,16 +32,14 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    "prettier/prettier": [
-      "error",
+    'react-hooks/exhaustive-deps': 'off',
+    'prettier/prettier': [
+      'error',
       {
-        "endOfLine": "auto"
+        endOfLine: 'auto',
       },
     ],
-    "quotes": [
-      "error",
-      "single"
-  ],
+    quotes: ['error', 'single'],
   },
   settings: {
     react: {
