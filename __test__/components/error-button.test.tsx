@@ -3,12 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 describe('Testing the the Error-button element', () => {
-  it('the error button should be in the document', () => {
+  it('should be in the document', () => {
     render(<ErrorButton />);
     expect(screen.getByText(/Create an Error/i)).toBeInTheDocument();
   });
 
-  it('the error button should create an Error', () => {
+  it('should create an Error', () => {
     let actualErrorMsg = '';
     render(<ErrorButton />);
     const errorButton = screen.getByText(/Create an Error/i);

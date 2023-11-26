@@ -35,10 +35,7 @@ const ItemChanger = () => {
   };
 
   return (
-    <div
-      className={styles.changer_wrapper}
-      data-testid="range-changer-container"
-    >
+    <div className={styles.changer_wrapper}>
       <span className={styles.title}>change the number of elements:</span>
       <div className={styles.arrows_wrapper}>
         <div
@@ -46,15 +43,15 @@ const ItemChanger = () => {
             artworksCountView < 12 ? styles.arrow_active : styles.arrow
           } ${styles.arrow_top}`}
           onClick={increaseQuantity}
+          data-testid="button_increase"
         ></div>
-        <p className={styles.item_number} data-testid="elements_number">
-          {artworksCountView}
-        </p>
+        <p className={styles.item_number}>{artworksCountView}</p>
         <div
           className={`${
             artworksCountView > 1 ? styles.arrow_active : styles.arrow
           } ${styles.arrow_bottom}`}
           onClick={reduceQuantity}
+          data-testid="button_reduce"
         ></div>
       </div>
       <button

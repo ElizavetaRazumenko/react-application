@@ -40,7 +40,7 @@ const Pagination = () => {
   };
 
   return paginationCount ? (
-    <div className={styles.padination_wrapper} data-testid="pagination-block">
+    <div className={styles.padination_wrapper} data-testid="pagination">
       <div
         className={`${styles.arrow} ${
           currentMaxPageRange < 11
@@ -48,6 +48,7 @@ const Pagination = () => {
             : styles.arrow_left_active
         }`}
         onClick={transitionToTheLeftPages}
+        data-testid="arrow_left"
       ></div>
       {paginationArray.map((_, index) => {
         if (index < currentMaxPageRange && index > currentMaxPageRange - 11) {
@@ -74,6 +75,7 @@ const Pagination = () => {
             : styles.arrow_right_active
         }`}
         onClick={transitionToTheRightPages}
+        data-testid="arrow_right"
       ></div>
     </div>
   ) : (
