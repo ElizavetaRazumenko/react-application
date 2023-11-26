@@ -3,14 +3,19 @@ import ErrorButton from '@/components/error-button/error-button';
 import ItemChanger from '@/components/items-changer/item-changer';
 import Pagination from '@/components/pagination/pagination';
 import SearchBar from '@/components/search-bar/search-bar';
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import {
   getArtworkItems,
   getSearchArtworkItems,
 } from '@/services/main-serviсe';
-import { setResultsItems } from '@/store/reducers/main-slice';
+import {
+  setCurrentMaxPageRange,
+  setPagesNumber,
+  setResultsItems,
+} from '@/store/reducers/main-slice';
 import { wrapper } from '@/store/store';
 import { getArtworksItemsResponse } from '@/types/types';
+import { getPagesRange } from '@/utils/utils';
 import { useEffect } from 'react';
 import styles from '../../styles/page.module.scss';
 
@@ -47,7 +52,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 const Main = ({ data }: MainProps) => {
   const dispatch = useAppDispatch();
-
+  const { currentPage } = useAppSelector((state) => state.main);
   useEffect(() => {
     if (data) {
       const artworks = data.data.map((artwork) => ({
@@ -55,7 +60,8 @@ const Main = ({ data }: MainProps) => {
         description: artwork.thumbnail?.alt_text || 'No description',
         id: artwork.id,
       }));
-
+      dispatch(setPagesNumber(data.pagination.total_pages));
+      dispatch(setCurrentMaxPageRange(getPagesRange(currentPage)));
       dispatch(setResultsItems(artworks));
     }
   }, [data]);

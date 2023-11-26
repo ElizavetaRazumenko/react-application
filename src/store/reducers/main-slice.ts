@@ -18,13 +18,8 @@ type ResultsItem = {
 };
 
 const initialState: MainState = {
-  resultsItemInfo: [
-    { title: 'New Page', description: '', id: 11111 },
-    { title: 'Something', description: '', id: 11112 },
-    { title: 'Tralalala', description: '', id: 11112 },
-    { title: 'Something', description: '', id: 11112 },
-  ],
-  paginationCount: 15,
+  resultsItemInfo: [],
+  paginationCount: 1,
   searchInputValue: '',
   currentPage: 1,
   artworksCount: 12,
