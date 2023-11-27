@@ -1,0 +1,46 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.details_container {
+  margin: 15px 10px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  width: 450px;
+  height: 50vh;
+  background-color: #f0fdf9;
+  border-radius: 10px;
+  color: black;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close_button {
+  align-self: flex-end;
+  margin-left: 15px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../public/button-close.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.details_text_title {
+  font-size: 1.4rem;
+  font-style: italic;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.details_text {
+  text-align: center;
+  font-weight: 400;
+}
+
+.hidden {
+  display: none;
+}
