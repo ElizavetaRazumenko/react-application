@@ -30,6 +30,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     } = context.query;
     let dataMain;
     let dataDetails;
+
     if (
       typeof value === 'string' &&
       typeof items_count === 'string' &&
