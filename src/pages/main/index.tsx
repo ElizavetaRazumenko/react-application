@@ -3,15 +3,19 @@ import ErrorButton from '@/components/error-button/error-button';
 import ItemChanger from '@/components/items-changer/item-changer';
 import Pagination from '@/components/pagination/pagination';
 import SearchBar from '@/components/search-bar/search-bar';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { useAppDispatch } from '@/hooks/hooks';
 import {
   getArtworkItems,
   getSearchArtworkItems,
 } from '@/services/main-serviсe';
 import {
+  setArtworksCount,
+  setArtworksCountView,
   setCurrentMaxPageRange,
+  setCurrentPage,
   setPagesNumber,
   setResultsItems,
+  setSearchInputValue,
 } from '@/store/reducers/main-slice';
 import { wrapper } from '@/store/store';
 import { getArtworksItemsResponse } from '@/types/types';
@@ -21,6 +25,7 @@ import styles from '../../styles/page.module.scss';
 
 interface MainProps {
   data: getArtworksItemsResponse | undefined;
+  value: string;
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -46,13 +51,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
             );
     }
 
-    return { props: { data: data?.data } };
+    return { props: { data: data?.data, value: value } };
   },
 );
 
-const Main = ({ data }: MainProps) => {
+const Main = ({ data, value }: MainProps) => {
   const dispatch = useAppDispatch();
-  const { currentPage } = useAppSelector((state) => state.main);
   useEffect(() => {
     if (data) {
       const artworks = data.data.map((artwork) => ({
@@ -61,7 +65,13 @@ const Main = ({ data }: MainProps) => {
         id: artwork.id,
       }));
       dispatch(setPagesNumber(data.pagination.total_pages));
-      dispatch(setCurrentMaxPageRange(getPagesRange(currentPage)));
+      dispatch(
+        setCurrentMaxPageRange(getPagesRange(data.pagination.current_page)),
+      );
+      dispatch(setCurrentPage(data.pagination.current_page));
+      dispatch(setArtworksCount(data.pagination.limit));
+      dispatch(setArtworksCountView(data.pagination.limit));
+      dispatch(setSearchInputValue(value));
       dispatch(setResultsItems(artworks));
     }
   }, [data]);

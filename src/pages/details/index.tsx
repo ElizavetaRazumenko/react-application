@@ -16,7 +16,10 @@ import { useEffect } from 'react';
 import styles from '../../styles/detailes.module.scss';
 import Main from '../main';
 interface DetailsProps {
-  dataMain: getArtworksItemsResponse | undefined;
+  dataMain: {
+    data: getArtworksItemsResponse | undefined;
+    value: string;
+  };
   dataDetails: ArtworkDetails | undefined;
 }
 
@@ -55,7 +58,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     return {
-      props: { dataMain: dataMain?.data, dataDetails: dataDetails?.data },
+      props: {
+        dataMain: {
+          data: dataMain?.data,
+          value: value,
+        },
+        dataDetails: dataDetails?.data,
+      },
     };
   },
 );
@@ -106,7 +115,7 @@ const DetailedPage = ({ dataMain, dataDetails }: DetailsProps) => {
       className={styles.wrapper}
       onClick={(e) => closeTheDetailsPageOnMain(e)}
     >
-      <Main data={dataMain} />
+      <Main {...dataMain} />
       <div
         className={`${styles.details_container} child`}
         data-testid="details_page"
