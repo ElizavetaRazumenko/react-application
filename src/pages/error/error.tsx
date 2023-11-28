@@ -1,5 +1,7 @@
+import styles from "../error/error.module.css";
+
 const Error = () => {
-  return <div>Something went wrong</div>;
+  return <p className={styles.title}>Sorry...Something went wrong</p>;
 };
 
 export default Error;
