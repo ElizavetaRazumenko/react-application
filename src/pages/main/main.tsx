@@ -17,22 +17,30 @@ const Main = () => {
 
       <div className={styles.cards_info}>
         <div className={`${styles.card_info} ${styles.card_controlled}`}>
-          <p>Name: {"not filled"}</p>
-          <p>Age: {"not filled"}</p>
-          <p>Email: {"not filled"}</p>
-          <p>Password: {"not filled"}</p>
-          <p>Gender: {"not filled"}</p>
-          <p>Image: {"not filled"}</p>
-          <p>Country: {"not filled"}</p>
+          <div className={styles.info_block}>
+            <p>Name: {"not filled"}</p>
+            <p>Age: {"not filled"}</p>
+            <p>Email: {"not filled"}</p>
+            <p>Gender: {"not filled"}</p>
+          </div>
+          <div className={styles.info_block}>
+            <p>Country: {"not filled"}</p>
+            <p>Image: {"not filled"}</p>
+            <p>Password: {"not filled"}</p>
+          </div>
         </div>
         <div className={`${styles.card_info} ${styles.card_uncontrolled}`}>
-          <p>Name: {"not filled"}</p>
-          <p>Age: {"not filled"}</p>
-          <p>Email: {"not filled"}</p>
-          <p>Password: {"not filled"}</p>
-          <p>Gender: {"not filled"}</p>
-          <p>Image: {"not filled"}</p>
-          <p>Country: {"not filled"}</p>
+          <div className={styles.info_block}>
+            <p>Name: {"not filled"}</p>
+            <p>Age: {"not filled"}</p>
+            <p>Email: {"not filled"}</p>
+            <p>Gender: {"not filled"}</p>
+          </div>
+          <div className={styles.info_block}>
+            <p>Country: {"not filled"}</p>
+            <p>Image: {"not filled"}</p>
+            <p>Password: {"not filled"}</p>
+          </div>
         </div>
       </div>
     </div>

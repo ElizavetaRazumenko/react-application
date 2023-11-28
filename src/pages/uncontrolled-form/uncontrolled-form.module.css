@@ -10,17 +10,21 @@
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  background-color: rgba(16, 61, 24, .8);
+  background-color: #0e0d0d;
   border-radius: 15px;
   height: max-content;
   width: 350px;
   color: #e1ebe2;
-  box-shadow: 0 0 40px #0f3b17;
+  box-shadow: 0 0 50px #da1a1a;
 }
 
-.link_back {
+.btn_submit {
+  cursor: pointer;
+  border-radius: 10px;
   margin-top: 40px;
+  margin-bottom: 30px;
   background-color: #000000;
+  border: none;
   padding: 10px;
   color: #d3d6d8;
   font-size: 1.3rem;
@@ -30,7 +34,7 @@
   animation: anim-link-back 5s linear infinite;
 }
 
-.link_back:hover {
+.btn_submit:hover {
   color: #f9fafc;
 }
 
@@ -38,26 +42,30 @@
 
   0%,
   100% {
-    box-shadow: 0 0 0 0px #098309;
+    box-shadow: 0 0 0 0px #da1a1a;
   }
 
   25% {
-    box-shadow: 0 0 0 4px #098309;
+    box-shadow: 0 0 0 4px #da1a1a;
   }
 
   50% {
-    box-shadow: 0 0 0 8px #098309;
+    box-shadow: 0 0 0 8px #da1a1a;
   }
 
   75% {
-    box-shadow: 0 0 0 4px #098309;
+    box-shadow: 0 0 0 4px #da1a1a;
   }
 }
 
 label,
 .input_title {
-  margin: 5px 5px 0;
+  margin: 5px 0 0;
   font-size: 1.2rem;
+}
+
+.input_title {
+  margin-bottom: 5px;
 }
 
 .error_message {
@@ -78,10 +86,30 @@ input[type="password"] {
   margin: 5px 0;
   box-shadow: none;
   transition: .5s;
+  background-color: rgba(218, 217, 217, 0.8);
+  box-shadow: inset 3px 3px #7a7a7a;
+}
+
+input[type="file"] {
+  margin: 5px 0 10px;
+  background-color: rgba(218, 217, 217, 0.8);
+  border-radius: 8px;
+  color: #000000;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  box-shadow: 0 0 35px #cbd4cb;
+  box-shadow: 0 0 35px #098309;
+}
+
+.label_radio {
+  font-size: 1rem;
+  margin-right: 15px;
+}
+
+.radio_container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }

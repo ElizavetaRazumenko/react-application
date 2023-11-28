@@ -1,0 +1,116 @@
+.wrapper {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    background-color: #0d0d0e;
+    border-radius: 15px;
+    height: max-content;
+    width: 350px;
+    color: #e1ebe2;
+    box-shadow: 0 0 50px #2020d4;
+  }
+  
+  .btn_submit {
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    background-color: #000000;
+    padding: 10px;
+    color: #d3d6d8;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .5s;
+    animation: anim-link-back 5s linear infinite;
+  }
+  
+  .btn_submit:hover {
+    color: #f9fafc;
+  }
+  
+  @keyframes anim-link-back {
+  
+    0%,
+    100% {
+      box-shadow: 0 0 0 0px #110983;
+    }
+  
+    25% {
+      box-shadow: 0 0 0 4px #110983;
+    }
+  
+    50% {
+      box-shadow: 0 0 0 8px #110983;
+    }
+  
+    75% {
+      box-shadow: 0 0 0 4px #110983;
+    }
+  }
+  
+  label,
+  .input_title {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+  }
+  
+  .input_title {
+    margin-bottom: 5px;
+  }
+  
+  .error_message {
+    margin: 0 0 0 5px;
+    color: red;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    box-sizing: border-box;
+    height: 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 8px;
+    margin: 5px 0;
+    box-shadow: none;
+    transition: .5s;
+    background-color: rgba(218, 217, 217, 0.8);
+    box-shadow: inset 3px 3px #7a7a7a;
+  }
+  
+  input[type="file"] {
+    margin: 5px 0 10px;
+    background-color: rgba(218, 217, 217, 0.8);
+    border-radius: 8px;
+    color: #000000;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    box-shadow: 0 0 35px #098309;
+  }
+  
+  .label_radio {
+    font-size: 1rem;
+    margin-right: 15px;
+  }
+  
+  .radio_container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  

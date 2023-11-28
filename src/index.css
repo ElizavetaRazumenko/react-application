@@ -9,7 +9,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: black;
-  /* background-image: url(./assets/bg_animated1.gif); */
+  background-image: url(./assets/bg_animated1.gif);
   background-repeat: no-repeat;
   background-size: cover;
 }
