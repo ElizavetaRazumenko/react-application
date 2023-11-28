@@ -1,0 +1,47 @@
+.links_container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.link {
+    color: #f3f5f3;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    font-size: 2.3rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: .5s;
+}
+
+.link:hover {
+    color: #bdc0bd;
+}
+
+.blue_pill,
+.red_pill {
+    width: 50px;
+    height: 130px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: .5s;
+}
+
+.blue_pill {
+    background-image: url(../../../public/blue-pill.png);
+}
+
+.blue_pill:hover {
+    background-image: url(../../../public/blue-pill-hover.png);
+}
+
+.red_pill {
+    background-image: url(../../../public/red-pill.png);
+}
+
+.red_pill:hover {
+    background-image: url(../../../public/red-pill-hover.png);
+}
