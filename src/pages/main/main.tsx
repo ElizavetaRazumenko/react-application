@@ -16,7 +16,7 @@ const Main = () => {
       </div>
 
       <div className={styles.cards_info}>
-        <div className={styles.card_info}>
+        <div className={`${styles.card_info} ${styles.card_controlled}`}>
           <p>Name: {"not filled"}</p>
           <p>Age: {"not filled"}</p>
           <p>Email: {"not filled"}</p>
@@ -25,7 +25,7 @@ const Main = () => {
           <p>Image: {"not filled"}</p>
           <p>Country: {"not filled"}</p>
         </div>
-        <div className={styles.card_info}>
+        <div className={`${styles.card_info} ${styles.card_uncontrolled}`}>
           <p>Name: {"not filled"}</p>
           <p>Age: {"not filled"}</p>
           <p>Email: {"not filled"}</p>

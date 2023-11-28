@@ -1,8 +1,8 @@
 .main_wrapper {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .links_container {
@@ -29,15 +29,15 @@
 }
 
 .link_title {
-    padding: 5px 10px;
-    border-radius: 15px;
-    background-color: rgba(241, 241, 241, 0.8);
-    box-shadow: none;
-    transition: .5s;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: rgba(241, 241, 241, 0.8);
+  box-shadow: none;
+  transition: 0.5s;
 }
 
 .link:hover .link_title {
-    box-shadow: 0 0 25px rgb(241, 241, 241);
+  box-shadow: 0 0 35px rgb(241, 241, 241);
 }
 
 .blue_pill,
@@ -57,23 +57,24 @@
   background-image: url(../../assets/red-pill.png);
 }
 
-
 .cards_info {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .card_info {
-    box-sizing: border-box;
-    color: #044408;
-    font-size: 1.5rem;
-    min-width: 250px;
-    width: max-content;
-    height: max-content;
-    margin-top: 40px;
-    padding: 10px 35px;
-    border-radius: 15px;
-    background-color: rgba(241, 241, 241, 0.8);
-    box-shadow: none;
+  box-sizing: border-box;
+  color: #044408;
+  font-size: 1.5rem;
+  font-weight: 700;
+  min-width: 250px;
+  width: max-content;
+  height: max-content;
+  margin-top: 40px;
+  padding: 10px 35px;
+  border-radius: 15px;
+  background-color: rgba(241, 241, 241, 0.8);
+  box-shadow: none;
+  transition: .5s;
 }

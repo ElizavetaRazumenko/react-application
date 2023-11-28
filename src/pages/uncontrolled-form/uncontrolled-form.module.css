@@ -1,0 +1,7 @@
+.form {
+    background-color: rgba(241, 241, 241, 0.8);
+    border-radius: 15px;
+    height: max-content;
+    width: 350px;
+    color: #044408;
+}
