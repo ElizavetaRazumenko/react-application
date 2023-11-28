@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/controlled-form" element={<ControlledForm />} />
+      <Route path="/react-hook-form" element={<ControlledForm />} />
       <Route path="/uncontrolled-form" element={<UncontrolledForm />} />
       <Route path="/*" element={<Error />} />
     </Routes>

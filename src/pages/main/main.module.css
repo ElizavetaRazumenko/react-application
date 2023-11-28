@@ -1,47 +1,79 @@
+.main_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .links_container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.link {
+  color: #044408;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.5s;
+}
+
+.link:hover {
+  color: #07610d;
+}
+
+.link_title {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgba(241, 241, 241, 0.8);
+    box-shadow: none;
+    transition: .5s;
+}
+
+.link:hover .link_title {
+    box-shadow: 0 0 25px rgb(241, 241, 241);
+}
+
+.blue_pill,
+.red_pill {
+  width: 50px;
+  height: 130px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 0.5s;
+}
+
+.blue_pill {
+  background-image: url(../../assets/blue-pill.png);
+}
+
+.red_pill {
+  background-image: url(../../assets/red-pill.png);
+}
+
+
+.cards_info {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
 
-.link {
-    color: #f3f5f3;
-    letter-spacing: 1.5px;
-    text-decoration: none;
-    font-size: 2.3rem;
-    font-weight: 700;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    transition: .5s;
-}
-
-.link:hover {
-    color: #bdc0bd;
-}
-
-.blue_pill,
-.red_pill {
-    width: 50px;
-    height: 130px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    transition: .5s;
-}
-
-.blue_pill {
-    background-image: url(../../../public/blue-pill.png);
-}
-
-.blue_pill:hover {
-    background-image: url(../../../public/blue-pill-hover.png);
-}
-
-.red_pill {
-    background-image: url(../../../public/red-pill.png);
-}
-
-.red_pill:hover {
-    background-image: url(../../../public/red-pill-hover.png);
+.card_info {
+    box-sizing: border-box;
+    color: #044408;
+    font-size: 1.5rem;
+    min-width: 250px;
+    width: max-content;
+    height: max-content;
+    margin-top: 40px;
+    padding: 10px 35px;
+    border-radius: 15px;
+    background-color: rgba(241, 241, 241, 0.8);
+    box-shadow: none;
 }
