@@ -48,10 +48,12 @@
 }
 
 .blue_pill {
+  background-color: #162057;
   background-image: url(../../assets/blue-pill.png);
 }
 
 .red_pill {
+  background-color: #530b0d;
   background-image: url(../../assets/red-pill.png);
 }
 
