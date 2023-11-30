@@ -1,12 +1,13 @@
-// import { NavLink } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import styles from "./uncontrolled-form.module.css";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useDispatch } from "react-redux";
 import { setForm } from "../../redux/reducers/uncontrolled-form-slice";
+import { useNavigate } from "react-router-dom";
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
 
   const formValues = useAppSelector((state) => state.uncontrolledForm);
 
@@ -26,33 +27,35 @@ const UncontrolledForm = () => {
     nameRef.current!.value = formValues.name;
     ageRef.current!.value = formValues.age;
     email.current!.value = formValues.email;
-    pass1.current!.value = formValues.pass1;
-    pass2.current!.value = formValues.pass2;
+    pass1.current!.value = formValues.password;
+    pass2.current!.value = formValues.password;
     country.current!.value = formValues.country;
     male.current!.checked = formValues.isMale;
     female.current!.checked = formValues.isFemale;
     yes.current!.checked = formValues.isAgree;
     no.current!.checked = formValues.isDesagree;
-  });
+  }, []);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("here");
     e.preventDefault();
     dispatch(
       setForm({
         name: nameRef.current!.value,
         age: ageRef.current!.value,
         email: email.current!.value,
-        pass1: pass1.current!.value,
-        pass2: pass2.current!.value,
+        password: pass1.current!.value,
         country: country.current!.value,
         isMale: male.current!.checked,
         isFemale: female.current!.checked,
         isAgree: yes.current!.checked,
         isDesagree: no.current!.checked,
         image: "",
+        isFilled: true,
       }),
     );
 
+    navigator("/");
     // console.log(image.current!.files);
   };
 

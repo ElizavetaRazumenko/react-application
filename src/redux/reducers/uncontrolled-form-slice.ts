@@ -6,14 +6,14 @@ const initialState: ReactFormState = {
   name: "",
   age: "",
   email: "",
-  pass1: "",
-  pass2: "",
+  password: "",
   country: "",
   isMale: false,
   isFemale: false,
   isAgree: false,
   isDesagree: false,
   image: "",
+  isFilled: false,
 };
 
 export const UncontrolledFormSlice = createSlice({
@@ -21,7 +21,17 @@ export const UncontrolledFormSlice = createSlice({
   initialState,
   reducers: {
     setForm: (state, action: PayloadAction<ReactFormState>) => {
-      state = action.payload;
+      state.name = action.payload.name;
+      state.age = action.payload.age;
+      state.email = action.payload.email;
+      state.password = action.payload.password;
+      state.country = action.payload.country;
+      state.isMale = action.payload.isMale;
+      state.isFemale = action.payload.isFemale;
+      state.isAgree = action.payload.isAgree;
+      state.isDesagree = action.payload.isDesagree;
+      state.image = action.payload.image;
+      state.isFilled = true;
     },
   },
 });

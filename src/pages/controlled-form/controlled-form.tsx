@@ -3,17 +3,19 @@ import styles from "./controlled-form.module.css";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useDispatch } from "react-redux";
 import { setForm } from "../../redux/reducers/controlled-form-slice";
+import { useNavigate } from "react-router-dom";
 
 const ControlledForm = () => {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
 
   const formValues = useAppSelector((state) => state.controlledForm);
 
   const [nameValue, setNameValue] = useState(formValues.name);
   const [ageValue, setAgeValue] = useState(formValues.age);
   const [emailValue, setEmailValue] = useState(formValues.email);
-  const [pass1Value, setPass1Value] = useState(formValues.pass1);
-  const [pass2Value, setPass2Value] = useState(formValues.pass2);
+  const [pass1Value, setPass1Value] = useState(formValues.password);
+  const [pass2Value, setPass2Value] = useState(formValues.password);
   const [countryValue, setCountryValue] = useState(formValues.country);
   const [isMaleValue, setIsMaleValue] = useState(formValues.isMale);
   const [isFemaleValue, setIsFemaleValue] = useState(formValues.isFemale);
@@ -28,16 +30,18 @@ const ControlledForm = () => {
         name: nameValue,
         age: ageValue,
         email: emailValue,
-        pass1: pass1Value,
-        pass2: pass2Value,
+        password: pass1Value,
         country: countryValue,
         isMale: isMaleValue,
         isFemale: isFemaleValue,
         isAgree: isAgreeValue,
         isDesagree: isDisagreeValue,
         image: "",
+        isFilled: true,
       }),
     );
+
+    navigator("/");
   };
 
   return (

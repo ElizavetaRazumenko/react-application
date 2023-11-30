@@ -45,7 +45,7 @@ module.exports = {
         },
       },
     ],
-
+    "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
       "error",
       {

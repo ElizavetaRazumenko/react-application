@@ -1,12 +1,12 @@
  
   .card_info {
     box-sizing: border-box;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     min-width: 250px;
     width: max-content;
     height: max-content;
-    padding: 10px 35px;
+    padding: 10px 15px;
     border-radius: 15px;
     background-color: #131212;
     color: #09d61e;
@@ -39,5 +39,40 @@
   }
   
   .info_block {
-    min-width: 250px;
+    min-width: 150px;
+  }
+
+  .info_block_left {
+    margin-right: 20px;
+  }
+
+  .no_filled_title {
+    background-color: #131212;
+    padding: 10px 20px;
+    margin-top: 40px;
+    justify-self: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #098309;
+    animation: anim-text 5s linear infinite;
+  }
+
+  @keyframes anim-text {
+  
+    0%,
+    100% {
+      color:#098309;
+    }
+  
+    25% {
+      color:#51a751;
+    }
+  
+    50% {
+      color:#e8ece8;
+    }
+  
+    75% {
+      color:#51a751;
+    }
   }

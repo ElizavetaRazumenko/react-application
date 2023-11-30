@@ -1,8 +1,14 @@
 import { NavLink } from "react-router-dom";
 import styles from "./main.module.css";
 import InfoCard from "../../components/info-card/info-card";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const Main = () => {
+  const contolledFormValues = useAppSelector((state) => state.controlledForm);
+  const uncontolledFormValues = useAppSelector(
+    (state) => state.uncontrolledForm,
+  );
+
   return (
     <div className={styles.main_wrapper}>
       <div className={styles.links_container}>
@@ -17,8 +23,8 @@ const Main = () => {
       </div>
 
       <div className={styles.cards_info}>
-        <InfoCard />
-        <InfoCard />
+        <InfoCard {...contolledFormValues} />
+        <InfoCard {...uncontolledFormValues} />
       </div>
     </div>
   );
