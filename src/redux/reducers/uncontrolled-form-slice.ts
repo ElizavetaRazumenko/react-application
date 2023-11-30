@@ -1,19 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ReactFormState } from "../models";
+import { CustomFormState, ReactFormState } from "../models";
 
-const initialState: ReactFormState = {
-  name: "",
-  age: "",
-  email: "",
-  password: "",
-  country: "",
-  isMale: false,
-  isFemale: false,
-  isAgree: false,
-  isDesagree: false,
-  image: "",
-  isFilled: false,
+const initialState: CustomFormState = {
+  formData: {
+    name: "",
+    age: "",
+    email: "",
+    password: "",
+    country: "",
+    isMale: false,
+    isFemale: false,
+    isAgree: false,
+    isDesagree: false,
+  },
+  isFormFilled: false,
+  dataBase64: "",
 };
 
 export const UncontrolledFormSlice = createSlice({
@@ -21,21 +23,21 @@ export const UncontrolledFormSlice = createSlice({
   initialState,
   reducers: {
     setForm: (state, action: PayloadAction<ReactFormState>) => {
-      state.name = action.payload.name;
-      state.age = action.payload.age;
-      state.email = action.payload.email;
-      state.password = action.payload.password;
-      state.country = action.payload.country;
-      state.isMale = action.payload.isMale;
-      state.isFemale = action.payload.isFemale;
-      state.isAgree = action.payload.isAgree;
-      state.isDesagree = action.payload.isDesagree;
-      state.image = action.payload.image;
-      state.isFilled = true;
+      state.formData = action.payload;
+    },
+    setIsFilled: (state, action: PayloadAction<boolean>) => {
+      state.isFormFilled = action.payload;
+    },
+    setDataBase64: (
+      state,
+      action: PayloadAction<string | ArrayBuffer | null>,
+    ) => {
+      state.dataBase64 = action.payload;
     },
   },
 });
 
-export const { setForm } = UncontrolledFormSlice.actions;
+export const { setForm, setIsFilled, setDataBase64 } =
+  UncontrolledFormSlice.actions;
 
 export default UncontrolledFormSlice.reducer;

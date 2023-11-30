@@ -8,6 +8,10 @@ export interface ReactFormState {
   isFemale: boolean;
   isAgree: boolean;
   isDesagree: boolean;
-  image: string;
-  isFilled: boolean;
+}
+
+export interface CustomFormState {
+  formData: ReactFormState;
+  isFormFilled: boolean;
+  dataBase64: string | ArrayBuffer | null;
 }

@@ -4,8 +4,8 @@ import InfoCard from "../../components/info-card/info-card";
 import { useAppSelector } from "../../redux/hooks/hooks";
 
 const Main = () => {
-  const contolledFormValues = useAppSelector((state) => state.controlledForm);
-  const uncontolledFormValues = useAppSelector(
+  const stateControlledForm = useAppSelector((state) => state.controlledForm);
+  const stateUncontrolledForm = useAppSelector(
     (state) => state.uncontrolledForm,
   );
 
@@ -23,8 +23,14 @@ const Main = () => {
       </div>
 
       <div className={styles.cards_info}>
-        <InfoCard {...contolledFormValues} />
-        <InfoCard {...uncontolledFormValues} />
+        <InfoCard
+          formData={stateControlledForm.formData}
+          isFormFilled={stateControlledForm.isFormFilled}
+        />
+        <InfoCard
+          formData={stateUncontrolledForm.formData}
+          isFormFilled={stateUncontrolledForm.isFormFilled}
+        />
       </div>
     </div>
   );

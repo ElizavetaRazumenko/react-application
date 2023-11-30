@@ -2,14 +2,18 @@ import { useEffect, useRef } from "react";
 import styles from "./uncontrolled-form.module.css";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useDispatch } from "react-redux";
-import { setForm } from "../../redux/reducers/uncontrolled-form-slice";
+import {
+  setDataBase64,
+  setForm,
+  setIsFilled,
+} from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
-
-  const formValues = useAppSelector((state) => state.uncontrolledForm);
+  const reader = new FileReader();
+  const formValues = useAppSelector((state) => state.uncontrolledForm.formData);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -37,7 +41,6 @@ const UncontrolledForm = () => {
   }, []);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("here");
     e.preventDefault();
     dispatch(
       setForm({
@@ -50,13 +53,17 @@ const UncontrolledForm = () => {
         isFemale: female.current!.checked,
         isAgree: yes.current!.checked,
         isDesagree: no.current!.checked,
-        image: "",
-        isFilled: true,
       }),
     );
+    dispatch(setIsFilled(true));
+    if (image.current!.files && image.current!.files[0]) {
+      reader.readAsDataURL(image.current!.files[0]);
+      reader.onload = () => {
+        dispatch(setDataBase64(reader.result));
+      };
+    }
 
     navigator("/");
-    // console.log(image.current!.files);
   };
 
   return (
@@ -139,7 +146,7 @@ const UncontrolledForm = () => {
         </div>
 
         <label htmlFor="image">Image</label>
-        <input type="file" id="image" accept="image/*" ref={image} />
+        <input type="file" id="image" accept=".jpg,.png" ref={image} />
 
         <button className={styles.btn_submit}>Submit</button>
       </form>

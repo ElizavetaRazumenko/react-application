@@ -9,7 +9,7 @@ const ControlledForm = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
-  const formValues = useAppSelector((state) => state.controlledForm);
+  const formValues = useAppSelector((state) => state.controlledForm.formData);
 
   const [nameValue, setNameValue] = useState(formValues.name);
   const [ageValue, setAgeValue] = useState(formValues.age);
@@ -23,7 +23,7 @@ const ControlledForm = () => {
   const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
   // const [imageValue, setImageValue] = useState("");
 
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       setForm({
@@ -36,8 +36,6 @@ const ControlledForm = () => {
         isFemale: isFemaleValue,
         isAgree: isAgreeValue,
         isDesagree: isDisagreeValue,
-        image: "",
-        isFilled: true,
       }),
     );
 
@@ -158,7 +156,12 @@ const ControlledForm = () => {
         </div>
 
         <label htmlFor="image">Image</label>
-        <input type="file" id="image" />
+        <input
+          type="file"
+          id="image"
+          accept=".jpg,.png"
+          onChange={console.log}
+        />
 
         <button className={styles.btn_submit}>Submit</button>
       </form>
