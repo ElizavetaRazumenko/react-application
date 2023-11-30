@@ -8,6 +8,20 @@ import {
   setIsFilled,
 } from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+interface Form {
+  name: string;
+  age: number;
+  email: string;
+  password1: string;
+  password2: string;
+  country: string;
+  isMale: boolean;
+  isFemale: boolean;
+  isAgree: boolean;
+  isDesagree: boolean;
+}
 
 const ControlledForm = () => {
   const dispatch = useDispatch();
@@ -17,6 +31,19 @@ const ControlledForm = () => {
   const stringBase64 = useAppSelector(
     (state) => state.controlledForm.dataBase64,
   );
+
+  const { register, handleSubmit } = useForm<Form>({
+    defaultValues: {
+      name: formValues.name,
+      age: formValues.age,
+      email: formValues.email,
+      password1: formValues.password,
+      password2: formValues.password,
+      country: formValues.country,
+      isMale: formValues.isMale,
+      isAgree: formValues.isAgree,
+    },
+  });
 
   const [nameValue, setNameValue] = useState(formValues.name);
   const [ageValue, setAgeValue] = useState(formValues.age);
@@ -30,24 +57,24 @@ const ControlledForm = () => {
   const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
   const [img64, setImg64] = useState(stringBase64 as string);
 
-  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(
-      setForm({
-        name: nameValue,
-        age: ageValue,
-        email: emailValue,
-        password: pass1Value,
-        country: countryValue,
-        isMale: isMaleValue,
-        isFemale: isFemaleValue,
-        isAgree: isAgreeValue,
-        isDesagree: isDisagreeValue,
-      }),
-    );
-    dispatch(setIsFilled(true));
-    dispatch(setDataBase64(img64));
-    navigator("/");
+  const submitForm: SubmitHandler<Form> = async (data) => {
+    console.log(data);
+    // dispatch(
+    //   setForm({
+    //     name: nameValue,
+    //     age: ageValue,
+    //     email: emailValue,
+    //     password: pass1Value,
+    //     country: countryValue,
+    //     isMale: isMaleValue,
+    //     isFemale: isFemaleValue,
+    //     isAgree: isAgreeValue,
+    //     isDesagree: isDisagreeValue,
+    //   }),
+    // );
+    // dispatch(setIsFilled(true));
+    // dispatch(setDataBase64(img64));
+    // navigator("/");
   };
 
   const setDataBase = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +88,14 @@ const ControlledForm = () => {
 
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={submitForm}>
+      <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
         <label htmlFor="name">Name</label>
         <input
           type="text"
           id="name"
           value={nameValue}
           onInput={(e) => setNameValue(e.currentTarget.value)}
+          {...register("name")}
         />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="age">Age</label>
@@ -76,6 +104,7 @@ const ControlledForm = () => {
           id="age"
           value={ageValue}
           onInput={(e) => setAgeValue(+e.currentTarget.value)}
+          {...register("age")}
         />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="email">Email</label>
@@ -84,6 +113,7 @@ const ControlledForm = () => {
           id="email"
           value={emailValue}
           onInput={(e) => setEmailValue(e.currentTarget.value)}
+          {...register("email")}
         />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="pass1">Password</label>
@@ -92,6 +122,7 @@ const ControlledForm = () => {
           id="pass1"
           value={pass1Value}
           onInput={(e) => setPass1Value(e.currentTarget.value)}
+          {...register("password1")}
         />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="pass2">Repeat password</label>
@@ -100,6 +131,7 @@ const ControlledForm = () => {
           id="pass2"
           value={pass2Value}
           onInput={(e) => setPass2Value(e.currentTarget.value)}
+          {...register("password2")}
         />
         <p className={styles.error_message}>Error</p>
 
@@ -109,6 +141,7 @@ const ControlledForm = () => {
           id="country"
           value={countryValue}
           onInput={(e) => setCountryValue(e.currentTarget.value)}
+          {...register("country")}
         />
         <p className={styles.error_message}>Error</p>
 
@@ -121,10 +154,10 @@ const ControlledForm = () => {
             <input
               type="radio"
               id="male"
-              name="gender"
               value="male"
               checked={isMaleValue}
-              onChange={(e) => setIsMaleValue(e.currentTarget.checked)}
+              // onChange={(e) => setIsMaleValue(e.currentTarget.checked)}
+              {...register("isMale")}
             />
           </div>
           <div>
@@ -134,10 +167,10 @@ const ControlledForm = () => {
             <input
               type="radio"
               id="female"
-              name="gender"
               value="female"
               checked={isFemaleValue}
-              onChange={(e) => setIsFemaleValue(e.currentTarget.checked)}
+              // onChange={(e) => setIsFemaleValue(e.currentTarget.checked)}
+              {...register("isMale")}
             />
           </div>
         </div>
@@ -151,10 +184,10 @@ const ControlledForm = () => {
             <input
               type="radio"
               id="terms_yes"
-              name="terms"
               value="yes"
               checked={isAgreeValue}
-              onChange={(e) => setIsAgreeValue(e.currentTarget.checked)}
+              // onChange={(e) => setIsAgreeValue(e.currentTarget.checked)}
+              {...register("isAgree")}
             />
           </div>
           <div>
@@ -164,10 +197,10 @@ const ControlledForm = () => {
             <input
               type="radio"
               id="terms_no"
-              name="terms"
               value="no"
               checked={isDisagreeValue}
-              onChange={(e) => setIsDisagreeValue(e.currentTarget.checked)}
+              // onChange={(e) => setIsDisagreeValue(e.currentTarget.checked)}
+              {...register("isAgree")}
             />
           </div>
         </div>
