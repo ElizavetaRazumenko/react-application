@@ -17,10 +17,8 @@ interface Form {
   password1: string;
   password2: string;
   country: string;
-  isMale: boolean;
-  isFemale: boolean;
-  isAgree: boolean;
-  isDesagree: boolean;
+  isMale: string;
+  isAgree: string;
 }
 
 const ControlledForm = () => {
@@ -40,41 +38,29 @@ const ControlledForm = () => {
       password1: formValues.password,
       password2: formValues.password,
       country: formValues.country,
-      isMale: formValues.isMale,
-      isAgree: formValues.isAgree,
+      isMale: formValues.isMale ? "male" : "female",
+      isAgree: formValues.isAgree ? "yes" : "no",
     },
   });
-
-  const [nameValue, setNameValue] = useState(formValues.name);
-  const [ageValue, setAgeValue] = useState(formValues.age);
-  const [emailValue, setEmailValue] = useState(formValues.email);
-  const [pass1Value, setPass1Value] = useState(formValues.password);
-  const [pass2Value, setPass2Value] = useState(formValues.password);
-  const [countryValue, setCountryValue] = useState(formValues.country);
-  const [isMaleValue, setIsMaleValue] = useState(formValues.isMale);
-  const [isFemaleValue, setIsFemaleValue] = useState(formValues.isFemale);
-  const [isAgreeValue, setIsAgreeValue] = useState(formValues.isAgree);
-  const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
   const [img64, setImg64] = useState(stringBase64 as string);
 
-  const submitForm: SubmitHandler<Form> = async (data) => {
-    console.log(data);
-    // dispatch(
-    //   setForm({
-    //     name: nameValue,
-    //     age: ageValue,
-    //     email: emailValue,
-    //     password: pass1Value,
-    //     country: countryValue,
-    //     isMale: isMaleValue,
-    //     isFemale: isFemaleValue,
-    //     isAgree: isAgreeValue,
-    //     isDesagree: isDisagreeValue,
-    //   }),
-    // );
-    // dispatch(setIsFilled(true));
-    // dispatch(setDataBase64(img64));
-    // navigator("/");
+  const submitForm: SubmitHandler<Form> = (data) => {
+    dispatch(
+      setForm({
+        name: data.name,
+        age: data.age,
+        email: data.email,
+        password: data.password1,
+        country: data.country,
+        isMale: data.isMale === "male" ? true : false,
+        isFemale: data.isMale === "male" ? false : true,
+        isAgree: data.isAgree === "yes" ? true : false,
+        isDesagree: data.isAgree === "yes" ? false : true,
+      }),
+    );
+    dispatch(setIsFilled(true));
+    dispatch(setDataBase64(img64));
+    navigator("/");
   };
 
   const setDataBase = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,59 +76,23 @@ const ControlledForm = () => {
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
         <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          value={nameValue}
-          onInput={(e) => setNameValue(e.currentTarget.value)}
-          {...register("name")}
-        />
+        <input type="text" id="name" {...register("name")} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="age">Age</label>
-        <input
-          type="number"
-          id="age"
-          value={ageValue}
-          onInput={(e) => setAgeValue(+e.currentTarget.value)}
-          {...register("age")}
-        />
+        <input type="number" id="age" {...register("age")} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={emailValue}
-          onInput={(e) => setEmailValue(e.currentTarget.value)}
-          {...register("email")}
-        />
+        <input type="email" id="email" {...register("email")} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="pass1">Password</label>
-        <input
-          type="password"
-          id="pass1"
-          value={pass1Value}
-          onInput={(e) => setPass1Value(e.currentTarget.value)}
-          {...register("password1")}
-        />
+        <input type="password" id="pass1" {...register("password1")} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="pass2">Repeat password</label>
-        <input
-          type="password"
-          id="pass2"
-          value={pass2Value}
-          onInput={(e) => setPass2Value(e.currentTarget.value)}
-          {...register("password2")}
-        />
+        <input type="password" id="pass2" {...register("password2")} />
         <p className={styles.error_message}>Error</p>
 
         <label htmlFor="country">Country</label>
-        <input
-          type="text"
-          id="country"
-          value={countryValue}
-          onInput={(e) => setCountryValue(e.currentTarget.value)}
-          {...register("country")}
-        />
+        <input type="text" id="country" {...register("country")} />
         <p className={styles.error_message}>Error</p>
 
         <p className={styles.input_title}>Gender</p>
@@ -155,8 +105,6 @@ const ControlledForm = () => {
               type="radio"
               id="male"
               value="male"
-              checked={isMaleValue}
-              // onChange={(e) => setIsMaleValue(e.currentTarget.checked)}
               {...register("isMale")}
             />
           </div>
@@ -168,8 +116,6 @@ const ControlledForm = () => {
               type="radio"
               id="female"
               value="female"
-              checked={isFemaleValue}
-              // onChange={(e) => setIsFemaleValue(e.currentTarget.checked)}
               {...register("isMale")}
             />
           </div>
@@ -185,8 +131,6 @@ const ControlledForm = () => {
               type="radio"
               id="terms_yes"
               value="yes"
-              checked={isAgreeValue}
-              // onChange={(e) => setIsAgreeValue(e.currentTarget.checked)}
               {...register("isAgree")}
             />
           </div>
@@ -198,8 +142,6 @@ const ControlledForm = () => {
               type="radio"
               id="terms_no"
               value="no"
-              checked={isDisagreeValue}
-              // onChange={(e) => setIsDisagreeValue(e.currentTarget.checked)}
               {...register("isAgree")}
             />
           </div>
