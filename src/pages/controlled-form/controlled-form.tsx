@@ -2,13 +2,17 @@ import { useState } from "react";
 import styles from "./controlled-form.module.css";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useDispatch } from "react-redux";
-import { setForm } from "../../redux/reducers/controlled-form-slice";
+import {
+  setDataBase64,
+  setForm,
+  setIsFilled,
+} from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
 
 const ControlledForm = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
-
+  const reader = new FileReader();
   const formValues = useAppSelector((state) => state.controlledForm.formData);
 
   const [nameValue, setNameValue] = useState(formValues.name);
@@ -21,7 +25,6 @@ const ControlledForm = () => {
   const [isFemaleValue, setIsFemaleValue] = useState(formValues.isFemale);
   const [isAgreeValue, setIsAgreeValue] = useState(formValues.isAgree);
   const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
-  // const [imageValue, setImageValue] = useState("");
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,8 +41,17 @@ const ControlledForm = () => {
         isDesagree: isDisagreeValue,
       }),
     );
-
+    dispatch(setIsFilled(true));
     navigator("/");
+  };
+
+  const setDataBase = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        dispatch(setDataBase64(reader.result));
+      };
+    }
   };
 
   return (
@@ -160,7 +172,7 @@ const ControlledForm = () => {
           type="file"
           id="image"
           accept=".jpg,.png"
-          onChange={console.log}
+          onChange={setDataBase}
         />
 
         <button className={styles.btn_submit}>Submit</button>
