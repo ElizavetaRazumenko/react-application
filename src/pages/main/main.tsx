@@ -26,10 +26,12 @@ const Main = () => {
         <InfoCard
           formData={stateControlledForm.formData}
           isFormFilled={stateControlledForm.isFormFilled}
+          base64={stateControlledForm.dataBase64}
         />
         <InfoCard
           formData={stateUncontrolledForm.formData}
           isFormFilled={stateUncontrolledForm.isFormFilled}
+          base64={stateUncontrolledForm.dataBase64}
         />
       </div>
     </div>

@@ -1,4 +1,8 @@
- 
+ .card_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
   .card_info {
     box-sizing: border-box;
     font-size: 1.3rem;
@@ -74,4 +78,20 @@
     75% {
       color:#51a751;
     }
+  }
+
+  .img {
+    margin-top: 20px;
+    width: 400px;
+    height: auto;
+    animation: anim-card 5s linear infinite;
+  }
+
+  .img_title {
+    background-color: #131212;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #098309;
+    font-size: 2rem;
+    font-weight: 700;
   }
