@@ -1,32 +1,45 @@
 import { useState } from "react";
 import styles from "./controlled-form.module.css";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { useDispatch } from "react-redux";
+import { setForm } from "../../redux/reducers/controlled-form-slice";
 
 const ControlledForm = () => {
-  const [nameValue, setNameValue] = useState("");
-  const [ageValue, setAgeValue] = useState("");
-  const [emailValue, setEmailValue] = useState("");
-  const [pass1Value, setPass1Value] = useState("");
-  const [pass2Value, setPass2Value] = useState("");
-  const [countryValue, setCountryValue] = useState("");
-  const [isMaleValue, setIsMaleValue] = useState(false);
-  const [isFemaleValue, setIsFemaleValue] = useState(false);
-  const [isAgreeValue, setIsAgreeValue] = useState(false);
-  const [isDisagreeValue, setIsDisagreeValue] = useState(false);
+  const dispatch = useDispatch();
+
+  const formValues = useAppSelector((state) => state.controlledForm);
+
+  const [nameValue, setNameValue] = useState(formValues.name);
+  const [ageValue, setAgeValue] = useState(formValues.age);
+  const [emailValue, setEmailValue] = useState(formValues.email);
+  const [pass1Value, setPass1Value] = useState(formValues.pass1);
+  const [pass2Value, setPass2Value] = useState(formValues.pass2);
+  const [countryValue, setCountryValue] = useState(formValues.country);
+  const [isMaleValue, setIsMaleValue] = useState(formValues.isMale);
+  const [isFemaleValue, setIsFemaleValue] = useState(formValues.isFemale);
+  const [isAgreeValue, setIsAgreeValue] = useState(formValues.isAgree);
+  const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
   // const [imageValue, setImageValue] = useState("");
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(nameValue);
-    console.log(ageValue);
-    console.log(emailValue);
-    console.log(pass1Value);
-    console.log(pass2Value);
-    console.log(countryValue);
-    console.log(isMaleValue);
-    console.log(isFemaleValue);
-    console.log(isAgreeValue);
-    console.log(isDisagreeValue);
+    dispatch(
+      setForm({
+        name: nameValue,
+        age: ageValue,
+        email: emailValue,
+        pass1: pass1Value,
+        pass2: pass2Value,
+        country: countryValue,
+        isMale: isMaleValue,
+        isFemale: isFemaleValue,
+        isAgree: isAgreeValue,
+        isDesagree: isDisagreeValue,
+        image: "",
+      }),
+    );
   };
+
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={submitForm}>

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from "./main.module.css";
+import InfoCard from "../../components/info-card/info-card";
 
 const Main = () => {
   return (
@@ -16,32 +17,8 @@ const Main = () => {
       </div>
 
       <div className={styles.cards_info}>
-        <div className={`${styles.card_info} ${styles.card_controlled}`}>
-          <div className={styles.info_block}>
-            <p>Name: {"not filled"}</p>
-            <p>Age: {"not filled"}</p>
-            <p>Email: {"not filled"}</p>
-            <p>Gender: {"not filled"}</p>
-          </div>
-          <div className={styles.info_block}>
-            <p>Country: {"not filled"}</p>
-            <p>Image: {"not filled"}</p>
-            <p>Password: {"not filled"}</p>
-          </div>
-        </div>
-        <div className={`${styles.card_info} ${styles.card_uncontrolled}`}>
-          <div className={styles.info_block}>
-            <p>Name: {"not filled"}</p>
-            <p>Age: {"not filled"}</p>
-            <p>Email: {"not filled"}</p>
-            <p>Gender: {"not filled"}</p>
-          </div>
-          <div className={styles.info_block}>
-            <p>Country: {"not filled"}</p>
-            <p>Image: {"not filled"}</p>
-            <p>Password: {"not filled"}</p>
-          </div>
-        </div>
+        <InfoCard />
+        <InfoCard />
       </div>
     </div>
   );

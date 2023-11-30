@@ -1,8 +1,15 @@
 // import { NavLink } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./uncontrolled-form.module.css";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { useDispatch } from "react-redux";
+import { setForm } from "../../redux/reducers/uncontrolled-form-slice";
 
 const UncontrolledForm = () => {
+  const dispatch = useDispatch();
+
+  const formValues = useAppSelector((state) => state.uncontrolledForm);
+
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
@@ -15,19 +22,38 @@ const UncontrolledForm = () => {
   const no = useRef<HTMLInputElement>(null);
   const image = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    nameRef.current!.value = formValues.name;
+    ageRef.current!.value = formValues.age;
+    email.current!.value = formValues.email;
+    pass1.current!.value = formValues.pass1;
+    pass2.current!.value = formValues.pass2;
+    country.current!.value = formValues.country;
+    male.current!.checked = formValues.isMale;
+    female.current!.checked = formValues.isFemale;
+    yes.current!.checked = formValues.isAgree;
+    no.current!.checked = formValues.isDesagree;
+  });
+
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(nameRef.current!.value);
-    console.log(ageRef.current!.value);
-    console.log(email.current!.value);
-    console.log(pass1.current!.value);
-    console.log(pass2.current!.value);
-    console.log(country.current!.value);
-    console.log(male.current!.checked);
-    console.log(female.current!.checked);
-    console.log(yes.current!.checked);
-    console.log(no.current!.checked);
-    console.log(image.current!.files);
+    dispatch(
+      setForm({
+        name: nameRef.current!.value,
+        age: ageRef.current!.value,
+        email: email.current!.value,
+        pass1: pass1.current!.value,
+        pass2: pass2.current!.value,
+        country: country.current!.value,
+        isMale: male.current!.checked,
+        isFemale: female.current!.checked,
+        isAgree: yes.current!.checked,
+        isDesagree: no.current!.checked,
+        image: "",
+      }),
+    );
+
+    // console.log(image.current!.files);
   };
 
   return (
