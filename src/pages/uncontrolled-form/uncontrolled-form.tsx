@@ -29,7 +29,7 @@ const UncontrolledForm = () => {
 
   useEffect(() => {
     nameRef.current!.value = formValues.name;
-    ageRef.current!.value = formValues.age;
+    ageRef.current!.value = `${formValues.age}`;
     email.current!.value = formValues.email;
     pass1.current!.value = formValues.password;
     pass2.current!.value = formValues.password;
@@ -45,7 +45,7 @@ const UncontrolledForm = () => {
     dispatch(
       setForm({
         name: nameRef.current!.value,
-        age: ageRef.current!.value,
+        age: +ageRef.current!.value,
         email: email.current!.value,
         password: pass1.current!.value,
         country: country.current!.value,
@@ -73,7 +73,7 @@ const UncontrolledForm = () => {
         <input type="text" id="name" ref={nameRef} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="age">Age</label>
-        <input type="text" id="age" ref={ageRef} />
+        <input type="number" id="age" ref={ageRef} />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" ref={email} />

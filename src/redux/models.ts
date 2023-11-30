@@ -1,6 +1,6 @@
 export interface ReactFormState {
   name: string;
-  age: string;
+  age: number;
   email: string;
   password: string;
   country: string;

@@ -14,6 +14,9 @@ const ControlledForm = () => {
   const navigator = useNavigate();
   const reader = new FileReader();
   const formValues = useAppSelector((state) => state.controlledForm.formData);
+  const stringBase64 = useAppSelector(
+    (state) => state.controlledForm.dataBase64,
+  );
 
   const [nameValue, setNameValue] = useState(formValues.name);
   const [ageValue, setAgeValue] = useState(formValues.age);
@@ -25,6 +28,7 @@ const ControlledForm = () => {
   const [isFemaleValue, setIsFemaleValue] = useState(formValues.isFemale);
   const [isAgreeValue, setIsAgreeValue] = useState(formValues.isAgree);
   const [isDisagreeValue, setIsDisagreeValue] = useState(formValues.isDesagree);
+  const [img64, setImg64] = useState(stringBase64 as string);
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +46,7 @@ const ControlledForm = () => {
       }),
     );
     dispatch(setIsFilled(true));
+    dispatch(setDataBase64(img64));
     navigator("/");
   };
 
@@ -49,7 +54,7 @@ const ControlledForm = () => {
     if (e.target.files && e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
-        dispatch(setDataBase64(reader.result));
+        setImg64(reader.result as string);
       };
     }
   };
@@ -67,10 +72,10 @@ const ControlledForm = () => {
         <p className={styles.error_message}>Error</p>
         <label htmlFor="age">Age</label>
         <input
-          type="text"
+          type="number"
           id="age"
           value={ageValue}
-          onInput={(e) => setAgeValue(e.currentTarget.value)}
+          onInput={(e) => setAgeValue(+e.currentTarget.value)}
         />
         <p className={styles.error_message}>Error</p>
         <label htmlFor="email">Email</label>

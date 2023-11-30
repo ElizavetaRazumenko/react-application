@@ -5,7 +5,7 @@ import { CustomFormState, ReactFormState } from "../models";
 const initialState: CustomFormState = {
   formData: {
     name: "",
-    age: "",
+    age: 0,
     email: "",
     password: "",
     country: "",
