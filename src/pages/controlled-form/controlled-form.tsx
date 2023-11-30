@@ -8,10 +8,10 @@ const ControlledForm = () => {
   const [pass1Value, setPass1Value] = useState("");
   const [pass2Value, setPass2Value] = useState("");
   const [countryValue, setCountryValue] = useState("");
-  const [maleValue, setMaleValue] = useState(false);
-  const [femaleValue, setFemaleValue] = useState(false);
-  const [yesValue, setYesValue] = useState(false);
-  const [noValue, setNoValue] = useState(false);
+  const [isMaleValue, setIsMaleValue] = useState(false);
+  const [isFemaleValue, setIsFemaleValue] = useState(false);
+  const [isAgreeValue, setIsAgreeValue] = useState(false);
+  const [isDisagreeValue, setIsDisagreeValue] = useState(false);
   // const [imageValue, setImageValue] = useState("");
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,10 +22,10 @@ const ControlledForm = () => {
     console.log(pass1Value);
     console.log(pass2Value);
     console.log(countryValue);
-    console.log(maleValue);
-    console.log(femaleValue);
-    console.log(yesValue);
-    console.log(noValue);
+    console.log(isMaleValue);
+    console.log(isFemaleValue);
+    console.log(isAgreeValue);
+    console.log(isDisagreeValue);
   };
   return (
     <div className={styles.wrapper}>
@@ -91,8 +91,8 @@ const ControlledForm = () => {
               id="male"
               name="gender"
               value="male"
-              checked={maleValue}
-              onChange={(e) => setMaleValue(e.currentTarget.checked)}
+              checked={isMaleValue}
+              onChange={(e) => setIsMaleValue(e.currentTarget.checked)}
             />
           </div>
           <div>
@@ -104,8 +104,8 @@ const ControlledForm = () => {
               id="female"
               name="gender"
               value="female"
-              checked={femaleValue}
-              onChange={(e) => setFemaleValue(e.currentTarget.checked)}
+              checked={isFemaleValue}
+              onChange={(e) => setIsFemaleValue(e.currentTarget.checked)}
             />
           </div>
         </div>
@@ -121,8 +121,8 @@ const ControlledForm = () => {
               id="terms_yes"
               name="terms"
               value="yes"
-              checked={yesValue}
-              onChange={(e) => setYesValue(e.currentTarget.checked)}
+              checked={isAgreeValue}
+              onChange={(e) => setIsAgreeValue(e.currentTarget.checked)}
             />
           </div>
           <div>
@@ -134,8 +134,8 @@ const ControlledForm = () => {
               id="terms_no"
               name="terms"
               value="no"
-              checked={noValue}
-              onChange={(e) => setNoValue(e.currentTarget.checked)}
+              checked={isDisagreeValue}
+              onChange={(e) => setIsDisagreeValue(e.currentTarget.checked)}
             />
           </div>
         </div>
