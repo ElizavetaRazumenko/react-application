@@ -9,29 +9,7 @@ import {
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
-const schema = Yup.object().shape({
-  // password: Yup.string().required().length(8),
-  name: Yup.string()
-    .test(
-      "is the first letter is capitalized",
-      "The first letter should be capitalized",
-      (value) => (value ? value[0].toUpperCase() === value[0] : true),
-    )
-    .required("Name is required field"),
-  age: Yup.number()
-    .min(0, "Age can't be negative")
-    .required("Age is required field"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Email is required field"),
-  pass1: Yup.string().required("Password is required field"),
-  pass2: Yup.string().required("Password is required field"),
-  country: Yup.string().required("Country is required field"),
-  isMale: Yup.boolean(),
-  isFemale: Yup.boolean(),
-  isAgree: Yup.boolean().required("Is required to agree"),
-});
+import { ValidationError } from "yup";
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
@@ -52,6 +30,73 @@ const UncontrolledForm = () => {
   const female = useRef<HTMLInputElement>(null);
   const isAgree = useRef<HTMLInputElement>(null);
   const image = useRef<HTMLInputElement>(null);
+
+  const schema = Yup.object().shape({
+    // password: Yup.string().required().length(8),
+    name: Yup.string()
+      .test(
+        "is the first letter is capitalized",
+        "The first letter should be capitalized",
+        (value) => (value ? value[0].toUpperCase() === value[0] : true),
+      )
+      .required("Name is required field"),
+    age: Yup.number()
+      .min(0, "Age can't be negative")
+      .required("Age is required field"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Email is required field"),
+    pass1: Yup.string()
+      .test(
+        "Password must contain at least one capital letter",
+        "Password must contain at least one capital letter",
+        (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
+      )
+      .test(
+        "Password must contain at least one lowercase letter",
+        "Password must contain at least one lowercase letter",
+        (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
+      )
+      .test(
+        "Password must contain at least one digit",
+        "Password must contain at least one digit",
+        (value) => (value ? (value.match(/\d/) ? true : false) : true),
+      )
+      .test(
+        "Password must contain at least one special character",
+        "Password must contain at least one special character",
+        (value) =>
+          value
+            ? value.match(/[[!@#$&*"'./|/\\+^`~_=]/)
+              ? true
+              : false
+            : true,
+      )
+      .required("Password is required field"),
+    pass2: Yup.string()
+      .test(
+        "passwords matching",
+        "Passwords must match",
+        (value) => value === pass1.current!.value,
+      )
+      .required("Password is required field"),
+    country: Yup.string()
+      .test(
+        "country must be selected from the list",
+        "Country must be selected from the list",
+        (value) =>
+          Boolean(
+            countries.find(
+              (country) =>
+                country.toLowerCase() === value?.toLocaleLowerCase().trim(),
+            ),
+          ),
+      )
+      .required("Country is required field"),
+    isMale: Yup.boolean(),
+    isFemale: Yup.boolean(),
+    isAgree: Yup.boolean().required("Is required to agree"),
+  });
 
   useEffect(() => {
     nameRef.current!.value = formValues.name;
@@ -80,7 +125,8 @@ const UncontrolledForm = () => {
         isAgree: isAgree.current!.checked,
       });
     } catch (e) {
-      console.log(e);
+      const error = e as unknown as ValidationError;
+      console.log(error.path, error.message);
     }
     dispatch(
       setForm({
