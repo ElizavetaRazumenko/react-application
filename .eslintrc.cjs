@@ -4,21 +4,21 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "module"
   },
   env: {
     browser: true,
     es6: true,
     jest: true,
-    node: true,
+    node: true
   },
   plugins: ["@typescript-eslint", "react", "react-hooks"],
   rules: {
@@ -41,22 +41,23 @@ module.exports = {
       {
         extendDefaults: true,
         types: {
-          "{}": false,
-        },
-      },
+          "{}": false
+        }
+      }
     ],
     "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
       "error",
       {
         endOfLine: "auto",
-      },
-    ],
+        trailingComma: "none"
+      }
+    ]
   },
   settings: {
     react: {
       pragma: "React",
-      version: "detect",
-    },
-  },
+      version: "detect"
+    }
+  }
 };

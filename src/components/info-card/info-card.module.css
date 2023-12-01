@@ -50,13 +50,18 @@
     margin-right: 20px;
   }
 
-  .no_filled_title {
+  .no_filled_title,
+  .update_notification,
+  .hidden {
     padding: 10px 20px;
     margin-top: 40px;
     justify-self: center;
     font-size: 3rem;
     font-weight: 700;
     color: #098309;
+  }
+
+  .no_filled_title {
     animation: anim-text 5s linear infinite;
   }
 
@@ -94,4 +99,35 @@
     color: #098309;
     font-size: 2rem;
     font-weight: 700;
+  }
+
+  .update_notification,
+  .hidden {
+    font-size: 2rem;
+    color: #e8ece8;
+    animation: anim-update 1s linear 3;
+  }
+
+  @keyframes anim-update {
+  
+    0%,
+    100% {
+      color:#ffffff;
+    }
+  
+    25% {
+      color:#bb6767;
+    }
+  
+    50% {
+      color:#c31414;
+    }
+  
+    75% {
+      color:#bb6767;
+    }
+  }
+
+  .hidden {
+    visibility: hidden;
   }

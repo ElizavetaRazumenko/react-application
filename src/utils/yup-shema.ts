@@ -8,7 +8,7 @@ const yupSchema = Yup.object().shape({
     "Image file should be select",
     (obj) => {
       return Object.keys(obj as FileList).length !== 0;
-    },
+    }
   ),
   isMale: Yup.boolean(),
   country: Yup.string()
@@ -19,9 +19,9 @@ const yupSchema = Yup.object().shape({
         Boolean(
           countryList.find(
             (country) =>
-              country.toLowerCase() === value?.toLocaleLowerCase().trim(),
-          ),
-        ),
+              country.toLowerCase() === value?.toLocaleLowerCase().trim()
+          )
+        )
     )
     .required("Country is required field"),
   pass2: Yup.string()
@@ -35,44 +35,45 @@ const yupSchema = Yup.object().shape({
   pass1: Yup.string()
     .test(
       "Password must contain at least one capital letter",
-      "Password must contain at least one capital letter",
-      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
+      "Weak password. Add at least one capital letter",
+      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one lowercase letter",
-      "Password must contain at least one lowercase letter",
-      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
+      "Weak password. Add at least one lowercase letter",
+      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one digit",
-      "Password must contain at least one digit",
-      (value) => (value ? (value.match(/\d/) ? true : false) : true),
+      "Weak password. Add at least one digit",
+      (value) => (value ? (value.match(/\d/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one special character",
-      "Password must contain at least one special character",
+      "Weak password. Add at least one special character",
       (value) =>
-        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true,
+        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true
     )
     .required("Password is required field"),
   email: Yup.string()
     .email("Invalid email")
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, "Invalid email")
     .required("Email is required field"),
   age: Yup.string()
     .test(
       "Enter age as a number",
       "Enter age as a number",
-      (value) => !isNaN(Number(value)),
+      (value) => !isNaN(Number(value))
     )
     .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false,
+      Number(value) > -1 ? true : false
     )
     .required("Age is required field"),
   name: Yup.string()
     .test(
       "is the first letter is capitalized",
       "The first letter should be capitalized",
-      (value) => (value ? value[0].toUpperCase() === value[0] : true),
+      (value) => (value ? value[0].toUpperCase() === value[0] : true)
     )
     .required("Name is required field"),
 });
@@ -83,14 +84,14 @@ export const yupSchemaForHookForm = Yup.object().shape({
   isAgree: Yup.string().test(
     "You must confirm acceptance",
     "You must confirm acceptance",
-    (value) => value === "yes",
+    (value) => value === "yes"
   ),
   image: Yup.mixed().test(
     "File should be select",
     "Image file should be select",
     (obj) => {
       return Object.keys(obj as FileList).length !== 0;
-    },
+    }
   ),
   isMale: Yup.string(),
   country: Yup.string().required("Country is required field"),
@@ -105,44 +106,45 @@ export const yupSchemaForHookForm = Yup.object().shape({
   pass1: Yup.string()
     .test(
       "Password must contain at least one capital letter",
-      "Password must contain at least one capital letter",
-      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
+      "Weak password. Add at least one capital letter",
+      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one lowercase letter",
-      "Password must contain at least one lowercase letter",
-      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
+      "Weak password. Add at least one lowercase letter",
+      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one digit",
-      "Password must contain at least one digit",
-      (value) => (value ? (value.match(/\d/) ? true : false) : true),
+      "Weak password. Add at least one digit",
+      (value) => (value ? (value.match(/\d/) ? true : false) : true)
     )
     .test(
       "Password must contain at least one special character",
-      "Password must contain at least one special character",
+      "Weak password. Add at least one special character",
       (value) =>
-        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true,
+        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true
     )
     .required("Password is required field"),
   email: Yup.string()
     .email("Invalid email")
+    .matches(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, "Invalid email")
     .required("Email is required field"),
   age: Yup.string()
     .test(
       "Enter age as a number",
       "Enter age as a number",
-      (value) => !isNaN(Number(value)),
+      (value) => !isNaN(Number(value))
     )
     .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false,
+      Number(value) > -1 ? true : false
     )
     .required("Age is required field"),
   name: Yup.string()
     .test(
       "is the first letter is capitalized",
       "The first letter should be capitalized",
-      (value) => (value ? value[0].toUpperCase() === value[0] : true),
+      (value) => (value ? value[0].toUpperCase() === value[0] : true)
     )
     .required("Name is required field"),
 });

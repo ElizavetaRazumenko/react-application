@@ -6,7 +6,7 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 const Main = () => {
   const stateControlledForm = useAppSelector((state) => state.controlledForm);
   const stateUncontrolledForm = useAppSelector(
-    (state) => state.uncontrolledForm,
+    (state) => state.uncontrolledForm
   );
 
   return (
@@ -27,11 +27,13 @@ const Main = () => {
           formData={stateControlledForm.formData}
           isFormFilled={stateControlledForm.isFormFilled}
           base64={stateControlledForm.dataBase64}
+          isFormUpdate={stateControlledForm.isFormUpdateNow}
         />
         <InfoCard
           formData={stateUncontrolledForm.formData}
           isFormFilled={stateUncontrolledForm.isFormFilled}
           base64={stateUncontrolledForm.dataBase64}
+          isFormUpdate={stateUncontrolledForm.isFormUpdateNow}
         />
       </div>
     </div>

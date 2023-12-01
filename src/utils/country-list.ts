@@ -191,5 +191,5 @@ export const countryList = [
   "Western Sahara",
   "Yemen",
   "Zambia",
-  "Zimbabwe",
+  "Zimbabwe"
 ];

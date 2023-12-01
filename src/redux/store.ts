@@ -13,11 +13,11 @@ export interface AppStore {
 const rootReducer = combineReducers({
   controlledForm: controlledFormReducer,
   uncontrolledForm: uncontrolledFormReducer,
-  countries: countriesReducer,
+  countries: countriesReducer
 });
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: rootReducer
 });
 
 export type RootState = ReturnType<typeof store.getState>;

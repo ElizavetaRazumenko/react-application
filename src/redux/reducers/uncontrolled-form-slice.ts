@@ -11,10 +11,11 @@ const initialState: CustomFormState = {
     country: "",
     isMale: true,
     isFemale: false,
-    isAgree: false,
+    isAgree: false
   },
   isFormFilled: false,
-  dataBase64: "",
+  isFormUpdateNow: false,
+  dataBase64: ""
 };
 
 export const UncontrolledFormSlice = createSlice({
@@ -29,14 +30,17 @@ export const UncontrolledFormSlice = createSlice({
     },
     setDataBase64: (
       state,
-      action: PayloadAction<string | ArrayBuffer | null>,
+      action: PayloadAction<string | ArrayBuffer | null>
     ) => {
       state.dataBase64 = action.payload;
     },
-  },
+    setIsUncFormUpdate: (state, action: PayloadAction<boolean>) => {
+      state.isFormUpdateNow = action.payload;
+    }
+  }
 });
 
-export const { setForm, setIsFilled, setDataBase64 } =
+export const { setForm, setIsFilled, setDataBase64, setIsUncFormUpdate } =
   UncontrolledFormSlice.actions;
 
 export default UncontrolledFormSlice.reducer;

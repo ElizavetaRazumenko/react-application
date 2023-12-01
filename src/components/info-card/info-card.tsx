@@ -5,11 +5,19 @@ interface InfoCardProps {
   formData: ReactFormState;
   isFormFilled: boolean;
   base64?: string | ArrayBuffer | null;
+  isFormUpdate: boolean;
 }
 
 const InfoCard = (props: InfoCardProps) => {
   return props.isFormFilled ? (
     <div className={styles.card_wrapper}>
+      <div
+        className={
+          props.isFormUpdate ? styles.update_notification : styles.hidden
+        }
+      >
+        Update Now
+      </div>
       <div className={`${styles.card_info} ${styles.card_controlled}`}>
         <div className={`${styles.info_block} ${styles.info_block_left}`}>
           <p>Name: {props.formData.name}</p>

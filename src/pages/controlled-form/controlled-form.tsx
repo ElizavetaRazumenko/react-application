@@ -4,13 +4,15 @@ import { useDispatch } from "react-redux";
 import {
   setDataBase64,
   setForm,
-  setIsFilled,
+  setIsContFormUpdate,
+  setIsFilled
 } from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { yupSchemaForHookForm } from "../../utils/yup-shema";
+import { setIsUncFormUpdate } from "../../redux/reducers/uncontrolled-form-slice";
 
 interface Form {
   name: string;
@@ -45,9 +47,9 @@ const ControlledForm = () => {
       country: formValues.country,
       isMale: formValues.isFemale ? "female" : formValues.isMale ? "male" : "",
       isAgree: formValues.isAgree ? "yes" : "",
-      image: {},
+      image: {}
     },
-    resolver: yupResolver(yupSchemaForHookForm),
+    resolver: yupResolver(yupSchemaForHookForm)
   });
 
   const { errors, isValid } = formState;
@@ -68,10 +70,12 @@ const ControlledForm = () => {
         country: data.country,
         isMale: data.isMale === "male" ? true : false,
         isFemale: data.isMale === "female" ? true : false,
-        isAgree: data.isAgree === "yes" ? true : false,
+        isAgree: data.isAgree === "yes" ? true : false
       })
     );
     dispatch(setIsFilled(true));
+    dispatch(setIsUncFormUpdate(false));
+    dispatch(setIsContFormUpdate(true));
     if (!Object.is(data.image, {})) {
       const image = data.image as Blob[];
       setDataBase(image[0]);
@@ -89,7 +93,7 @@ const ControlledForm = () => {
         pass2: data.pass2,
         country: data.country,
         isAgree: data.isAgree,
-        image: data.image === null ? {} : data.image,
+        image: data.image === null ? {} : data.image
       });
       submitDataToRedux(data);
     } catch (e) {

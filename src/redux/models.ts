@@ -12,6 +12,7 @@ export interface ReactFormState {
 export interface CustomFormState {
   formData: ReactFormState;
   isFormFilled: boolean;
+  isFormUpdateNow: boolean;
   dataBase64: string | ArrayBuffer | null;
 }
 

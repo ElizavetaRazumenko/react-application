@@ -6,11 +6,13 @@ import {
   setDataBase64,
   setForm,
   setIsFilled,
+  setIsUncFormUpdate
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { ValidationError } from "yup";
 import errorMessagesInitialObj from "../../utils/error-messages";
 import yupSchema from "../../utils/yup-shema";
+import { setIsContFormUpdate } from "../../redux/reducers/controlled-form-slice";
 
 type ErrorMessagesFields =
   | "name"
@@ -66,10 +68,12 @@ const UncontrolledForm = () => {
         country: country.current!.value,
         isMale: male.current!.checked,
         isFemale: female.current!.checked,
-        isAgree: isAgree.current!.checked,
-      }),
+        isAgree: isAgree.current!.checked
+      })
     );
     dispatch(setIsFilled(true));
+    dispatch(setIsUncFormUpdate(true));
+    dispatch(setIsContFormUpdate(false));
     if (image.current!.files && image.current!.files[0]) {
       reader.readAsDataURL(image.current!.files[0]);
       reader.onload = () => {
@@ -91,14 +95,14 @@ const UncontrolledForm = () => {
         pass2: pass2.current!.value,
         country: country.current!.value,
         isAgree: isAgree.current!.checked,
-        image: image.current!.files,
+        image: image.current!.files
       });
       submitDataToRedux();
     } catch (e) {
       const error = e as unknown as ValidationError;
       setErrorMessages({
         ...errorMessagesInitialObj,
-        [error.path as ErrorMessagesFields]: error.message,
+        [error.path as ErrorMessagesFields]: error.message
       });
       setSubmitBtnClass("btn_submit_disabled");
     }
@@ -108,7 +112,7 @@ const UncontrolledForm = () => {
     const value = country.current!.value.toLocaleLowerCase().trim();
     if (value !== "") {
       setCountryList(
-        countries.filter((country) => country.toLowerCase().startsWith(value)),
+        countries.filter((country) => country.toLowerCase().startsWith(value))
       );
     }
   };
@@ -118,7 +122,7 @@ const UncontrolledForm = () => {
   };
 
   const closeCountryList = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const target = e.target as HTMLDivElement;
     if (!target.closest(styles.countries_list)) {
