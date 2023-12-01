@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./controlled-form.module.css";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useDispatch } from "react-redux";
@@ -19,6 +18,7 @@ interface Form {
   country: string;
   isMale: string;
   isAgree: string;
+  image: Blob[] | null;
 }
 
 const ControlledForm = () => {
@@ -26,9 +26,6 @@ const ControlledForm = () => {
   const navigator = useNavigate();
   const reader = new FileReader();
   const formValues = useAppSelector((state) => state.controlledForm.formData);
-  const stringBase64 = useAppSelector(
-    (state) => state.controlledForm.dataBase64,
-  );
 
   const { register, handleSubmit } = useForm<Form>({
     defaultValues: {
@@ -38,11 +35,11 @@ const ControlledForm = () => {
       password1: formValues.password,
       password2: formValues.password,
       country: formValues.country,
-      isMale: formValues.isMale ? "male" : "female",
-      isAgree: formValues.isAgree ? "yes" : "no",
+      isMale: formValues.isFemale ? "female" : formValues.isMale ? "male" : "",
+      isAgree: formValues.isDesagree ? "no" : formValues.isAgree ? "yes" : "",
+      image: null,
     },
   });
-  const [img64, setImg64] = useState(stringBase64 as string);
 
   const submitForm: SubmitHandler<Form> = (data) => {
     dispatch(
@@ -53,21 +50,21 @@ const ControlledForm = () => {
         password: data.password1,
         country: data.country,
         isMale: data.isMale === "male" ? true : false,
-        isFemale: data.isMale === "male" ? false : true,
+        isFemale: data.isMale === "female" ? true : false,
         isAgree: data.isAgree === "yes" ? true : false,
-        isDesagree: data.isAgree === "yes" ? false : true,
+        isDesagree: data.isAgree === "no" ? true : false,
       }),
     );
     dispatch(setIsFilled(true));
-    dispatch(setDataBase64(img64));
+    setDataBase(data.image && data.image[0]);
     navigator("/");
   };
 
-  const setDataBase = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+  const setDataBase = (img: Blob | null) => {
+    if (img) {
+      reader.readAsDataURL(img);
       reader.onload = () => {
-        setImg64(reader.result as string);
+        dispatch(setDataBase64(reader.result));
       };
     }
   };
@@ -152,7 +149,7 @@ const ControlledForm = () => {
           type="file"
           id="image"
           accept=".jpg,.png"
-          onChange={setDataBase}
+          {...register("image")}
         />
 
         <button className={styles.btn_submit}>Submit</button>

@@ -15,7 +15,14 @@ const InfoCard = (props: InfoCardProps) => {
           <p>Name: {props.formData.name}</p>
           <p>Age: {props.formData.age}</p>
           <p>Email: {props.formData.email}</p>
-          <p>Gender: {props.formData.isMale ? "male" : "female"}</p>
+          <p>
+            Gender:{" "}
+            {props.formData.isMale
+              ? "male"
+              : props.formData.isFemale
+                ? "female"
+                : ""}
+          </p>
         </div>
         <div className={styles.info_block}>
           <p>Country: {props.formData.country}</p>
@@ -23,7 +30,9 @@ const InfoCard = (props: InfoCardProps) => {
           <p>
             {props.formData.isAgree
               ? "Agree with the rules"
-              : "Disagree with the rules"}
+              : props.formData.isDesagree
+                ? "Disagree with the rules"
+                : ""}
           </p>
         </div>
       </div>
