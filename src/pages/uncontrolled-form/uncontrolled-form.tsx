@@ -8,8 +8,8 @@ import {
   setIsFilled,
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
-import * as Yup from "yup";
 import { ValidationError } from "yup";
+import getYupSchema from "../../utils/yup-shema";
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
@@ -31,73 +31,6 @@ const UncontrolledForm = () => {
   const isAgree = useRef<HTMLInputElement>(null);
   const image = useRef<HTMLInputElement>(null);
 
-  const schema = Yup.object().shape({
-    // password: Yup.string().required().length(8),
-    name: Yup.string()
-      .test(
-        "is the first letter is capitalized",
-        "The first letter should be capitalized",
-        (value) => (value ? value[0].toUpperCase() === value[0] : true),
-      )
-      .required("Name is required field"),
-    age: Yup.number()
-      .min(0, "Age can't be negative")
-      .required("Age is required field"),
-    email: Yup.string()
-      .email("Invalid email")
-      .required("Email is required field"),
-    pass1: Yup.string()
-      .test(
-        "Password must contain at least one capital letter",
-        "Password must contain at least one capital letter",
-        (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
-      )
-      .test(
-        "Password must contain at least one lowercase letter",
-        "Password must contain at least one lowercase letter",
-        (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
-      )
-      .test(
-        "Password must contain at least one digit",
-        "Password must contain at least one digit",
-        (value) => (value ? (value.match(/\d/) ? true : false) : true),
-      )
-      .test(
-        "Password must contain at least one special character",
-        "Password must contain at least one special character",
-        (value) =>
-          value
-            ? value.match(/[[!@#$&*"'./|/\\+^`~_=]/)
-              ? true
-              : false
-            : true,
-      )
-      .required("Password is required field"),
-    pass2: Yup.string()
-      .test(
-        "passwords matching",
-        "Passwords must match",
-        (value) => value === pass1.current!.value,
-      )
-      .required("Password is required field"),
-    country: Yup.string()
-      .test(
-        "country must be selected from the list",
-        "Country must be selected from the list",
-        (value) =>
-          Boolean(
-            countries.find(
-              (country) =>
-                country.toLowerCase() === value?.toLocaleLowerCase().trim(),
-            ),
-          ),
-      )
-      .required("Country is required field"),
-    isMale: Yup.boolean(),
-    isFemale: Yup.boolean(),
-    isAgree: Yup.boolean().required("Is required to agree"),
-  });
-
   useEffect(() => {
     nameRef.current!.value = formValues.name;
     ageRef.current!.value = `${formValues.age}`;
@@ -113,7 +46,7 @@ const UncontrolledForm = () => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await schema.validate({
+      await getYupSchema(pass1.current!.value, countries).validate({
         name: nameRef.current!.value,
         age: +ageRef.current!.value,
         email: email.current!.value,
@@ -123,39 +56,40 @@ const UncontrolledForm = () => {
         isMale: male.current!.checked,
         isFemale: female.current!.checked,
         isAgree: isAgree.current!.checked,
+        image: image.current!.files,
       });
     } catch (e) {
       const error = e as unknown as ValidationError;
       console.log(error.path, error.message);
     }
-    dispatch(
-      setForm({
-        name: nameRef.current!.value,
-        age: +ageRef.current!.value,
-        email: email.current!.value,
-        password: pass1.current!.value,
-        country: country.current!.value,
-        isMale: male.current!.checked,
-        isFemale: female.current!.checked,
-        isAgree: isAgree.current!.checked,
-      }),
-    );
-    dispatch(setIsFilled(true));
-    if (image.current!.files && image.current!.files[0]) {
-      reader.readAsDataURL(image.current!.files[0]);
-      reader.onload = () => {
-        dispatch(setDataBase64(reader.result));
-      };
-    }
+    // dispatch(
+    //   setForm({
+    //     name: nameRef.current!.value,
+    //     age: +ageRef.current!.value,
+    //     email: email.current!.value,
+    //     password: pass1.current!.value,
+    //     country: country.current!.value,
+    //     isMale: male.current!.checked,
+    //     isFemale: female.current!.checked,
+    //     isAgree: isAgree.current!.checked,
+    //   }),
+    // );
+    // dispatch(setIsFilled(true));
+    // if (image.current!.files && image.current!.files[0]) {
+    //   reader.readAsDataURL(image.current!.files[0]);
+    //   reader.onload = () => {
+    //     dispatch(setDataBase64(reader.result));
+    //   };
+    // }
 
-    navigator("/");
+    // navigator("/");
   };
 
   const getCountriesList = () => {
     const value = country.current!.value.toLocaleLowerCase().trim();
     if (value !== "") {
       setCountryList(
-        countries.filter((country) => country.toLowerCase().startsWith(value)),
+        countries.filter((country) => country.toLowerCase().startsWith(value))
       );
     }
   };
@@ -165,7 +99,7 @@ const UncontrolledForm = () => {
   };
 
   const closeCountryList = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const target = e.target as HTMLDivElement;
     if (!target.closest(styles.countries_list)) {
