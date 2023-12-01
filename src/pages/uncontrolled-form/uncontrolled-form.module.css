@@ -70,6 +70,7 @@ label,
 
 .error_message {
   margin: 0 0 0 5px;
+  min-height: 19px;
   color: red;
 }
 

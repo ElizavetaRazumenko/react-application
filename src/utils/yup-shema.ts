@@ -62,8 +62,6 @@ const getYupSchema = (password: string, countries: string[]) => {
           ),
       )
       .required("Country is required field"),
-    isMale: Yup.boolean(),
-    isFemale: Yup.boolean(),
     isAgree: Yup.boolean().isTrue("You must confirm acceptance"),
     image: Yup.mixed().test(
       "File should be select",

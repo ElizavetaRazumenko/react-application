@@ -10,6 +10,17 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ValidationError } from "yup";
 import getYupSchema from "../../utils/yup-shema";
+import errorMessagesInitialObj from "../../utils/error-messages";
+
+type ErrorMessagesFields =
+  | "name"
+  | "age"
+  | "email"
+  | "pass1"
+  | "pass2"
+  | "country"
+  | "isAgree"
+  | "image";
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
@@ -19,6 +30,7 @@ const UncontrolledForm = () => {
   const countries = useAppSelector((state) => state.countries.countries);
   const [clueIsVisible, setClueIsVisible] = useState(false);
   const [countryList, setCountryList] = useState<string[]>([]);
+  const [errorMessages, setErrorMessages] = useState(errorMessagesInitialObj);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -43,6 +55,30 @@ const UncontrolledForm = () => {
     isAgree.current!.checked = formValues.isAgree;
   }, []);
 
+  const submitDataToRedux = () => {
+    dispatch(
+      setForm({
+        name: nameRef.current!.value,
+        age: +ageRef.current!.value,
+        email: email.current!.value,
+        password: pass1.current!.value,
+        country: country.current!.value,
+        isMale: male.current!.checked,
+        isFemale: female.current!.checked,
+        isAgree: isAgree.current!.checked,
+      })
+    );
+    dispatch(setIsFilled(true));
+    if (image.current!.files && image.current!.files[0]) {
+      reader.readAsDataURL(image.current!.files[0]);
+      reader.onload = () => {
+        dispatch(setDataBase64(reader.result));
+      };
+    }
+
+    navigator("/");
+  };
+
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -53,36 +89,17 @@ const UncontrolledForm = () => {
         pass1: pass1.current!.value,
         pass2: pass2.current!.value,
         country: country.current!.value,
-        isMale: male.current!.checked,
-        isFemale: female.current!.checked,
         isAgree: isAgree.current!.checked,
         image: image.current!.files,
       });
+      submitDataToRedux();
     } catch (e) {
       const error = e as unknown as ValidationError;
-      console.log(error.path, error.message);
+      setErrorMessages({
+        ...errorMessagesInitialObj,
+        [error.path as ErrorMessagesFields]: error.message,
+      });
     }
-    // dispatch(
-    //   setForm({
-    //     name: nameRef.current!.value,
-    //     age: +ageRef.current!.value,
-    //     email: email.current!.value,
-    //     password: pass1.current!.value,
-    //     country: country.current!.value,
-    //     isMale: male.current!.checked,
-    //     isFemale: female.current!.checked,
-    //     isAgree: isAgree.current!.checked,
-    //   }),
-    // );
-    // dispatch(setIsFilled(true));
-    // if (image.current!.files && image.current!.files[0]) {
-    //   reader.readAsDataURL(image.current!.files[0]);
-    //   reader.onload = () => {
-    //     dispatch(setDataBase64(reader.result));
-    //   };
-    // }
-
-    // navigator("/");
   };
 
   const getCountriesList = () => {
@@ -117,19 +134,19 @@ const UncontrolledForm = () => {
       <form className={styles.form} onSubmit={submitForm}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" ref={nameRef} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errorMessages.name}</p>
         <label htmlFor="age">Age</label>
         <input type="number" id="age" ref={ageRef} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errorMessages.age}</p>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" ref={email} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errorMessages.email}</p>
         <label htmlFor="pass1">Password</label>
         <input type="password" id="pass1" ref={pass1} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errorMessages.pass1}</p>
         <label htmlFor="pass2">Repeat password</label>
         <input type="password" id="pass2" ref={pass2} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errorMessages.pass2}</p>
 
         <label htmlFor="country">Country</label>
         <div className={styles.country_container}>
@@ -155,7 +172,7 @@ const UncontrolledForm = () => {
               </p>
             ))}
           </div>
-          <p className={styles.error_message}>Error</p>
+          <p className={styles.error_message}>{errorMessages.country}</p>
         </div>
 
         <p className={styles.input_title}>Gender</p>
@@ -186,9 +203,9 @@ const UncontrolledForm = () => {
             />
           </div>
         </div>
-
         <label htmlFor="image">Image</label>
         <input type="file" id="image" accept=".jpg,.png" ref={image} />
+        <p className={styles.error_message}>{errorMessages.image}</p>
 
         <div className={styles.checkbox_container}>
           <label htmlFor="terms" className={styles.label_radio}>
@@ -202,7 +219,7 @@ const UncontrolledForm = () => {
             ref={isAgree}
           />
         </div>
-
+        <p className={styles.error_message}>{errorMessages.isAgree}</p>
         <button className={styles.btn_submit}>Submit</button>
       </form>
     </div>
