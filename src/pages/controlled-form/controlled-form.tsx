@@ -9,17 +9,19 @@ import {
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { yupSchemaForHookForm } from "../../utils/yup-shema";
 
 interface Form {
   name: string;
-  age: number;
+  age: string;
   email: string;
-  password1: string;
-  password2: string;
+  pass1: string;
+  pass2: string;
   country: string;
   isMale: string;
   isAgree: string;
-  image: Blob[] | null;
+  image: Blob[] | {};
 }
 
 const ControlledForm = () => {
@@ -30,37 +32,63 @@ const ControlledForm = () => {
   const countries = useAppSelector((state) => state.countries.countries);
   const [clueIsVisible, setClueIsVisible] = useState(false);
   const [countryList, setCountryList] = useState<string[]>([]);
+  const [submitBtnClass, setSubmitBtnClass] = useState("btn_submit");
 
-  const { register, handleSubmit, getValues, setValue } = useForm<Form>({
+  const { register, handleSubmit, getValues, setValue, formState } = useForm({
+    mode: "onChange",
     defaultValues: {
       name: formValues.name,
       age: formValues.age,
       email: formValues.email,
-      password1: formValues.password,
-      password2: formValues.password,
+      pass1: formValues.password,
+      pass2: formValues.password,
       country: formValues.country,
       isMale: formValues.isFemale ? "female" : formValues.isMale ? "male" : "",
       isAgree: formValues.isAgree ? "yes" : "",
-      image: null,
+      image: {},
     },
+    resolver: yupResolver(yupSchemaForHookForm),
   });
 
-  const submitForm: SubmitHandler<Form> = (data) => {
+  const { errors } = formState;
+
+  const submitDataToRedux = (data: Form) => {
     dispatch(
       setForm({
         name: data.name,
         age: data.age,
         email: data.email,
-        password: data.password1,
+        password: data.pass1,
         country: data.country,
         isMale: data.isMale === "male" ? true : false,
         isFemale: data.isMale === "female" ? true : false,
         isAgree: data.isAgree === "yes" ? true : false,
-      }),
+      })
     );
     dispatch(setIsFilled(true));
-    setDataBase(data.image && data.image[0]);
+    if (!Object.is(data.image, {})) {
+      const image = data.image as Blob[];
+      setDataBase(image[0]);
+    }
     navigator("/");
+  };
+
+  const submitForm: SubmitHandler<Form> = async (data) => {
+    try {
+      await yupSchemaForHookForm.validate({
+        name: data.name,
+        age: data.age,
+        email: data.email,
+        pass1: data.pass1,
+        pass2: data.pass2,
+        country: data.country,
+        isAgree: data.isAgree,
+        image: data.image === null ? {} : data.image,
+      });
+      submitDataToRedux(data);
+    } catch (e) {
+      setSubmitBtnClass("btn_submit_disabled");
+    }
   };
 
   const setDataBase = (img: Blob | null) => {
@@ -76,7 +104,7 @@ const ControlledForm = () => {
     const value = getValues("country").toLocaleLowerCase().trim();
     if (value !== "") {
       setCountryList(
-        countries.filter((country) => country.toLowerCase().startsWith(value)),
+        countries.filter((country) => country.toLowerCase().startsWith(value))
       );
     }
   };
@@ -86,7 +114,7 @@ const ControlledForm = () => {
   };
 
   const closeCountryList = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     const target = e.target as HTMLDivElement;
     if (!target.closest(styles.countries_list)) {
@@ -101,28 +129,33 @@ const ControlledForm = () => {
         closeCountryList(e);
       }}
     >
-      <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
+      <form
+        className={styles.form}
+        onChange={() => setSubmitBtnClass("btn_submit")}
+        onSubmit={handleSubmit((data) => submitForm(data as Form))}
+      >
         <label htmlFor="name">Name</label>
         <input type="text" id="name" {...register("name")} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errors.name?.message}</p>
         <label htmlFor="age">Age</label>
-        <input type="number" id="age" {...register("age")} />
-        <p className={styles.error_message}>Error</p>
+        <input type="text" id="age" {...register("age")} />
+        <p className={styles.error_message}>{errors.age?.message}</p>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" {...register("email")} />
-        <p className={styles.error_message}>Error</p>
+        <p className={styles.error_message}>{errors.email?.message}</p>
         <label htmlFor="pass1">Password</label>
-        <input type="password" id="pass1" {...register("password1")} />
-        <p className={styles.error_message}>Error</p>
+        <input type="password" id="pass1" {...register("pass1")} />
+        <p className={styles.error_message}>{errors.pass1?.message}</p>
         <label htmlFor="pass2">Repeat password</label>
-        <input type="password" id="pass2" {...register("password2")} />
-        <p className={styles.error_message}>Error</p>
+        <input type="password" id="pass2" {...register("pass2")} />
+        <p className={styles.error_message}>{errors.pass2?.message}</p>
 
         <label htmlFor="country">Country</label>
         <div className={styles.country_container}>
           <input
             type="text"
             id="country"
+            placeholder="Enter two initial letters for a hint"
             onInput={() => {
               setClueIsVisible(true);
               getCountriesList();
@@ -142,7 +175,7 @@ const ControlledForm = () => {
               </p>
             ))}
           </div>
-          <p className={styles.error_message}>Error</p>
+          <p className={styles.error_message}>{errors.country?.message}</p>
         </div>
 
         <p className={styles.input_title}>Gender</p>
@@ -179,6 +212,7 @@ const ControlledForm = () => {
           accept=".jpg,.png"
           {...register("image")}
         />
+        <p className={styles.error_message}>{errors.image?.message}</p>
 
         <div className={styles.checkbox_container}>
           <label htmlFor="terms" className={styles.label_radio}>
@@ -191,8 +225,8 @@ const ControlledForm = () => {
             {...register("isAgree")}
           />
         </div>
-
-        <button className={styles.btn_submit}>Submit</button>
+        <p className={styles.error_message}>{errors.isAgree?.message}</p>
+        <button className={styles[submitBtnClass]}>Submit</button>
       </form>
     </div>
   );

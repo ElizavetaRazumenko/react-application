@@ -9,8 +9,8 @@ import {
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { ValidationError } from "yup";
-import getYupSchema from "../../utils/yup-shema";
 import errorMessagesInitialObj from "../../utils/error-messages";
+import yupSchema from "../../utils/yup-shema";
 
 type ErrorMessagesFields =
   | "name"
@@ -31,6 +31,7 @@ const UncontrolledForm = () => {
   const [clueIsVisible, setClueIsVisible] = useState(false);
   const [countryList, setCountryList] = useState<string[]>([]);
   const [errorMessages, setErrorMessages] = useState(errorMessagesInitialObj);
+  const [submitBtnClass, setSubmitBtnClass] = useState("btn_submit");
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -59,14 +60,14 @@ const UncontrolledForm = () => {
     dispatch(
       setForm({
         name: nameRef.current!.value,
-        age: +ageRef.current!.value,
+        age: ageRef.current!.value,
         email: email.current!.value,
         password: pass1.current!.value,
         country: country.current!.value,
         isMale: male.current!.checked,
         isFemale: female.current!.checked,
         isAgree: isAgree.current!.checked,
-      })
+      }),
     );
     dispatch(setIsFilled(true));
     if (image.current!.files && image.current!.files[0]) {
@@ -82,9 +83,9 @@ const UncontrolledForm = () => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await getYupSchema(pass1.current!.value, countries).validate({
+      await yupSchema.validate({
         name: nameRef.current!.value,
-        age: +ageRef.current!.value,
+        age: ageRef.current!.value,
         email: email.current!.value,
         pass1: pass1.current!.value,
         pass2: pass2.current!.value,
@@ -99,6 +100,7 @@ const UncontrolledForm = () => {
         ...errorMessagesInitialObj,
         [error.path as ErrorMessagesFields]: error.message,
       });
+      setSubmitBtnClass("btn_submit_disabled");
     }
   };
 
@@ -106,7 +108,7 @@ const UncontrolledForm = () => {
     const value = country.current!.value.toLocaleLowerCase().trim();
     if (value !== "") {
       setCountryList(
-        countries.filter((country) => country.toLowerCase().startsWith(value))
+        countries.filter((country) => country.toLowerCase().startsWith(value)),
       );
     }
   };
@@ -116,7 +118,7 @@ const UncontrolledForm = () => {
   };
 
   const closeCountryList = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     const target = e.target as HTMLDivElement;
     if (!target.closest(styles.countries_list)) {
@@ -131,12 +133,19 @@ const UncontrolledForm = () => {
         closeCountryList(e);
       }}
     >
-      <form className={styles.form} onSubmit={submitForm}>
+      <form
+        className={styles.form}
+        onChange={() => {
+          setSubmitBtnClass("btn_submit");
+          setErrorMessages(errorMessagesInitialObj);
+        }}
+        onSubmit={submitForm}
+      >
         <label htmlFor="name">Name</label>
         <input type="text" id="name" ref={nameRef} />
         <p className={styles.error_message}>{errorMessages.name}</p>
         <label htmlFor="age">Age</label>
-        <input type="number" id="age" ref={ageRef} />
+        <input type="text" id="age" ref={ageRef} />
         <p className={styles.error_message}>{errorMessages.age}</p>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" ref={email} />
@@ -220,7 +229,7 @@ const UncontrolledForm = () => {
           />
         </div>
         <p className={styles.error_message}>{errorMessages.isAgree}</p>
-        <button className={styles.btn_submit}>Submit</button>
+        <button className={styles[submitBtnClass]}>Submit</button>
       </form>
     </div>
   );
