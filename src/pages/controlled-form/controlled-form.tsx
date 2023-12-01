@@ -8,6 +8,7 @@ import {
 } from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
 interface Form {
   name: string;
@@ -26,8 +27,11 @@ const ControlledForm = () => {
   const navigator = useNavigate();
   const reader = new FileReader();
   const formValues = useAppSelector((state) => state.controlledForm.formData);
+  const countries = useAppSelector((state) => state.countries.countries);
+  const [clueIsVisible, setClueIsVisible] = useState(false);
+  const [countryList, setCountryList] = useState<string[]>([]);
 
-  const { register, handleSubmit } = useForm<Form>({
+  const { register, handleSubmit, getValues, setValue } = useForm<Form>({
     defaultValues: {
       name: formValues.name,
       age: formValues.age,
@@ -68,8 +72,35 @@ const ControlledForm = () => {
     }
   };
 
+  const getCountriesList = () => {
+    const value = getValues("country").toLocaleLowerCase().trim();
+    if (value !== "") {
+      setCountryList(
+        countries.filter((country) => country.toLowerCase().startsWith(value)),
+      );
+    }
+  };
+
+  const setCountry = (value: string) => {
+    setValue("country", value);
+  };
+
+  const closeCountryList = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    const target = e.target as HTMLDivElement;
+    if (!target.closest(styles.countries_list)) {
+      setClueIsVisible(false);
+    }
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onClick={(e) => {
+        closeCountryList(e);
+      }}
+    >
       <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" {...register("name")} />
@@ -88,8 +119,31 @@ const ControlledForm = () => {
         <p className={styles.error_message}>Error</p>
 
         <label htmlFor="country">Country</label>
-        <input type="text" id="country" {...register("country")} />
-        <p className={styles.error_message}>Error</p>
+        <div className={styles.country_container}>
+          <input
+            type="text"
+            id="country"
+            onInput={() => {
+              setClueIsVisible(true);
+              getCountriesList();
+            }}
+            {...register("country")}
+          />
+          <div
+            className={clueIsVisible ? styles.countries_list : styles.hidden}
+          >
+            {countryList.map((country, index) => (
+              <p
+                key={index}
+                className={styles.country}
+                onClick={() => setCountry(country)}
+              >
+                {country}
+              </p>
+            ))}
+          </div>
+          <p className={styles.error_message}>Error</p>
+        </div>
 
         <p className={styles.input_title}>Gender</p>
         <div className={styles.radio_container}>

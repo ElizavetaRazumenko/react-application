@@ -76,7 +76,6 @@ const UncontrolledForm = () => {
   };
 
   const setCountry = (value: string) => {
-    console.log(value);
     country.current!.value = value;
   };
 
