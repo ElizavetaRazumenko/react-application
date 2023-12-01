@@ -14,3 +14,7 @@ export interface CustomFormState {
   isFormFilled: boolean;
   dataBase64: string | ArrayBuffer | null;
 }
+
+export interface CountriesState {
+  countries: string[];
+}

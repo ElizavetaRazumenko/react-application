@@ -1,16 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { CustomFormState } from "./models";
+import { CountriesState, CustomFormState } from "./models";
 import controlledFormReducer from "./reducers/controlled-form-slice";
 import uncontrolledFormReducer from "./reducers/uncontrolled-form-slice";
+import countriesReducer from "./reducers/countries.slice";
 
 export interface AppStore {
   controlledForm: CustomFormState;
   uncontrolledForm: CustomFormState;
+  countries: CountriesState;
 }
 
 const rootReducer = combineReducers({
   controlledForm: controlledFormReducer,
   uncontrolledForm: uncontrolledFormReducer,
+  countries: countriesReducer,
 });
 
 export const store = configureStore({

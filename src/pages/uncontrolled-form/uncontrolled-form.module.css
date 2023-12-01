@@ -77,6 +77,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"]  {
+  width: 100%;
   box-sizing: border-box;
   height: 30px;
   font-size: 1.2rem;
@@ -125,4 +126,34 @@ input[type="checkbox"] {
 .checkbox_container {
   display: flex;
   align-items: center;
+}
+
+.country_container {
+  position: relative;
+}
+
+.countries_list {
+  position: absolute;
+  padding: 10px 15px;
+  top: 37px;
+  background-color: rgb(218, 217, 217);
+  width: calc(100% - 30px);
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.country {
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: 700;
+  color: #000000;
+  transition: .5s;
+}
+
+.country:hover {
+  color: #292828;
+}
+
+.hidden {
+  display: none;
 }
