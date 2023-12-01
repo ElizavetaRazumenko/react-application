@@ -8,7 +8,7 @@ import {
 } from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { yupSchemaForHookForm } from "../../utils/yup-shema";
 
@@ -50,7 +50,13 @@ const ControlledForm = () => {
     resolver: yupResolver(yupSchemaForHookForm),
   });
 
-  const { errors } = formState;
+  const { errors, isValid } = formState;
+
+  useEffect(() => {
+    if (isValid) {
+      setSubmitBtnClass("btn_submit");
+    } else setSubmitBtnClass("btn_submit_disabled");
+  }, [isValid]);
 
   const submitDataToRedux = (data: Form) => {
     dispatch(
@@ -131,7 +137,6 @@ const ControlledForm = () => {
     >
       <form
         className={styles.form}
-        onChange={() => setSubmitBtnClass("btn_submit")}
         onSubmit={handleSubmit((data) => submitForm(data as Form))}
       >
         <label htmlFor="name">Name</label>
