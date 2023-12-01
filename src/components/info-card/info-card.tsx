@@ -18,6 +18,7 @@ const InfoCard = (props: InfoCardProps) => {
       >
         Update Now
       </div>
+
       <div className={`${styles.card_info} ${styles.card_controlled}`}>
         <div className={`${styles.info_block} ${styles.info_block_left}`}>
           <p>Name: {props.formData.name}</p>
