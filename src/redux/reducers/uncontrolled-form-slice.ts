@@ -12,7 +12,6 @@ const initialState: CustomFormState = {
     isMale: false,
     isFemale: false,
     isAgree: false,
-    isDesagree: false,
   },
   isFormFilled: false,
   dataBase64: "",

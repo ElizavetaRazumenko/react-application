@@ -103,6 +103,11 @@
   input[type="number"]:focus  {
     box-shadow: 0 0 35px #098309;
   }
+
+  input[type="checkbox"] {
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
   
   .label_radio {
     font-size: 1rem;
@@ -115,3 +120,8 @@
     margin-bottom: 10px;
   }
   
+
+  .checkbox_container {
+    display: flex;
+    align-items: center;
+  }

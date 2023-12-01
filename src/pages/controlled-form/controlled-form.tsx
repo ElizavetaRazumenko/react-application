@@ -36,7 +36,7 @@ const ControlledForm = () => {
       password2: formValues.password,
       country: formValues.country,
       isMale: formValues.isFemale ? "female" : formValues.isMale ? "male" : "",
-      isAgree: formValues.isDesagree ? "no" : formValues.isAgree ? "yes" : "",
+      isAgree: formValues.isAgree ? "yes" : "",
       image: null,
     },
   });
@@ -52,7 +52,6 @@ const ControlledForm = () => {
         isMale: data.isMale === "male" ? true : false,
         isFemale: data.isMale === "female" ? true : false,
         isAgree: data.isAgree === "yes" ? true : false,
-        isDesagree: data.isAgree === "no" ? true : false,
       }),
     );
     dispatch(setIsFilled(true));
@@ -118,32 +117,6 @@ const ControlledForm = () => {
           </div>
         </div>
 
-        <p className={styles.input_title}>I accept the terms</p>
-        <div className={styles.radio_container}>
-          <div>
-            <label htmlFor="terms_yes" className={styles.label_radio}>
-              Yes
-            </label>
-            <input
-              type="radio"
-              id="terms_yes"
-              value="yes"
-              {...register("isAgree")}
-            />
-          </div>
-          <div>
-            <label htmlFor="terms_no" className={styles.label_radio}>
-              No
-            </label>
-            <input
-              type="radio"
-              id="terms_no"
-              value="no"
-              {...register("isAgree")}
-            />
-          </div>
-        </div>
-
         <label htmlFor="image">Image</label>
         <input
           type="file"
@@ -151,6 +124,18 @@ const ControlledForm = () => {
           accept=".jpg,.png"
           {...register("image")}
         />
+
+        <div className={styles.checkbox_container}>
+          <label htmlFor="terms" className={styles.label_radio}>
+            I accept the terms
+          </label>
+          <input
+            type="checkbox"
+            id="terms"
+            value="yes"
+            {...register("isAgree")}
+          />
+        </div>
 
         <button className={styles.btn_submit}>Submit</button>
       </form>

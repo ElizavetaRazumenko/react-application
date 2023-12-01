@@ -27,13 +27,7 @@ const InfoCard = (props: InfoCardProps) => {
         <div className={styles.info_block}>
           <p>Country: {props.formData.country}</p>
           <p>Password: {props.formData.password}</p>
-          <p>
-            {props.formData.isAgree
-              ? "Agree with the rules"
-              : props.formData.isDesagree
-                ? "Disagree with the rules"
-                : ""}
-          </p>
+          <p>{props.formData.isAgree ? "Agree with the rules" : ""}</p>
         </div>
       </div>
       <div>

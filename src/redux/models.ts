@@ -7,7 +7,6 @@ export interface ReactFormState {
   isMale: boolean;
   isFemale: boolean;
   isAgree: boolean;
-  isDesagree: boolean;
 }
 
 export interface CustomFormState {

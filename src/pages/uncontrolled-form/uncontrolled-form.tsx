@@ -23,8 +23,7 @@ const UncontrolledForm = () => {
   const country = useRef<HTMLInputElement>(null);
   const male = useRef<HTMLInputElement>(null);
   const female = useRef<HTMLInputElement>(null);
-  const yes = useRef<HTMLInputElement>(null);
-  const no = useRef<HTMLInputElement>(null);
+  const isAgree = useRef<HTMLInputElement>(null);
   const image = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -36,8 +35,7 @@ const UncontrolledForm = () => {
     country.current!.value = formValues.country;
     male.current!.checked = formValues.isMale;
     female.current!.checked = formValues.isFemale;
-    yes.current!.checked = formValues.isAgree;
-    no.current!.checked = formValues.isDesagree;
+    isAgree.current!.checked = formValues.isAgree;
   }, []);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,8 +49,7 @@ const UncontrolledForm = () => {
         country: country.current!.value,
         isMale: male.current!.checked,
         isFemale: female.current!.checked,
-        isAgree: yes.current!.checked,
-        isDesagree: no.current!.checked,
+        isAgree: isAgree.current!.checked,
       }),
     );
     dispatch(setIsFilled(true));
@@ -117,36 +114,21 @@ const UncontrolledForm = () => {
           </div>
         </div>
 
-        <p className={styles.input_title}>I accept the terms</p>
-        <div className={styles.radio_container}>
-          <div>
-            <label htmlFor="terms_yes" className={styles.label_radio}>
-              Yes
-            </label>
-            <input
-              type="radio"
-              id="terms_yes"
-              name="terms"
-              value="yes"
-              ref={yes}
-            />
-          </div>
-          <div>
-            <label htmlFor="terms_no" className={styles.label_radio}>
-              No
-            </label>
-            <input
-              type="radio"
-              id="terms_no"
-              name="terms"
-              value="no"
-              ref={no}
-            />
-          </div>
-        </div>
-
         <label htmlFor="image">Image</label>
         <input type="file" id="image" accept=".jpg,.png" ref={image} />
+
+        <div className={styles.checkbox_container}>
+          <label htmlFor="terms" className={styles.label_radio}>
+            I accept the terms
+          </label>
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            value="yes"
+            ref={isAgree}
+          />
+        </div>
 
         <button className={styles.btn_submit}>Submit</button>
       </form>
