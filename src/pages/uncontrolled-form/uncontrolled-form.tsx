@@ -8,6 +8,30 @@ import {
   setIsFilled,
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+
+const schema = Yup.object().shape({
+  // password: Yup.string().required().length(8),
+  name: Yup.string()
+    .test(
+      "is the first letter is capitalized",
+      "The first letter should be capitalized",
+      (value) => (value ? value[0].toUpperCase() === value[0] : true),
+    )
+    .required("Name is required field"),
+  age: Yup.number()
+    .min(0, "Age can't be negative")
+    .required("Age is required field"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required field"),
+  pass1: Yup.string().required("Password is required field"),
+  pass2: Yup.string().required("Password is required field"),
+  country: Yup.string().required("Country is required field"),
+  isMale: Yup.boolean(),
+  isFemale: Yup.boolean(),
+  isAgree: Yup.boolean().required("Is required to agree"),
+});
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
@@ -41,8 +65,23 @@ const UncontrolledForm = () => {
     isAgree.current!.checked = formValues.isAgree;
   }, []);
 
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      await schema.validate({
+        name: nameRef.current!.value,
+        age: +ageRef.current!.value,
+        email: email.current!.value,
+        pass1: pass1.current!.value,
+        pass2: pass2.current!.value,
+        country: country.current!.value,
+        isMale: male.current!.checked,
+        isFemale: female.current!.checked,
+        isAgree: isAgree.current!.checked,
+      });
+    } catch (e) {
+      console.log(e);
+    }
     dispatch(
       setForm({
         name: nameRef.current!.value,
@@ -150,6 +189,7 @@ const UncontrolledForm = () => {
               id="male"
               name="gender"
               value="male"
+              defaultChecked
               ref={male}
             />
           </div>

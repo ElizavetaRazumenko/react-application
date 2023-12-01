@@ -9,7 +9,7 @@ const initialState: CustomFormState = {
     email: "",
     password: "",
     country: "",
-    isMale: false,
+    isMale: true,
     isFemale: false,
     isAgree: false,
   },

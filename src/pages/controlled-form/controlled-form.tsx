@@ -155,6 +155,7 @@ const ControlledForm = () => {
               type="radio"
               id="male"
               value="male"
+              defaultChecked
               {...register("isMale")}
             />
           </div>
