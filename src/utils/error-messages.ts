@@ -6,7 +6,7 @@ const errorMessagesInitialObj = {
   pass2: "",
   country: "",
   isAgree: "",
-  image: ""
+  image: "",
 };
 
 export default errorMessagesInitialObj;

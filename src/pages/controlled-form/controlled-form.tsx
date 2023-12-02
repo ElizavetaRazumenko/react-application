@@ -5,7 +5,7 @@ import {
   setDataBase64,
   setForm,
   setIsContFormUpdate,
-  setIsFilled
+  setIsFilled,
 } from "../../redux/reducers/controlled-form-slice";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -47,9 +47,9 @@ const ControlledForm = () => {
       country: formValues.country,
       isMale: formValues.isFemale ? "female" : formValues.isMale ? "male" : "",
       isAgree: formValues.isAgree ? "yes" : "",
-      image: {}
+      image: {},
     },
-    resolver: yupResolver(yupSchemaForHookForm)
+    resolver: yupResolver(yupSchemaForHookForm),
   });
 
   const { errors, isValid } = formState;
@@ -70,8 +70,8 @@ const ControlledForm = () => {
         country: data.country,
         isMale: data.isMale === "male" ? true : false,
         isFemale: data.isMale === "female" ? true : false,
-        isAgree: data.isAgree === "yes" ? true : false
-      })
+        isAgree: data.isAgree === "yes" ? true : false,
+      }),
     );
     dispatch(setIsFilled(true));
     dispatch(setIsUncFormUpdate(false));
@@ -93,7 +93,7 @@ const ControlledForm = () => {
         pass2: data.pass2,
         country: data.country,
         isAgree: data.isAgree,
-        image: data.image === null ? {} : data.image
+        image: data.image === null ? {} : data.image,
       });
       submitDataToRedux(data);
     } catch (e) {
@@ -114,7 +114,7 @@ const ControlledForm = () => {
     const value = getValues("country").toLocaleLowerCase().trim();
     if (value !== "") {
       setCountryList(
-        countries.filter((country) => country.toLowerCase().startsWith(value))
+        countries.filter((country) => country.toLowerCase().startsWith(value)),
       );
     }
   };
@@ -124,7 +124,7 @@ const ControlledForm = () => {
   };
 
   const closeCountryList = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     const target = e.target as HTMLDivElement;
     if (!target.closest(styles.countries_list)) {
@@ -215,12 +215,7 @@ const ControlledForm = () => {
         </div>
 
         <label htmlFor="image">Image</label>
-        <input
-          type="file"
-          id="image"
-          accept=".jpg,.png"
-          {...register("image")}
-        />
+        <input type="file" id="image" {...register("image")} />
         <p className={styles.error_message}>{errors.image?.message}</p>
 
         <div className={styles.checkbox_container}>

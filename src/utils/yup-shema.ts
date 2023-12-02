@@ -3,13 +3,32 @@ import { countryList } from "./country-list";
 
 const yupSchema = Yup.object().shape({
   isAgree: Yup.boolean().isTrue("You must confirm acceptance"),
-  image: Yup.mixed().test(
-    "File should be select",
-    "Image file should be select",
-    (obj) => {
+  image: Yup.mixed()
+    .test("File should be select", "Image file should be select", (obj) => {
       return Object.keys(obj as FileList).length !== 0;
-    }
-  ),
+    })
+    .test("File size", "The file is too large", (value) => {
+      if (
+        value &&
+        "0" in value &&
+        typeof value[0] === "object" &&
+        value[0] &&
+        "size" in value[0] &&
+        typeof value[0].size === "number"
+      )
+        return value && value[0].size <= 1000000;
+    })
+    .test("file-type", "png, jpeg or jpg are allowed", (value) => {
+      if (
+        value &&
+        "0" in value &&
+        typeof value[0] === "object" &&
+        value[0] &&
+        "type" in value[0] &&
+        typeof value[0].type === "string"
+      )
+        return value[0].type === "image/jpeg" || value[0].type === "image/png";
+    }),
   isMale: Yup.boolean(),
   country: Yup.string()
     .test(
@@ -19,9 +38,9 @@ const yupSchema = Yup.object().shape({
         Boolean(
           countryList.find(
             (country) =>
-              country.toLowerCase() === value?.toLocaleLowerCase().trim()
-          )
-        )
+              country.toLowerCase() === value?.toLocaleLowerCase().trim(),
+          ),
+        ),
     )
     .required("Country is required field"),
   pass2: Yup.string()
@@ -36,23 +55,23 @@ const yupSchema = Yup.object().shape({
     .test(
       "Password must contain at least one capital letter",
       "Weak password. Add at least one capital letter",
-      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true)
+      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one lowercase letter",
       "Weak password. Add at least one lowercase letter",
-      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true)
+      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one digit",
       "Weak password. Add at least one digit",
-      (value) => (value ? (value.match(/\d/) ? true : false) : true)
+      (value) => (value ? (value.match(/\d/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one special character",
       "Weak password. Add at least one special character",
       (value) =>
-        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true
+        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true,
     )
     .required("Password is required field"),
   email: Yup.string()
@@ -63,17 +82,17 @@ const yupSchema = Yup.object().shape({
     .test(
       "Enter age as a number",
       "Enter age as a number",
-      (value) => !isNaN(Number(value))
+      (value) => !isNaN(Number(value)),
     )
     .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false
+      Number(value) > -1 ? true : false,
     )
     .required("Age is required field"),
   name: Yup.string()
     .test(
       "is the first letter is capitalized",
       "The first letter should be capitalized",
-      (value) => (value ? value[0].toUpperCase() === value[0] : true)
+      (value) => (value ? value[0].toUpperCase() === value[0] : true),
     )
     .required("Name is required field"),
 });
@@ -84,15 +103,34 @@ export const yupSchemaForHookForm = Yup.object().shape({
   isAgree: Yup.string().test(
     "You must confirm acceptance",
     "You must confirm acceptance",
-    (value) => value === "yes"
+    (value) => value === "yes",
   ),
-  image: Yup.mixed().test(
-    "File should be select",
-    "Image file should be select",
-    (obj) => {
+  image: Yup.mixed()
+    .test("File should be select", "Image file should be select", (obj) => {
       return Object.keys(obj as FileList).length !== 0;
-    }
-  ),
+    })
+    .test("File size", "The file is too large", (value) => {
+      if (
+        value &&
+        "0" in value &&
+        typeof value[0] === "object" &&
+        value[0] &&
+        "size" in value[0] &&
+        typeof value[0].size === "number"
+      )
+        return value && value[0].size <= 1000000;
+    })
+    .test("file-type", "png, jpeg or jpg are allowed", (value) => {
+      if (
+        value &&
+        "0" in value &&
+        typeof value[0] === "object" &&
+        value[0] &&
+        "type" in value[0] &&
+        typeof value[0].type === "string"
+      )
+        return value[0].type === "image/jpeg" || value[0].type === "image/png";
+    }),
   isMale: Yup.string(),
   country: Yup.string().required("Country is required field"),
   pass2: Yup.string()
@@ -107,23 +145,23 @@ export const yupSchemaForHookForm = Yup.object().shape({
     .test(
       "Password must contain at least one capital letter",
       "Weak password. Add at least one capital letter",
-      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true)
+      (value) => (value ? (value.match(/[A-Z]/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one lowercase letter",
       "Weak password. Add at least one lowercase letter",
-      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true)
+      (value) => (value ? (value.match(/[a-z]/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one digit",
       "Weak password. Add at least one digit",
-      (value) => (value ? (value.match(/\d/) ? true : false) : true)
+      (value) => (value ? (value.match(/\d/) ? true : false) : true),
     )
     .test(
       "Password must contain at least one special character",
       "Weak password. Add at least one special character",
       (value) =>
-        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true
+        value ? (value.match(/[[!@#$&*"'./|/\\+^`~_=]/) ? true : false) : true,
     )
     .required("Password is required field"),
   email: Yup.string()
@@ -134,17 +172,17 @@ export const yupSchemaForHookForm = Yup.object().shape({
     .test(
       "Enter age as a number",
       "Enter age as a number",
-      (value) => !isNaN(Number(value))
+      (value) => !isNaN(Number(value)),
     )
     .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false
+      Number(value) > -1 ? true : false,
     )
     .required("Age is required field"),
   name: Yup.string()
     .test(
       "is the first letter is capitalized",
       "The first letter should be capitalized",
-      (value) => (value ? value[0].toUpperCase() === value[0] : true)
+      (value) => (value ? value[0].toUpperCase() === value[0] : true),
     )
     .required("Name is required field"),
 });

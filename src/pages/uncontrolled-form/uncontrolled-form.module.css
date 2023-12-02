@@ -31,11 +31,10 @@
   font-size: 1.3rem;
   font-weight: 700;
   text-decoration: none;
-  transition: .5s;
-  
+  transition: 0.5s;
 }
 
-.btn_submit_disabled  {
+.btn_submit_disabled {
   cursor: auto;
   background-color: #7a7a7a;
 }
@@ -49,7 +48,6 @@
 }
 
 @keyframes anim-link-back {
-
   0%,
   100% {
     box-shadow: 0 0 0 0px #da1a1a;
@@ -87,7 +85,7 @@ label,
 input[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="number"]  {
+input[type="number"] {
   width: 100%;
   box-sizing: border-box;
   height: 30px;
@@ -98,7 +96,7 @@ input[type="number"]  {
   border-radius: 8px;
   margin: 5px 0;
   box-shadow: none;
-  transition: .5s;
+  transition: 0.5s;
   background-color: rgba(218, 217, 217, 0.8);
   box-shadow: inset 3px 3px #7a7a7a;
 }
@@ -133,7 +131,6 @@ input[type="checkbox"] {
   margin-bottom: 10px;
 }
 
-
 .checkbox_container {
   display: flex;
   align-items: center;
@@ -158,7 +155,7 @@ input[type="checkbox"] {
   margin: 5px 0;
   font-weight: 700;
   color: #000000;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .country:hover {
