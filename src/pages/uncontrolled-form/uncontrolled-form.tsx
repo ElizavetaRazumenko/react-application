@@ -9,10 +9,10 @@ import {
   setIsUncFormUpdate,
 } from "../../redux/reducers/uncontrolled-form-slice";
 import { useNavigate } from "react-router-dom";
-import { ValidationError } from "yup";
 import errorMessagesInitialObj from "../../utils/error-messages";
 import yupSchema from "../../utils/yup-shema";
 import { setIsContFormUpdate } from "../../redux/reducers/controlled-form-slice";
+import { isValidationError } from "../../utils/check-error-type";
 
 type ErrorMessagesFields =
   | "name"
@@ -87,23 +87,31 @@ const UncontrolledForm = () => {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await yupSchema.validate({
-        name: nameRef.current!.value,
-        age: ageRef.current!.value,
-        email: email.current!.value,
-        pass1: pass1.current!.value,
-        pass2: pass2.current!.value,
-        country: country.current!.value,
-        isAgree: isAgree.current!.checked,
-        image: image.current!.files,
-      });
+      await yupSchema.validate(
+        {
+          name: nameRef.current!.value,
+          age: ageRef.current!.value,
+          email: email.current!.value,
+          pass1: pass1.current!.value,
+          pass2: pass2.current!.value,
+          country: country.current!.value,
+          isAgree: isAgree.current!.checked,
+          image: image.current!.files,
+        },
+        { abortEarly: false },
+      );
       submitDataToRedux();
     } catch (e) {
-      const error = e as unknown as ValidationError;
-      setErrorMessages({
-        ...errorMessagesInitialObj,
-        [error.path as ErrorMessagesFields]: error.message,
-      });
+      if (isValidationError(e)) {
+        const errorEntries = e.inner.map((error) => [
+          [error.path as ErrorMessagesFields],
+          error.message,
+        ]);
+        setErrorMessages({
+          ...errorMessagesInitialObj,
+          ...Object.fromEntries(errorEntries),
+        });
+      }
       setSubmitBtnClass("btn_submit_disabled");
     }
   };

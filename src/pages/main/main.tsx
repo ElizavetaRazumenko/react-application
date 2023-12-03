@@ -6,7 +6,7 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 const Main = () => {
   const stateControlledForm = useAppSelector((state) => state.controlledForm);
   const stateUncontrolledForm = useAppSelector(
-    (state) => state.uncontrolledForm
+    (state) => state.uncontrolledForm,
   );
 
   return (

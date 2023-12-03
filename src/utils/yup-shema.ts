@@ -4,9 +4,6 @@ import { countryList } from "./country-list";
 const yupSchema = Yup.object().shape({
   isAgree: Yup.boolean().isTrue("You must confirm acceptance"),
   image: Yup.mixed()
-    .test("File should be select", "Image file should be select", (obj) => {
-      return Object.keys(obj as FileList).length !== 0;
-    })
     .test("File size", "The file is too large", (value) => {
       if (
         value &&
@@ -28,6 +25,9 @@ const yupSchema = Yup.object().shape({
         typeof value[0].type === "string"
       )
         return value[0].type === "image/jpeg" || value[0].type === "image/png";
+    })
+    .test("File should be select", "Image file should be select", (obj) => {
+      return Object.keys(obj as FileList).length !== 0;
     }),
   isMale: Yup.boolean(),
   country: Yup.string()
@@ -79,13 +79,13 @@ const yupSchema = Yup.object().shape({
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, "Invalid email")
     .required("Email is required field"),
   age: Yup.string()
+    .test("Age can't be negative", "Age can't be negative", (value) =>
+      Number(value) > -1 ? true : false,
+    )
     .test(
       "Enter age as a number",
       "Enter age as a number",
       (value) => !isNaN(Number(value)),
-    )
-    .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false,
     )
     .required("Age is required field"),
   name: Yup.string()
@@ -106,9 +106,6 @@ export const yupSchemaForHookForm = Yup.object().shape({
     (value) => value === "yes",
   ),
   image: Yup.mixed()
-    .test("File should be select", "Image file should be select", (obj) => {
-      return Object.keys(obj as FileList).length !== 0;
-    })
     .test("File size", "The file is too large", (value) => {
       if (
         value &&
@@ -130,6 +127,9 @@ export const yupSchemaForHookForm = Yup.object().shape({
         typeof value[0].type === "string"
       )
         return value[0].type === "image/jpeg" || value[0].type === "image/png";
+    })
+    .test("File should be select", "Image file should be select", (obj) => {
+      return Object.keys(obj as FileList).length !== 0;
     }),
   isMale: Yup.string(),
   country: Yup.string().required("Country is required field"),
@@ -169,13 +169,13 @@ export const yupSchemaForHookForm = Yup.object().shape({
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, "Invalid email")
     .required("Email is required field"),
   age: Yup.string()
+    .test("Age can't be negative", "Age can't be negative", (value) =>
+      Number(value) > -1 ? true : false,
+    )
     .test(
       "Enter age as a number",
       "Enter age as a number",
       (value) => !isNaN(Number(value)),
-    )
-    .test("Age can't be negative", "Age can't be negative", (value) =>
-      Number(value) > -1 ? true : false,
     )
     .required("Age is required field"),
   name: Yup.string()
