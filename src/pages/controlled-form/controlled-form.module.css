@@ -1,0 +1,166 @@
+.wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  background-color: #0d0d0e;
+  border-radius: 15px;
+  height: max-content;
+  width: 350px;
+  color: #e1ebe2;
+  box-shadow: 0 0 50px #2020d4;
+}
+
+.btn_submit,
+.btn_submit_disabled {
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  background-color: #000000;
+  border: none;
+  padding: 10px;
+  color: #d3d6d8;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.btn_submit_disabled {
+  cursor: auto;
+  background-color: #7a7a7a;
+}
+
+.btn_submit {
+  animation: anim-link-back 5s linear infinite;
+}
+
+.btn_submit:hover {
+  color: #f9fafc;
+}
+
+@keyframes anim-link-back {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0px #110983;
+  }
+
+  25% {
+    box-shadow: 0 0 0 4px #110983;
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px #110983;
+  }
+
+  75% {
+    box-shadow: 0 0 0 4px #110983;
+  }
+}
+
+label,
+.input_title {
+  margin: 5px 0 0;
+  font-size: 1.2rem;
+}
+
+.input_title {
+  margin-bottom: 5px;
+}
+
+.error_message {
+  margin: 0 0 0 5px;
+  min-height: 19px;
+  color: red;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  height: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 8px;
+  margin: 5px 0;
+  box-shadow: none;
+  transition: 0.5s;
+  background-color: rgba(218, 217, 217, 0.8);
+  box-shadow: inset 3px 3px #7a7a7a;
+}
+
+input[type="file"] {
+  margin: 5px 0 10px;
+  background-color: rgba(218, 217, 217, 0.8);
+  border-radius: 8px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+  box-shadow: 0 0 35px #098309;
+}
+
+input[type="checkbox"] {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.label_radio {
+  font-size: 1rem;
+  margin-right: 15px;
+}
+
+.radio_container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.checkbox_container {
+  display: flex;
+  align-items: center;
+}
+
+.country_container {
+  position: relative;
+}
+
+.countries_list {
+  position: absolute;
+  padding: 10px 15px;
+  top: 37px;
+  background-color: rgb(218, 217, 217);
+  width: calc(100% - 30px);
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.country {
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: 700;
+  color: #000000;
+  transition: 0.5s;
+}
+
+.country:hover {
+  color: #292828;
+}
+
+.hidden {
+  display: none;
+}
